@@ -31,5 +31,8 @@ namespace DelegationsMVC.Infrastructure
         public DbSet<SubsistanceAllowence> SubsistanceAllowences { get; set; }
         public DbSet<TypeOfTransport> TypeOfTransports { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+        public Context(DbContextOptions options) : base(options)
+        {
+        }
     }
 }
