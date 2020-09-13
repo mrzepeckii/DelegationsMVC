@@ -2,7 +2,7 @@
 
 namespace DelegationsMVC.Domain.Model
 {
-    public class Destination
+    public class Destination : AuditableModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

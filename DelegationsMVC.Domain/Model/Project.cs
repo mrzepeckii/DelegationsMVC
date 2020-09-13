@@ -1,6 +1,6 @@
 ﻿namespace DelegationsMVC.Domain.Model
 {
-    public class Project
+    public class Project : AuditableModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

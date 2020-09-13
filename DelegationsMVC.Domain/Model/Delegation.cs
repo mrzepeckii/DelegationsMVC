@@ -2,7 +2,7 @@
 
 namespace DelegationsMVC.Domain.Model
 {
-    public class Delegation
+    public class Delegation : AuditableModel
     {
         public int Id { get; set; }
         public string Purpose { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DelegationsMVC.Domain.Model
 {
-    public class Vehicle
+    public class Vehicle : AuditableModel
     {
         public int Id { get; set; }
         public string NumberPlate { get; set; }

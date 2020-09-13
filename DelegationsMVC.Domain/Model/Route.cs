@@ -1,6 +1,6 @@
 ﻿namespace DelegationsMVC.Domain.Model
 {
-    public class Route
+    public class Route : AuditableModel
     {
         public int Id { get; set; }
         public int DelegationId { get; set; }
