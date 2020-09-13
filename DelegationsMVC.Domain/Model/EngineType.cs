@@ -10,5 +10,6 @@ namespace DelegationsMVC.Domain.Model
         public string Name { get; set; }
         public int MileageAllowenceId { get; set; }
         public virtual MileageAllowence MileageAllowence { get; set; }
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 }
