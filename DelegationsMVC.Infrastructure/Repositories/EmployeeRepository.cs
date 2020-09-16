@@ -15,6 +15,8 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context = context;
         }
 
+        /*Operations related to the employee object      
+         * *******************************************/
         public int AddEmployee(Employee employee)
         {
             _context.Employees.Add(employee);
@@ -42,6 +44,26 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             var employees = _context.EmployeeTypes.FirstOrDefault(et => et.Id == typeId).Employees.AsQueryable();
             return employees;
+        }
+
+        /*Operations related to the contactDetail object      
+         * contactDetail can't exist without employee object 
+         * *******************************************/
+        public int AddContactDetail(ContactDetail contactDetail)
+        {
+            _context.ContactDetails.Add(contactDetail);
+            _context.SaveChanges();
+            return contactDetail.Id;
+        }
+
+        public void DeleteContactDetail(int contactDetailId)
+        {
+            var contactDetail = _context.ContactDetails.FirstOrDefault(cd => cd.Id == contactDetailId);
+            if(contactDetail != null)
+            {
+                _context.ContactDetails.Remove(contactDetail);
+                _context.SaveChanges();
+            }
         }
 
         public IQueryable<ContactDetail> GetEmployeeContactDetails(int employeeId)
