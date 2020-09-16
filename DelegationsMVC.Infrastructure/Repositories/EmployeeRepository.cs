@@ -1,4 +1,5 @@
-﻿using DelegationsMVC.Domain.Model;
+﻿using DelegationsMVC.Domain.Interfaces;
+using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace DelegationsMVC.Infrastructure.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly Context _context;
 
