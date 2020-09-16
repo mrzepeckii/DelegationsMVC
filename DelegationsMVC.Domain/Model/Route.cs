@@ -8,7 +8,7 @@
         public int RouteTypeId { get; set; }
         public int RouteDetailId { get; set; }
         public virtual Delegation Delegation { get; set; }
-        public virtual TypeOfTransport TypeOfTransport { get; set; }
+        public virtual TransportType TypeOfTransport { get; set; }
         public virtual RouteType RouteType { get; set; }
         public virtual RouteDetail RouteDetail { get; set; }
     }

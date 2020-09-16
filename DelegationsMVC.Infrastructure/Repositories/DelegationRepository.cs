@@ -1,0 +1,131 @@
+﻿using DelegationsMVC.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DelegationsMVC.Infrastructure.Repositories
+{
+    public class DelegationRepository
+    {
+        private readonly Context _context;
+
+        public DelegationRepository(Context context)
+        {
+            _context = context;
+        }
+
+        /*Operations related to the delegation object
+        * *******************************************/
+        public int AddDelegation(Delegation delegationToAdd)
+        {
+            _context.Costs.AddRange(delegationToAdd.Costs);
+            _context.Routes.AddRange(delegationToAdd.Routes);
+            _context.Delegations.Add(delegationToAdd);
+            _context.SaveChanges();
+            return delegationToAdd.Id;
+        }
+        
+        public void DeleteDelegation(int delegationId)
+        {
+            var delegationToRemove = _context.Delegations.Find(delegationId);
+            var listOfRoutes = _context.Routes.Where(r => r.Delegation == delegationToRemove);
+            if(delegationToRemove != null)
+            {
+                _context.Costs.RemoveRange(delegationToRemove.Costs);
+                _context.Routes.RemoveRange(listOfRoutes);
+                _context.Delegations.Remove(delegationToRemove); 
+            }
+            _context.SaveChanges();
+        }
+
+        public Delegation GetDelegationById(int delegationId)
+        {
+            var delegation = _context.Delegations.FirstOrDefault(d => d.Id == delegationId);
+            return delegation;
+        }
+
+        public IQueryable<Delegation> GetDelegationsByEmployee(int employeeId)
+        {
+            var delegations = _context.Delegations.Where(d => d.EmployeeId == employeeId);
+            return delegations;
+        }
+
+        public IQueryable<Delegation> GetDelegationsNotApprovedByAcc()
+        {
+            var delegations = _context.Delegations.Where(d => d.AccoutantApprovedDate == null);
+            return delegations;
+        }
+
+        public IQueryable<Delegation> GetDelegationsNotApprovedByChief()
+        {
+            var delegations = _context.Delegations.Where(d => d.ChiefApprovedDate == null);
+            return delegations;
+        }
+
+        public IQueryable<Delegation> GetDelegationsToPaid()
+        {
+            var delegations = _context.Delegations.Where(d => d.PaidDateDate == null);
+            return delegations;
+        }
+
+        public IQueryable<Delegation> GetDelegationsByStatus(int delegationStatusId)
+        {
+            var delegations = _context.DelegationStatuses.FirstOrDefault(ds => ds.Id == delegationStatusId).Delegations.AsQueryable();
+            return delegations;
+        }
+        
+        public void GetDelegationsByDate(DateTime date)
+        {
+            //to implement
+        }
+
+        /*Operations related to the route object      
+         * route can't exist without delegation object 
+         * *******************************************/
+        public IQueryable<Route> GetRoutesByDelegation(int delegationId)
+        {
+            var delegation = GetDelegationById(delegationId);
+            IQueryable<Route> routes = null;
+            if (delegation != null)
+            {
+                routes = delegation.Routes.AsQueryable();
+            }
+            return routes;
+        }
+        
+        public RouteDetail GetRouteDetails(int routeId)
+        {
+            var routeDetail = _context.RouteDetails.FirstOrDefault(rd => rd.RouteId == routeId);
+            return routeDetail;
+        }
+
+        public void GetRoutesByDate(DateTime date)
+        {
+           //to implement 
+        }
+
+        /*Operations related to getting all list of objects    
+        * to chose the type in the form
+        * *******************************************/
+        public IQueryable<RouteType> GetAllRouteTypes()
+        {
+            var routeTypes = _context.RouteTypes;
+            return routeTypes;
+        }
+        
+        public IQueryable<TransportType> GetAllTransportTypes()
+        {
+            var transportTypes = _context.TransportTypes;
+            return transportTypes;
+        }
+
+        public IQueryable<CostType> GetAllCostTypes()
+        {
+            var costTypes = _context.CostTypes;
+            return costTypes;
+        }
+        
+
+    }
+}
