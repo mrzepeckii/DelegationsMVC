@@ -47,5 +47,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var vehicle =_context.Vehicles.FirstOrDefault(v => v.PlateNumbers == plateNumbers);
             return vehicle;
         }
+
+        public IQueryable<Vehicle> GetVehiclesByEngineType(int engineTypeId)
+        {
+            var vehicles = _context.EngineTypes.FirstOrDefault(et => et.Id == engineTypeId).Vehicles.AsQueryable();
+            return vehicles;
+        }
     }
 }

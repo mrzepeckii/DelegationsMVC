@@ -27,8 +27,10 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public void DeleteDestination(int destinationToRemoveId)
         {
             var destination = _context.Destinations.Find(destinationToRemoveId);
+            var projects = _context.Projects.Where(p => p.Destination == destination);
             if(destination != null)
             {
+                _context.Projects.RemoveRange(projects);
                 _context.Destinations.Remove(destination);
                 _context.SaveChanges();
             }
