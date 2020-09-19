@@ -32,5 +32,14 @@ namespace DelegationsMVC.Infrastructure
         public Context(DbContextOptions options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Route>()
+                .HasOne(rd => rd.RouteDetail).WithOne(r => r.Route)
+                .HasForeignKey<RouteDetail>(rd => rd.RouteRef);
+        }
     }
 }
