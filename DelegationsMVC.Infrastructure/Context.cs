@@ -40,6 +40,18 @@ namespace DelegationsMVC.Infrastructure
             builder.Entity<Route>()
                 .HasOne(rd => rd.RouteDetail).WithOne(r => r.Route)
                 .HasForeignKey<RouteDetail>(rd => rd.RouteRef);
+
+            builder.Entity<Cost>()
+                .Property(p => p.Amount)
+                .HasColumnType("decimal(18,4)");
+
+            builder.Entity<MileageAllowence>()
+                .Property(p => p.RatePerKm)
+                .HasColumnType("decimal(18,4)");
+
+            builder.Entity<SubsistanceAllowence>()
+                .Property(p => p.RatePerDay)
+                .HasColumnType("decimal(18,4)");
         }
     }
 }
