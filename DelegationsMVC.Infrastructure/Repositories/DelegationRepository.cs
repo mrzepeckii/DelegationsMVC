@@ -97,7 +97,8 @@ namespace DelegationsMVC.Infrastructure.Repositories
         
         public RouteDetail GetRouteDetails(int routeId)
         {
-            var routeDetail = _context.RouteDetails.FirstOrDefault(rd => rd.RouteId == routeId);
+            var route = _context.Routes.FirstOrDefault(r => r.Id == routeId);
+            var routeDetail = _context.RouteDetails.FirstOrDefault(rd => rd.Route == route);
             return routeDetail;
         }
 
