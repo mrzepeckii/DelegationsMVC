@@ -12,7 +12,7 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
         public void Mapping(Profile profile)
         {
             profile.CreateMap<ContactDetail, ContactDetailsForListVm>()
-                .ForMember(s => s.ContactDetailType, opt => opt.MapFrom(d => d.ContactDetailType.Name))
+                .ForMember(s => s.ContactDetailType, opt => opt.MapFrom(d => d.ContactDetailType.Name));
         }
     }
 }

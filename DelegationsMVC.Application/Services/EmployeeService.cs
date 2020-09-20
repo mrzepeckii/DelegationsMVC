@@ -37,7 +37,12 @@ namespace DelegationsMVC.Application.Services
 
         public EmployeeDetailVm GetEmployeeDetails(int employeeId)
         {
-            throw new NotImplementedException();
+            var employee = _employeeRepo.GetEmployeeById(employeeId);
+            var employeeVm = _mapper.Map<EmployeeDetailVm>(employee);
+           // employeeVm.Emails = new List<ContactDetailsForListVm>();
+           // employeeVm.PhoneNumbers = new List<ContactDetailsForListVm>();
+           // employeeVm.Vehicles = new List<VehicleForListVm>();
+            return employeeVm;
         }
     }
 }
