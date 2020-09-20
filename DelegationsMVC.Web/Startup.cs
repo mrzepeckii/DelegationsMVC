@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DelegationsMVC.Infrastructure;
+using DelegationsMVC.Application;
 
 namespace DelegationsMVC.Web
 {
@@ -32,7 +33,8 @@ namespace DelegationsMVC.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
-            services.AddAplication();
+            services.AddApplication();
+            services.AddInfrastructure();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
