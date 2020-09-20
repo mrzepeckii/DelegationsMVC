@@ -1,10 +1,18 @@
-﻿using DelegationsMVC.Domain.Model;
+﻿using AutoMapper;
+using DelegationsMVC.Application.Mapping;
+using DelegationsMVC.Domain.Model;
 
 namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 {
-    public class VehicleForListVm
+    public class VehicleForListVm : IMapFrom<Vehicle>
     {
         public string PlateNumbers { get; set; }
-        public EngineType EngineType { get; set; }
+        public string EngineType { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Vehicle, VehicleForListVm>()
+                .ForMember(s => s.EngineType, opt => opt.MapFrom(d => d.EngineType.Name));
+        }
     }
 }

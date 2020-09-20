@@ -32,6 +32,8 @@ namespace DelegationsMVC.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
+            services.AddAplication();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

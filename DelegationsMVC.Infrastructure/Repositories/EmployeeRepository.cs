@@ -35,6 +35,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
             }
         }
 
+        public IQueryable<Employee> GetAllEmployees()
+        {
+            var employees = _context.Employees;
+            return employees;
+        }
+
         public Employee GetEmployeeById(int id)
         {
             var employee = _context.Employees.FirstOrDefault(e => e.Id == id);
