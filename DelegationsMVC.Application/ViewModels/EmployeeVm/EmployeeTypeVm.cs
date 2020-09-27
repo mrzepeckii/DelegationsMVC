@@ -7,17 +7,14 @@ using System.Text;
 
 namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 {
-    public class NewEmployeeVm : IMapFrom<Employee>
+    public class EmployeeTypeVm : IMapFrom<EmployeeType>
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int EmployeeTypeId { get; set; }
-        public string BankAccountCode { get; set; }
+        public string Name { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewEmployeeVm, Employee>();
+            profile.CreateMap<EmployeeType, EmployeeTypeVm>();
         }
     }
 }

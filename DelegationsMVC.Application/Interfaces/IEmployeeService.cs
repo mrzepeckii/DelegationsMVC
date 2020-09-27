@@ -10,5 +10,6 @@ namespace DelegationsMVC.Application.Interfaces
         ListEmployeeForListVm GetAllEmployeeForList();
         int AddEmployee(NewEmployeeVm employee);
         EmployeeDetailVm GetEmployeeDetails(int employeeId);
+        IEnumerable<EmployeeTypeVm> GetEmployeeTypes();
     }
 }

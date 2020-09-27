@@ -53,6 +53,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return employees;
         }
 
+        public IQueryable<EmployeeType> GetEmployeeTypes()
+        {
+            var empTypes = _context.EmployeeTypes;
+            return empTypes;
+        }
+
         /*Operations related to the contactDetail object      
          * contactDetail can't exist without employee object 
          * *******************************************/

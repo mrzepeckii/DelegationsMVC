@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
 using DelegationsMVC.Domain.Interfaces;
+using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,11 @@ namespace DelegationsMVC.Application.Services
         }
         public int AddEmployee(NewEmployeeVm employee)
         {
-            throw new NotImplementedException();
+            var emp = _mapper.Map<Employee>(employee);
+            emp.CreateById = 1;
+            emp.CreatedDateTime = DateTime.Now;
+            var id = _employeeRepo.AddEmployee(emp);
+            return id;
         }
 
         public ListEmployeeForListVm GetAllEmployeeForList()
@@ -43,6 +48,12 @@ namespace DelegationsMVC.Application.Services
            // employeeVm.PhoneNumbers = new List<ContactDetailsForListVm>();
            // employeeVm.Vehicles = new List<VehicleForListVm>();
             return employeeVm;
+        }
+
+        public IEnumerable<EmployeeTypeVm> GetEmployeeTypes()
+        {
+            var empTypesVm = _employeeRepo.GetEmployeeTypes().ProjectTo<EmployeeTypeVm>(_mapper.ConfigurationProvider).ToList();
+            return empTypesVm;
         }
     }
 }
