@@ -55,5 +55,10 @@ namespace DelegationsMVC.Application.Services
             var empTypesVm = _employeeRepo.GetEmployeeTypes().ProjectTo<EmployeeTypeVm>(_mapper.ConfigurationProvider).ToList();
             return empTypesVm;
         }
+
+        public void DeleteEmployee(int id)
+        {
+            _employeeRepo.DeleteEmployee(id);
+        }
     }
 }

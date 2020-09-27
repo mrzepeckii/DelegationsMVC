@@ -26,7 +26,6 @@ namespace DelegationsMVC.Web.Controllers
         {
             var empTypes = _empService.GetEmployeeTypes();
             ViewBag.empTypes = empTypes;
-            //pusty formularz do wypelnienia
             return View(new NewEmployeeVm());
         }
 
@@ -34,12 +33,18 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
             var id = _empService.AddEmployee(model);
-            return Redirect("Index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult ViewEmployee(int employeeId)
         {
             return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _empService.DeleteEmployee(id);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
