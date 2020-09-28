@@ -44,9 +44,15 @@ namespace DelegationsMVC.Application.Services
         {
             var employee = _employeeRepo.GetEmployeeById(employeeId);
             var employeeVm = _mapper.Map<EmployeeDetailVm>(employee);
-           // employeeVm.Emails = new List<ContactDetailsForListVm>();
-           // employeeVm.PhoneNumbers = new List<ContactDetailsForListVm>();
-           // employeeVm.Vehicles = new List<VehicleForListVm>();
+
+            var emails = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 1);
+            var phoneNumbers = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 2);
+            var vehicles = employee.Vehicles;
+
+            employeeVm.Emails = emails.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
+            employeeVm.PhoneNumbers = phoneNumbers.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
+            employeeVm.Vehicles = vehicles.AsQueryable().ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+
             return employeeVm;
         }
 

@@ -1,5 +1,6 @@
 ﻿using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Employee GetEmployeeById(int id)
         {
-            var employee = _context.Employees.FirstOrDefault(e => e.Id == id);
+            var employee = _context.Employees
+                .Include(e => e.EmployeeType)
+                .Include(e => e.Vehicles)
+                .Include(e => e.ContactDetails)
+                .FirstOrDefault(e => e.Id == id);
             return employee;
         }
 

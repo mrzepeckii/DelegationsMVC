@@ -15,6 +15,7 @@ namespace DelegationsMVC.Web.Controllers
         {
             _empService = empService;
         }
+
         public IActionResult Index()
         {
             var employees = _empService.GetAllEmployeeForList();
@@ -36,9 +37,11 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ViewEmployee(int employeeId)
+        [HttpGet]
+        public IActionResult ViewEmployee(int id)
         {
-            return View();
+            var emp = _empService.GetEmployeeDetails(id);
+            return View(emp);
         }
 
         public IActionResult Delete(int id)
