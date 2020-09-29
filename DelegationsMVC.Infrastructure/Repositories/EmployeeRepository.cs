@@ -89,5 +89,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var contactDetails = _context.Employees.FirstOrDefault(e => e.Id == employeeId).ContactDetails.AsQueryable();
             return contactDetails;
         }
+
+        public IQueryable<ContactDetailType> GetContactDetailTypes()
+        {
+            var contactDetails = _context.ContactDetailTypes;
+            return contactDetails;
+        }
     }
 }

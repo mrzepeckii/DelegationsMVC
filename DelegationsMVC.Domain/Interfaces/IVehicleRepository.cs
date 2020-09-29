@@ -14,5 +14,6 @@ namespace DelegationsMVC.Domain.Interfaces
         Vehicle GetVehicleByPlateNumbers(string plateNumbers);
         IQueryable<Vehicle> GetVehiclesByEngineType(int engineTypeId);
         IQueryable<Route> GetRoutesByVehicle(string plateNumbers);
+        IQueryable<EngineType> GetEngineTypes();
     }
 }

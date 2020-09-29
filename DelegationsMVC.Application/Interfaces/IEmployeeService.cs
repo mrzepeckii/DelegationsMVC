@@ -1,6 +1,7 @@
 ﻿using DelegationsMVC.Application.ViewModels.EmployeeVm;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DelegationsMVC.Application.Interfaces
@@ -10,7 +11,9 @@ namespace DelegationsMVC.Application.Interfaces
         ListEmployeeForListVm GetAllEmployeeForList();
         int AddEmployee(NewEmployeeVm employee);
         EmployeeDetailVm GetEmployeeDetails(int employeeId);
-        IEnumerable<EmployeeTypeVm> GetEmployeeTypes();
+        IQueryable<EmployeeTypeVm> GetEmployeeTypes();
         void DeleteEmployee(int id);
+        IQueryable<ContactDetailTypeVm> GetConactDetailTypes();
+        IQueryable<EngineTypeVm> GetEngineTypes();
     }
 }

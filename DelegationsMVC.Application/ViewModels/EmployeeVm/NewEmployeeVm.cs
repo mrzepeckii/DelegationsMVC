@@ -14,6 +14,8 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
         public string LastName { get; set; }
         public int EmployeeTypeId { get; set; }
         public string BankAccountCode { get; set; }
+        public virtual ICollection<NewContactDetailsVm> ContactDetails { get; set; }
+        public virtual ICollection<NewVehicleVm> Vehicles { get; set; }
 
         public void Mapping(Profile profile)
         {

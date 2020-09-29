@@ -14,10 +14,12 @@ namespace DelegationsMVC.Application.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepo;
+        private readonly IVehicleRepository _vehicleRepo;
         private readonly IMapper _mapper;
-        public EmployeeService(IEmployeeRepository employeeRepo, IMapper mapper)
+        public EmployeeService(IEmployeeRepository employeeRepo, IVehicleRepository vehicleRepo, IMapper mapper)
         {
             _employeeRepo = employeeRepo;
+            _vehicleRepo = vehicleRepo;
             _mapper = mapper;
         }
         public int AddEmployee(NewEmployeeVm employee)
@@ -56,15 +58,27 @@ namespace DelegationsMVC.Application.Services
             return employeeVm;
         }
 
-        public IEnumerable<EmployeeTypeVm> GetEmployeeTypes()
+        public IQueryable<EmployeeTypeVm> GetEmployeeTypes()
         {
-            var empTypesVm = _employeeRepo.GetEmployeeTypes().ProjectTo<EmployeeTypeVm>(_mapper.ConfigurationProvider).ToList();
+            var empTypesVm = _employeeRepo.GetEmployeeTypes().ProjectTo<EmployeeTypeVm>(_mapper.ConfigurationProvider);
             return empTypesVm;
         }
 
         public void DeleteEmployee(int id)
         {
             _employeeRepo.DeleteEmployee(id);
+        }
+
+        public IQueryable<ContactDetailTypeVm> GetConactDetailTypes()
+        {
+            var contactDetTypeVm = _employeeRepo.GetContactDetailTypes().ProjectTo<ContactDetailTypeVm>(_mapper.ConfigurationProvider);
+            return contactDetTypeVm;
+        }
+
+        public IQueryable<EngineTypeVm> GetEngineTypes()
+        {
+            var engineTypesVm = _vehicleRepo.GetEngineTypes().ProjectTo<EngineTypeVm>(_mapper.ConfigurationProvider);
+            return engineTypesVm;
         }
     }
 }

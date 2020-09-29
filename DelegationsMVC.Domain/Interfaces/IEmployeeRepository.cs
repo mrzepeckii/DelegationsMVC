@@ -17,5 +17,6 @@ namespace DelegationsMVC.Domain.Interfaces
         void DeleteContactDetail(int contactDetailId);
         IQueryable<ContactDetail> GetEmployeeContactDetails(int employeeId);
         IQueryable<EmployeeType> GetEmployeeTypes();
+        IQueryable<ContactDetailType> GetContactDetailTypes();
     }
 }

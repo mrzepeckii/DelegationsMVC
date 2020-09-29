@@ -67,5 +67,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
             }
             return routes;
         }
+
+        public IQueryable<EngineType> GetEngineTypes()
+        {
+            var engineTypes = _context.EngineTypes;
+            return engineTypes;
+        }
     }
 }
