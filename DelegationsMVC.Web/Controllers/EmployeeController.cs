@@ -34,7 +34,7 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
-            model.ContactDetails = new List<NewContactDetailsVm>() { new NewContactDetailsVm() { ContactDetailInformation = "333321", ContactDetailTypeId = 2 } };
+            //model.ContactDetails = new List<NewContactDetailsVm>() { new NewContactDetailsVm() { ContactDetailInformation = "333321", ContactDetailTypeId = 2 } };
             var id = _empService.AddEmployee(model);
             return RedirectToAction("Index");
         }

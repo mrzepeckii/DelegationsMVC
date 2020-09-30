@@ -34,8 +34,9 @@
                 <span asp-validation-for="BankAccountCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContactDetails" class="control-label">Dane kontaktowe</label>
-                <input asp-for="ContactDetails" class="form-control" />
+                <label asp-for="ContactDetails[0].ContactDetailInformation" class="control-label">Dane kontaktowe</label>
+                <input asp-for="ContactDetails[0].ContactDetailInformation" class="form-control" />
+                <select asp-for="ContactDetails[0].ContactDetailTypeId" asp-items="@(new SelectList(ViewBag.contactTypes,"Id", "Name"))" class="custom-select"></select>
                 <span asp-validation-for="ContactDetails" class="text-danger"></span>
             </div>
             <div class="form-group">
