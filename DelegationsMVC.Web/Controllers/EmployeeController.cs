@@ -25,10 +25,16 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddEmployee()
         {
-            ViewBag.empTypes = _empService.GetEmployeeTypes();
-            ViewBag.contactTypes = _empService.GetConactDetailTypes();
-            ViewBag.vehicleTypes = _empService.GetEngineTypes();
-            return View(new NewEmployeeVm());
+            //ViewBag.empTypes = _empService.GetEmployeeTypes();
+            //ViewBag.contactTypes = _empService.GetConactDetailTypes();
+            //ViewBag.vehicleTypes = _empService.GetEngineTypes();
+            var model = new NewEmployeeVm()
+            {
+                EmployeeTypes = _empService.GetEmployeeTypes().ToList(),
+                ContactDetailTypes = _empService.GetConactDetailTypes().ToList(),
+                EngineTypes = _empService.GetEngineTypes().ToList()
+            };
+            return View(model);
         }
 
         [HttpPost]

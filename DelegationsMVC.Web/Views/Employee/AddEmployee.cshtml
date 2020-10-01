@@ -25,7 +25,7 @@
             </div>
             <div>
                 <label asp-for="EmployeeTypeId" class="control-label">Pozycja</label>
-                <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(ViewBag.empTypes,"Id", "Name"))" class="custom-select"></select>
+                <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes,"Id", "Name"))" class="custom-select"></select>
                 <span asp-validation-for="EmployeeTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,10 +34,23 @@
                 <span asp-validation-for="BankAccountCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContactDetails[0].ContactDetailInformation" class="control-label">Dane kontaktowe</label>
+                <label asp-for="ContactDetails[0].ContactDetailInformation" class="control-label">Adres email</label>
                 <input asp-for="ContactDetails[0].ContactDetailInformation" class="form-control" />
-                <select asp-for="ContactDetails[0].ContactDetailTypeId" asp-items="@(new SelectList(ViewBag.contactTypes,"Id", "Name"))" class="custom-select"></select>
+                <input type="hidden" asp-for="ContactDetails[0].ContactDetailTypeId" value="2" />
                 <span asp-validation-for="ContactDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactDetails[1].ContactDetailInformation" class="control-label">Numer telefonu</label>
+                <input asp-for="ContactDetails[1].ContactDetailInformation" class="form-control" />
+                <input type="hidden" asp-for="ContactDetails[1].ContactDetailTypeId" value="1" />
+                <span asp-validation-for="ContactDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vehicles[0].PlateNumbers" class="control-label">Numer rejestracyjny pojazdu</label>
+                <input asp-for="Vehicles[0].PlateNumbers" class="form-control" />
+                <label asp-for="Vehicles[0].EngineTypeId" class="control-label">Pojemność skokowa pojazdu</label>
+                <select asp-for="Vehicles[0].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes,"Id", "Name"))" class="custom-select"></select>
+                <span asp-validation-for="Vehicles" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
