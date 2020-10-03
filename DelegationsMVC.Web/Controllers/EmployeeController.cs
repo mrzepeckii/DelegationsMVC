@@ -25,9 +25,6 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddEmployee()
         {
-            //ViewBag.empTypes = _empService.GetEmployeeTypes();
-            //ViewBag.contactTypes = _empService.GetConactDetailTypes();
-            //ViewBag.vehicleTypes = _empService.GetEngineTypes();
             var model = new NewEmployeeVm()
             {
                 EmployeeTypes = _empService.GetEmployeeTypes().ToList(),
@@ -40,7 +37,6 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
-            //model.ContactDetails = new List<NewContactDetailsVm>() { new NewContactDetailsVm() { ContactDetailInformation = "333321", ContactDetailTypeId = 2 } };
             var id = _empService.AddEmployee(model);
             return RedirectToAction("Index");
         }

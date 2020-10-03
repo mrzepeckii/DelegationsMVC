@@ -8,61 +8,217 @@
 
 <h4>NewEmployeeVm</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddEmployee">
+<form asp-action="AddEmployee">
+    <div class="col-md-8 order-md-1">
+        <div class="row">
+            <h4>Dane osobowe/pracownicze</h4>
+        </div>
+        <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="col-md-6 mb-3">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <label asp-for="FirstName" class="control-label">Imie</label>
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-md-6 mb-3">
                 <label asp-for="LastName" class="control-label">Nazwisko</label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-            <div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
                 <label asp-for="EmployeeTypeId" class="control-label">Pozycja</label>
                 <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes,"Id", "Name"))" class="custom-select"></select>
                 <span asp-validation-for="EmployeeTypeId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-md-6 mb-3">
                 <label asp-for="BankAccountCode" class="control-label">Numer konta bankowego</label>
                 <input asp-for="BankAccountCode" class="form-control" />
                 <span asp-validation-for="BankAccountCode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ContactDetails[0].ContactDetailInformation" class="control-label">Adres email</label>
-                <input asp-for="ContactDetails[0].ContactDetailInformation" class="form-control" />
-                <input type="hidden" asp-for="ContactDetails[0].ContactDetailTypeId" value="2" />
-                <span asp-validation-for="ContactDetails" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactDetails[1].ContactDetailInformation" class="control-label">Numer telefonu</label>
-                <input asp-for="ContactDetails[1].ContactDetailInformation" class="form-control" />
-                <input type="hidden" asp-for="ContactDetails[1].ContactDetailTypeId" value="1" />
-                <span asp-validation-for="ContactDetails" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Vehicles[0].PlateNumbers" class="control-label">Numer rejestracyjny pojazdu</label>
-                <input asp-for="Vehicles[0].PlateNumbers" class="form-control" />
-                <label asp-for="Vehicles[0].EngineTypeId" class="control-label">Pojemność skokowa pojazdu</label>
-                <select asp-for="Vehicles[0].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes,"Id", "Name"))" class="custom-select"></select>
-                <span asp-validation-for="Vehicles" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    @*<div class="form-group">
+            <label asp-for="ContactDetails[0].ContactDetailInformation" class="control-label">Adres email</label>
+            <input asp-for="ContactDetails[0].ContactDetailInformation" class="form-control" />
+            <input type="hidden" asp-for="ContactDetails[0].ContactDetailTypeId" value="2" />
+            <span asp-validation-for="ContactDetails" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactDetails[1].ContactDetailInformation" class="control-label">Numer telefonu</label>
+            <input asp-for="ContactDetails[1].ContactDetailInformation" class="form-control" />
+            <input type="hidden" asp-for="ContactDetails[1].ContactDetailTypeId" value="1" />
+            <span asp-validation-for="ContactDetails" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Vehicles[0].PlateNumbers" class="control-label">Numer rejestracyjny pojazdu</label>
+            <input asp-for="Vehicles[0].PlateNumbers" class="form-control" />
+            <label asp-for="Vehicles[0].EngineTypeId" class="control-label">Pojemność skokowa pojazdu</label>
+            <select asp-for="Vehicles[0].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes,"Id", "Name"))" class="custom-select"></select>
+            <span asp-validation-for="Vehicles" class="text-danger"></span>
+        </div>*@
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <div>
+                    <h4>Dane kontaktowe</h4>
+                </div>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Kontakt</th>
+                        <th>Rodzaj kontaktu</th>
+                    </tr>
+                    @for (var i = 0; i < 4; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input asp-for="ContactDetails[i].ContactDetailInformation" class="form-control" />
+                            </td>
+                            <td>
+                                <select asp-for="ContactDetails[i].ContactDetailTypeId" asp-items="@(new SelectList(Model.ContactDetailTypes,"Id", "Name"))" class="custom-select"></select>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-1">
+
+            </div>
+            <div class="col-xs-6">
+                <div>
+                    <h4>Dane pojazdów</h4>
+                </div>
+                <table class="table-bordered table-striped table">
+                    <tr>
+                        <th>Numer rejestracyjny</th>
+                        <th>Pojemność skokowa</th>
+                    </tr>
+                    @*@for (var i = 0; i < 0; i++)
+        {
+            <tr>
+                <td>
+                    <input asp-for="Vehicles[i].PlateNumbers" class="form-control" />
+                </td>
+                <td>
+                    <select asp-for="Vehicles[i].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes, "Id","Name"))" class="custom-select"></select>
+                </td>
+            </tr>
+        }*@
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input id="AddButton" type="button" value="Add" onclick="AddTextBox()"/>
+    </div>
+    <div id="TextBoxContainer"></div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
+
+    <script type="text/javascript">
+        var i = 1;
+        //$(document).ready(function () {
+        //    var i = 1;
+        //    $("#<%= AddButton.ClientID%>").click(function () {
+        //        var div = GetDynamicTextBox(0);
+        //        $("#TextBoxContainer").append(div);
+        //        i++;
+        //    });
+        //});
+        //});
+
+        //    var i = 1;
+        //    $("#AddButton").click(function () {
+        //        var s = "";
+        //       // s += '<div id="innerdiv" class="border pad">Hi there!'+i+'</div>'
+        //        s += '<input asp-for="Vehicles['+i+'].PlateNumbers" class="form-control">';
+        //        $('#TextBoxContainer').append(s);
+        //        d += '<input type="hidden" asp-for="Vehicles[' + i +'].EngineType" value="1" />'
+        //        $('#TextBoxContainer').append(d);
+        //        i++;
+        //    })
+
+        function AddTextBox() {
+            var div = GetDynamicTextBox(i);
+                $("#TextBoxContainer").append(div);
+                i++;
+        }
+
+        function GetDynamicTextBox(i) {
+            var div = $("<div />");
+            var value = "";
+            var textBox = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
+            var textBox2 = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].EngineType").attr("value", i);
+            var selectList = $("<select />").attr("class", "custom-select").attr("name", "Vehicles[" + i + "].EngineType");
+            textBox.val(value);
+            @*var modelss = [];
+            @foreach (var item in Model.EngineTypes)
+            {
+                @:modelss.push('@item');
+            }*@
+
+            var models = @Json.Serialize(Model.EngineTypes);
+            for (var i = 0; i < modelss.length; i++) {
+                var modelik = modelss[i];
+                selectList.append('<option value="'+modelik.Id+'" selected="selected">'+modelik.Name+'</option>');
+            }
+
+            div.append(textBox);
+            div.append(textBox2);
+            div.append(selectList);
+
+            var button = $("<input />").attr("type", "button").attr("value", "Remove");
+            button.attr("onclick", "RemoveTextBox(this)");
+            div.append(button);
+            return div;
+        }
+
+        function RemoveTextBox(button) {
+            $(button).parent().remove();
+            i--;
+        }
+
+        //function create(param) {
+        //    var s = "";
+        //    for (var i = 0; i < param; i++) {
+        //        s += '<input asp-for="Vehicles[i].PlateNumbers" class="form-control">'; //Create one textbox as HTML
+        //    }
+        //    document.getElementById("TextBoxContainer").innerHTML = s;
+        //}
+        //$(document).ready(function () {
+        //    var i = 1;
+        //    $("#AddButton").on('click', function () {
+        //        var div = $("<div />");
+        //        var value = "";
+
+        //        var PlateNumbers = $("<input />").attr("class", "form-control").attr("asp-for", "Vehicles[" + i + "].PlateNumbers");
+        //        var EngineType = $("<input />").attr("type", "textbox").attr("name", "Vehicles[" + i + "].EngineTypeId");
+
+        //        PlateNumbers.val(value);
+        //        EngineType.val(value)
+        //        div.append(PlateNumbers);
+        //        div.append(EngineType);
+        //        var button = $("<input />").attr("type", "button").attr("value", "Remove");
+        //        button.attr("onclick", "RemoveTextBox(this)");
+        //        div.append(button);
+        //        $("#TextBoxConatiner").append(div);
+        //        document.getElementById("TextBoxContainer").innerHTML(div);
+        //        i++;
+        //    })
+        //})
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
