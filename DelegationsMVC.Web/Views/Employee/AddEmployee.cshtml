@@ -184,30 +184,30 @@
             if (isVehicle) {
                 var input = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
                 var select = $("<select></select>").attr("class", "custom-select").attr("id", "Vehicles[" + i + "].EngineType");
-                //input.val(value);
-                @*var modelss = [];
+
+                var modelss = [];
                 @foreach(var item in Model.EngineTypes)
                 {
-                    @: modelss.push('@item');
-                }*@
-
-                @*var models = @Json.Serialize(Model.EngineTypes);
-                for (var i = 0; i < modelss.length; i++) {
-                    var modelik = models[i];
-                    selectList.append('<option value="' + modelik.Id + '" selected="selected">' + modelik.Name + '</option>');
-                }*@
-                var engineTypes = "";
-                $.ajax({
-                    url: "/Employee/GetEngineTypes",
-                    datatype: "JSON",
-                    type: "Get",
-                    success: function (data) {
-                        $(data).each(function () {
-                            engineTypes += '<option value ="' + this.Id + '">' + this.Name + '</option>'
-                        })
-                        select.append(engineTypes);
-                    }
-                });
+                     @: select.append($("<option></option>").attr("value", '@item.Id.ToString()').text('@item.Name'));
+                }
+                //$.each(modelss, function (id, name) {
+                //    select
+                //        .append($("<option></option>")
+                //            .attr("value", id)
+                //            .text(name));
+                //});
+                //var engineTypes = "";
+                //$.ajax({
+                //    url: "/Employee/GetEngineTypes",
+                //    datatype: "JSON",
+                //    type: "Get",
+                //    success: function (data) {
+                //        $(data).each(function () {
+                //            engineTypes += '<option value ="' + this.Id + '">' + this.Id + '</option>'
+                //        })
+                //        select.append(engineTypes);
+                //    }
+                //});
             }
             else {
                 var input = $("<input />").attr("class", "form-control").attr("name", "ContactDetails[" + i + "].ContactDetailInformation");
@@ -228,56 +228,6 @@
             $(button).parent().remove();
             i--;
         }
-
-                //$(document).ready(function () {
-        //    var i = 1;
-        //    $("#<%= AddButton.ClientID%>").click(function () {
-        //        var div = GetDynamicTextBox(0);
-        //        $("#TextBoxContainer").append(div);
-        //        i++;
-        //    });
-        //});
-        //});
-
-        //    var i = 1;
-        //    $("#AddButton").click(function () {
-        //        var s = "";
-        //       // s += '<div id="innerdiv" class="border pad">Hi there!'+i+'</div>'
-        //        s += '<input asp-for="Vehicles['+i+'].PlateNumbers" class="form-control">';
-        //        $('#TextBoxContainer').append(s);
-        //        d += '<input type="hidden" asp-for="Vehicles[' + i +'].EngineType" value="1" />'
-        //        $('#TextBoxContainer').append(d);
-        //        i++;
-        //    })
-
-        //function create(param) {
-        //    var s = "";
-        //    for (var i = 0; i < param; i++) {
-        //        s += '<input asp-for="Vehicles[i].PlateNumbers" class="form-control">'; //Create one textbox as HTML
-        //    }
-        //    document.getElementById("TextBoxContainer").innerHTML = s;
-        //}
-        //$(document).ready(function () {
-        //    var i = 1;
-        //    $("#AddButton").on('click', function () {
-        //        var div = $("<div />");
-        //        var value = "";
-
-        //        var PlateNumbers = $("<input />").attr("class", "form-control").attr("asp-for", "Vehicles[" + i + "].PlateNumbers");
-        //        var EngineType = $("<input />").attr("type", "textbox").attr("name", "Vehicles[" + i + "].EngineTypeId");
-
-        //        PlateNumbers.val(value);
-        //        EngineType.val(value)
-        //        div.append(PlateNumbers);
-        //        div.append(EngineType);
-        //        var button = $("<input />").attr("type", "button").attr("value", "Remove");
-        //        button.attr("onclick", "RemoveTextBox(this)");
-        //        div.append(button);
-        //        $("#TextBoxConatiner").append(div);
-        //        document.getElementById("TextBoxContainer").innerHTML(div);
-        //        i++;
-        //    })
-        //})
     </script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
