@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DelegationsMVC.Web.Controllers
 {
@@ -20,6 +21,12 @@ namespace DelegationsMVC.Web.Controllers
         {
             var employees = _empService.GetAllEmployeeForList();
             return View(employees);
+        }
+
+        public IActionResult GetEngineTypes()
+        {
+            var engineTypes = _empService.GetEngineTypes().ToList();
+            return Json(new SelectList(engineTypes, "Id", "Name"));
         }
 
         [HttpGet]

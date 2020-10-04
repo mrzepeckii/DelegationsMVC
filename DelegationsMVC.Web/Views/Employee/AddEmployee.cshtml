@@ -60,7 +60,7 @@
             <select asp-for="Vehicles[0].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes,"Id", "Name"))" class="custom-select"></select>
             <span asp-validation-for="Vehicles" class="text-danger"></span>
         </div>*@
-    <div class="container">
+    @*<div class="container">
         <div class="row">
             <div class="col-xs-6">
                 <div>
@@ -96,25 +96,58 @@
                         <th>Numer rejestracyjny</th>
                         <th>Pojemność skokowa</th>
                     </tr>
-                    @*@for (var i = 0; i < 0; i++)
-        {
-            <tr>
-                <td>
-                    <input asp-for="Vehicles[i].PlateNumbers" class="form-control" />
-                </td>
-                <td>
-                    <select asp-for="Vehicles[i].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes, "Id","Name"))" class="custom-select"></select>
-                </td>
-            </tr>
-        }*@
+                    @for (var i = 0; i < 0; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="Vehicles[i].PlateNumbers" class="form-control" />
+                                </td>
+                                <td>
+                                    <select asp-for="Vehicles[i].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes, "Id","Name"))" class="custom-select"></select>
+                                </td>
+                            </tr>
+                        }
                 </table>
             </div>
         </div>
+    </div>*@
+    <div class="row">
+        <div class="col-xs-6" id="ContactDetails">
+            <h4>Dane kontaktowe</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ContactDetails[0].ContactDetailInformation" class="control-label">Dane kontaktowe</label>
+                    <input asp-for="ContactDetails[0].ContactDetailInformation" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ContactDetails[0].ContactDetailTypeId" class="control-label">Rodzaj kontaktu</label>
+                    <select asp-for="ContactDetails[0].ContactDetailTypeId" asp-items="@(new SelectList(Model.ContactDetailTypes, "Id","Name"))" class="custom-select"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="AddButton" type="button" value="Dodaj dodatkowy kontakt" onclick="AddContact()" />
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-xs-6" id="Vehicles">
+            <h4>Pojazdy</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Vehicles[0].PlateNumbers" class="control-label">Numer rejestracyjny</label>
+                    <input asp-for="Vehicles[0].PlateNumbers" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Vehicles[0].EngineTypeId" class="control-label">Rodzaj silnika</label>
+                    <select asp-for="Vehicles[0].EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes, "Id","Name"))" class="custom-select"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="AddButton" type="button" value="Dodaj dodatkowy pojazd" onclick="AddVehicle()" />
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <input id="AddButton" type="button" value="Add" onclick="AddTextBox()"/>
-    </div>
-    <div id="TextBoxContainer"></div>
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
@@ -129,7 +162,74 @@
 
     <script type="text/javascript">
         var i = 1;
-        //$(document).ready(function () {
+        var j = 1;
+
+        function AddVehicle() {
+            var div = GetDynamicTextBox(i, true);
+            $("#Vehicles").append(div);
+                i++;
+        }
+
+        function AddContact() {
+            var div = GetDynamicTextBox(j, false);
+            $("#ContactDetails").append(div);
+            j++;
+        }
+
+        function GetDynamicTextBox(i, isVehicle) {
+            var divFather = $("<div />").attr("class", "row");
+            var divChild1 = $("<div />").attr("class", "col-md-6 mb-3");
+            var divChild2 = $("<div />").attr("class", "col-md-6 mb-3");
+            var value = "";
+            if (isVehicle) {
+                var input = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
+                var select = $("<select></select>").attr("class", "custom-select").attr("id", "Vehicles[" + i + "].EngineType");
+                //input.val(value);
+                @*var modelss = [];
+                @foreach(var item in Model.EngineTypes)
+                {
+                    @: modelss.push('@item');
+                }*@
+
+                @*var models = @Json.Serialize(Model.EngineTypes);
+                for (var i = 0; i < modelss.length; i++) {
+                    var modelik = models[i];
+                    selectList.append('<option value="' + modelik.Id + '" selected="selected">' + modelik.Name + '</option>');
+                }*@
+                var engineTypes = "";
+                $.ajax({
+                    url: "/Employee/GetEngineTypes",
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        $(data).each(function () {
+                            engineTypes += '<option value ="' + this.Id + '">' + this.Name + '</option>'
+                        })
+                        select.append(engineTypes);
+                    }
+                });
+            }
+            else {
+                var input = $("<input />").attr("class", "form-control").attr("name", "ContactDetails[" + i + "].ContactDetailInformation");
+                var select = $("<select></select>").attr("class", "custom-select").attr("id", "ContactDetails[" + i + "].ContactDetailTypeId");
+            }
+            input.val(value);
+            divChild1.append(input);
+            divChild2.append(select);
+            divFather.append(divChild1);
+            divFather.append(divChild2);
+
+            var button = $("<input />").attr("type", "button").attr("value", "Remove");
+            button.attr("onclick", "RemoveTextBox(this)");
+            return divFather;
+        }
+
+        function RemoveTextBox(button) {
+            $(button).parent().remove();
+            i--;
+        }
+
+                //$(document).ready(function () {
         //    var i = 1;
         //    $("#<%= AddButton.ClientID%>").click(function () {
         //        var div = GetDynamicTextBox(0);
@@ -149,46 +249,6 @@
         //        $('#TextBoxContainer').append(d);
         //        i++;
         //    })
-
-        function AddTextBox() {
-            var div = GetDynamicTextBox(i);
-                $("#TextBoxContainer").append(div);
-                i++;
-        }
-
-        function GetDynamicTextBox(i) {
-            var div = $("<div />");
-            var value = "";
-            var textBox = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
-            var textBox2 = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].EngineType").attr("value", i);
-            var selectList = $("<select />").attr("class", "custom-select").attr("name", "Vehicles[" + i + "].EngineType");
-            textBox.val(value);
-            @*var modelss = [];
-            @foreach (var item in Model.EngineTypes)
-            {
-                @:modelss.push('@item');
-            }*@
-
-            var models = @Json.Serialize(Model.EngineTypes);
-            for (var i = 0; i < modelss.length; i++) {
-                var modelik = modelss[i];
-                selectList.append('<option value="'+modelik.Id+'" selected="selected">'+modelik.Name+'</option>');
-            }
-
-            div.append(textBox);
-            div.append(textBox2);
-            div.append(selectList);
-
-            var button = $("<input />").attr("type", "button").attr("value", "Remove");
-            button.attr("onclick", "RemoveTextBox(this)");
-            div.append(button);
-            return div;
-        }
-
-        function RemoveTextBox(button) {
-            $(button).parent().remove();
-            i--;
-        }
 
         //function create(param) {
         //    var s = "";
