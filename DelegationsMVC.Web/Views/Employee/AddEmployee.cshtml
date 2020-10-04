@@ -164,6 +164,14 @@
         var i = 1;
         var j = 1;
 
+        function GetVal(sel) {
+            //alert(sel.name);
+            sel.id.value = sel.value;
+            document.getElementById(sel.name).value = sel.value;
+            alert(document.getElementById(sel.name).value);
+            alert(sel.value);
+        }
+
         function AddVehicle() {
             var div = GetDynamicTextBox(i, true);
             $("#Vehicles").append(div);
@@ -183,12 +191,12 @@
             var value = "";
             if (isVehicle) {
                 var input = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
-                var select = $("<select></select>").attr("class", "custom-select").attr("id", "Vehicles[" + i + "].EngineType");
-
+                var select = $("<select></select>").attr("class", "custom-select").attr("name", "Vehicles[" + i + "].EngineType").attr("onchange", "GetVal(this)")
+                var input2 = $("<input />").attr("type", "hidden").attr("id", "Vehicles[" + i + "].EngineType");
                 var modelss = [];
                 @foreach(var item in Model.EngineTypes)
                 {
-                     @: select.append($("<option></option>").attr("value", '@item.Id.ToString()').text('@item.Name'));
+                     @: select.append($("<option></option>").attr("value", '@item.Id').text('@item.Name'));
                 }
                 //$.each(modelss, function (id, name) {
                 //    select
@@ -215,6 +223,7 @@
             }
             input.val(value);
             divChild1.append(input);
+            divChild1.append(input2);
             divChild2.append(select);
             divFather.append(divChild1);
             divFather.append(divChild2);
