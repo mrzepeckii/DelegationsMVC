@@ -161,41 +161,51 @@
 @section Scripts {
 
     <script type="text/javascript">
-        var i = 1;
-        var j = 1;
+        var i = 0;
+        var j = 0;
 
         function AddVehicle() {
-            var div = GetDynamicTextBox(i, true);
+            i++;
+            var div = GetDynamicElements(i, true);
             $("#Vehicles").append(div);
-                i++;
+                
+
         }
 
         function AddContact() {
-            var div = GetDynamicTextBox(j, false);
-            $("#ContactDetails").append(div);
             j++;
+            var div = GetDynamicElements(j, false);
+            $("#ContactDetails").append(div);
+            
         }
 
-        function GetDynamicTextBox(i, isVehicle) {
-            var divFather = $("<div />").attr("class", "row");
+        function GetDynamicElements(i, isVehicle) {
+            
             var divChild1 = $("<div />").attr("class", "col-md-6 mb-3");
             var divChild2 = $("<div />").attr("class", "col-md-6 mb-3");
             var value = "";
             if (isVehicle) {
+                var divFather = $("<div />").attr("class", "row").attr("id","veh"+i);
                 var input = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
                 var select = $("<select></select>").attr("class", "custom-select").attr("name", "Vehicles[" + i + "].EngineTypeId");
                 @foreach(var item in Model.EngineTypes)
                 {
                      @: select.append($("<option></option>").attr("value", '@item.Id').text('@item.Name'));
                 }
+                var button = $("<input />").attr("type", "button").attr("class", "btn btn-primary btn-sm").attr("value", "Remove").attr("id", "Vehicle");
             }
             else {
+                var divFather = $("<div />").attr("class", "row").attr("id", "cd" + j );
                 var input = $("<input />").attr("class", "form-control").attr("name", "ContactDetails[" + i + "].ContactDetailInformation");
                 var select = $("<select></select>").attr("class", "custom-select").attr("name", "ContactDetails[" + i + "].ContactDetailTypeId");
                  @foreach(var item in Model.ContactDetailTypes)
                 {
                      @: select.append($("<option></option>").attr("value", '@item.Id').text('@item.Name'));
                 }
+                var button = $("<input />").attr("type", "button").attr("class", "btn btn-primary btn-sm").attr("value", "Remove").attr("id", "Contact");
+                if (j > 1) {
+                    document.getElementById("Contact").remove();
+                }  
             }
             input.val(value);
             divChild1.append(input);
@@ -203,14 +213,25 @@
             divFather.append(divChild1);
             divFather.append(divChild2);
 
-            var button = $("<input />").attr("type", "button").attr("value", "Remove");
-            button.attr("onclick", "RemoveTextBox(this)");
+            button.attr("onclick", "RemoveElement(this)");
+            divFather.append(button);
             return divFather;
         }
 
-        function RemoveTextBox(button) {
+        function RemoveElement(button) {
+            if (button.id == "Contact") {
+                if (j != 1) {
+                    var buttonToAdd = $("<input />").attr("type", "button").attr("class", "btn btn-primary btn-sm").attr("value", "Remove")
+                        .attr("id", "Contact").attr("onclick", "RemoveElement(this)");
+                    var item = document.getElementById("cd" + (j-1));
+                    $(item).append(buttonToAdd);
+                }
+                j--;
+            }
+            else {
+                i--;
+            }  
             $(button).parent().remove();
-            i--;
         }
     </script>
 
