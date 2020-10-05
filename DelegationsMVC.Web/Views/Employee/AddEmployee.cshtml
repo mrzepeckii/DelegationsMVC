@@ -164,14 +164,6 @@
         var i = 1;
         var j = 1;
 
-        function GetVal(sel) {
-            //alert(sel.name);
-            sel.id.value = sel.value;
-            document.getElementById(sel.name).value = sel.value;
-            alert(document.getElementById(sel.name).value);
-            alert(sel.value);
-        }
-
         function AddVehicle() {
             var div = GetDynamicTextBox(i, true);
             $("#Vehicles").append(div);
@@ -191,39 +183,22 @@
             var value = "";
             if (isVehicle) {
                 var input = $("<input />").attr("class", "form-control").attr("name", "Vehicles[" + i + "].PlateNumbers");
-                var select = $("<select></select>").attr("class", "custom-select").attr("name", "Vehicles[" + i + "].EngineType").attr("onchange", "GetVal(this)")
-                var input2 = $("<input />").attr("type", "hidden").attr("id", "Vehicles[" + i + "].EngineType");
-                var modelss = [];
+                var select = $("<select></select>").attr("class", "custom-select").attr("name", "Vehicles[" + i + "].EngineTypeId");
                 @foreach(var item in Model.EngineTypes)
                 {
                      @: select.append($("<option></option>").attr("value", '@item.Id').text('@item.Name'));
                 }
-                //$.each(modelss, function (id, name) {
-                //    select
-                //        .append($("<option></option>")
-                //            .attr("value", id)
-                //            .text(name));
-                //});
-                //var engineTypes = "";
-                //$.ajax({
-                //    url: "/Employee/GetEngineTypes",
-                //    datatype: "JSON",
-                //    type: "Get",
-                //    success: function (data) {
-                //        $(data).each(function () {
-                //            engineTypes += '<option value ="' + this.Id + '">' + this.Id + '</option>'
-                //        })
-                //        select.append(engineTypes);
-                //    }
-                //});
             }
             else {
                 var input = $("<input />").attr("class", "form-control").attr("name", "ContactDetails[" + i + "].ContactDetailInformation");
-                var select = $("<select></select>").attr("class", "custom-select").attr("id", "ContactDetails[" + i + "].ContactDetailTypeId");
+                var select = $("<select></select>").attr("class", "custom-select").attr("name", "ContactDetails[" + i + "].ContactDetailTypeId");
+                 @foreach(var item in Model.ContactDetailTypes)
+                {
+                     @: select.append($("<option></option>").attr("value", '@item.Id').text('@item.Name'));
+                }
             }
             input.val(value);
             divChild1.append(input);
-            divChild1.append(input2);
             divChild2.append(select);
             divFather.append(divChild1);
             divFather.append(divChild2);
