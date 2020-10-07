@@ -46,14 +46,19 @@
                 <tbody>
                     @foreach (var item in Model.Vehicles)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PlateNumbers)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EngineType)
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlateNumbers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EngineType)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -77,11 +82,17 @@
                         <tbody>
                             @foreach (var item in Model.Emails)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+
                             }
                         </tbody>
                     </table>
@@ -98,11 +109,16 @@
                         <tbody>
                             @foreach (var item in Model.PhoneNumbers)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

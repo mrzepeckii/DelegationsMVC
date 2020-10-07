@@ -6,6 +6,7 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 {
     public class ContactDetailsForListVm : IMapFrom<ContactDetail>
     {
+        public int Id { get; set; }
         public string ContactDetailType { get; set; }
         public string ContactDetailInformation { get; set; }
 

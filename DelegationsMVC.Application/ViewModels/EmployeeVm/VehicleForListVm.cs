@@ -6,6 +6,7 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 {
     public class VehicleForListVm : IMapFrom<Vehicle>
     {
+        public int Id { get; set; }
         public string PlateNumbers { get; set; }
         public string EngineType { get; set; }
 
