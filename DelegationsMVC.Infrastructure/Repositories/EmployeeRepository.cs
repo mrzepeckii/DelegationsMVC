@@ -46,7 +46,6 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             var employee = _context.Employees
                 .Include(e => e.EmployeeType)
-                .Include(e => e.Vehicles)
                 .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
                 .FirstOrDefault(e => e.Id == id);
             return employee;

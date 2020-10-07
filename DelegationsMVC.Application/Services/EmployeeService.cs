@@ -49,7 +49,7 @@ namespace DelegationsMVC.Application.Services
 
             var emails = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 1);
             var phoneNumbers = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 2);
-            var vehicles = employee.Vehicles;
+            var vehicles = _vehicleRepo.GetVehiclesByEmployee(employeeId);
 
             employeeVm.Emails = emails.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
             employeeVm.PhoneNumbers = phoneNumbers.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();

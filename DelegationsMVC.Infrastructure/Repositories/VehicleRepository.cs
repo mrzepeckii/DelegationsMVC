@@ -1,5 +1,6 @@
 ﻿using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,11 +37,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Vehicle> GetVehiclesByEmployee(int employeeId)
         {
-            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
             IQueryable<Vehicle> vehicles = null;
-            if (employee != null)
+            var emp = _context.Employees.Where(e => e.Id == employeeId);
+            if (emp != null)
             {
-                vehicles = employee.Vehicles.AsQueryable();
+                vehicles = _context.Vehicles.Where(v => v.EmployeeId == employeeId);
             }
             return vehicles;
         }
