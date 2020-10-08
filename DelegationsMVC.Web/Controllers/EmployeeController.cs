@@ -61,6 +61,18 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult DeleteVehicle(int idVeh, int idEmp)
+        {
+            _empService.DeleteVehicle(idVeh);
+            return RedirectToAction("ViewEmployee", new { id = idEmp });
+        }
+
+        public IActionResult DeleteContact(int idCon, int idEmp)
+        {
+            _empService.DeleteContact(idCon);
+            return RedirectToAction("ViewEmployee", new { id = idEmp });
+        }
+
         [HttpGet]
         public IActionResult AddNewEmailForEmployee(int employeeId)
         {

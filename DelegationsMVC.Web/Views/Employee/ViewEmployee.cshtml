@@ -46,22 +46,22 @@
                 <tbody>
                     @foreach (var item in Model.Vehicles)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PlateNumbers)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EngineType)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PlateNumbers)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EngineType)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
+            <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" />
         </div>
         <div class="col-sm-1">
 
@@ -82,16 +82,15 @@
                         <tbody>
                             @foreach (var item in Model.Emails)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
+                                    </td>
+                                </tr>
 
                             }
                         </tbody>
@@ -109,21 +108,21 @@
                         <tbody>
                             @foreach (var item in Model.PhoneNumbers)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
+            <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />
         </div>
     </div>
     <div>

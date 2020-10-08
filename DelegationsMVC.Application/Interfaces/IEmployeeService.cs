@@ -15,5 +15,7 @@ namespace DelegationsMVC.Application.Interfaces
         void DeleteEmployee(int id);
         IQueryable<ContactDetailTypeVm> GetConactDetailTypes();
         IQueryable<EngineTypeVm> GetEngineTypes();
+        void DeleteVehicle(int id);
+        void DeleteContact(int id);
     }
 }

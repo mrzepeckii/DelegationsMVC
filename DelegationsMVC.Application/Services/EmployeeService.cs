@@ -75,10 +75,20 @@ namespace DelegationsMVC.Application.Services
             return contactDetTypeVm;
         }
 
+        public void DeleteContact(int id)
+        {
+            _employeeRepo.DeleteContactDetail(id);
+        }
+
         public IQueryable<EngineTypeVm> GetEngineTypes()
         {
             var engineTypesVm = _vehicleRepo.GetEngineTypes().ProjectTo<EngineTypeVm>(_mapper.ConfigurationProvider);
             return engineTypesVm;
+        }
+
+        public void DeleteVehicle(int id)
+        {
+            _vehicleRepo.DeleteVehicle(id);
         }
     }
 }
