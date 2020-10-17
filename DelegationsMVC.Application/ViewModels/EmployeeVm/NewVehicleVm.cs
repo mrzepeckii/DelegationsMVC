@@ -9,12 +9,14 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 {
     public class NewVehicleVm : IMapFrom<Vehicle>
     {
+        public int Id { get; set; }
         public string PlateNumbers { get; set; }
         public int EngineTypeId { get; set; }
-
+        public int EmployeeId { get; set; }
+        public List<EngineTypeVm> EngineTypes { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewVehicleVm, Vehicle>();
+            profile.CreateMap<NewVehicleVm, Vehicle>().ReverseMap();
         }
     }
 }

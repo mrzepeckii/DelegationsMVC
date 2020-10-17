@@ -55,6 +55,22 @@ namespace DelegationsMVC.Web.Controllers
             return View(emp);
         }
 
+        [HttpGet]
+        public IActionResult EditEmployee(int id)
+        {
+            var emp = _empService.GetEmployeeForEdit(id);
+            emp.EngineTypes = _empService.GetEngineTypes().ToList();
+            emp.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+            emp.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
+            return View(emp);
+        }
+
+        [HttpPost]
+        public IActionResult EditEmployee(NewEmployeeVm empVm)
+        {
+            _empService.UpdateEmployee(empVm);
+            return RedirectToAction("Index");
+        }
         public IActionResult Delete(int id)
         {
             _empService.DeleteEmployee(id);
@@ -64,19 +80,24 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult DeleteVehicle(int idVeh, int idEmp)
         {
             _empService.DeleteVehicle(idVeh);
-            return RedirectToAction("ViewEmployee", new { id = idEmp });
+            return RedirectToAction("EditEmployee", new { id = idEmp });
         }
 
         public IActionResult DeleteContact(int idCon, int idEmp)
         {
             _empService.DeleteContact(idCon);
-            return RedirectToAction("ViewEmployee", new { id = idEmp });
+            return RedirectToAction("EditEmployee", new { id = idEmp });
         }
 
         [HttpGet]
-        public IActionResult AddNewEmailForEmployee(int employeeId)
+        public IActionResult AddNewVehicleForEmployee(int employeeId)
         {
-            return View();
+            var model = new NewVehicleVm
+            {
+                EmployeeId = employeeId,
+                EngineTypes = _empService.GetEngineTypes().ToList()
+            };
+            return View(model);
         }
 
         [HttpPost]

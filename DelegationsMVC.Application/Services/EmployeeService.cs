@@ -51,6 +51,7 @@ namespace DelegationsMVC.Application.Services
             var phoneNumbers = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 2);
             var vehicles = _vehicleRepo.GetVehiclesByEmployee(employeeId);
 
+            
             employeeVm.Emails = emails.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
             employeeVm.PhoneNumbers = phoneNumbers.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
             employeeVm.Vehicles = vehicles.AsQueryable().ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
@@ -89,6 +90,19 @@ namespace DelegationsMVC.Application.Services
         public void DeleteVehicle(int id)
         {
             _vehicleRepo.DeleteVehicle(id);
+        }
+
+        public NewEmployeeVm GetEmployeeForEdit(int id)
+        {
+            var emp = _employeeRepo.GetEmployeeById(id);
+            var empVm = _mapper.Map<NewEmployeeVm>(emp);
+            return empVm;
+        }
+
+        public void UpdateEmployee(NewEmployeeVm empVm)
+        {
+            var emp = _mapper.Map<Employee>(empVm);
+            _employeeRepo.UpdateEmployee(emp);
         }
     }
 }

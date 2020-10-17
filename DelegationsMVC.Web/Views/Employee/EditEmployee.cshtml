@@ -1,0 +1,126 @@
+﻿@model DelegationsMVC.Application.ViewModels.EmployeeVm.NewEmployeeVm
+
+@{
+    ViewData["Title"] = "EditEmployee";
+}
+
+<h1>EditEmployee</h1>
+
+<h4>NewEmployeeVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditEmployee">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeTypeId" class="control-label">Pozycja</label>
+                <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes, "Id", "Name"))" class="custom-select"></select>
+                <span asp-validation-for="EmployeeTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BankAccountCode" class="control-label"></label>
+                <input asp-for="BankAccountCode" class="form-control" />
+                <span asp-validation-for="BankAccountCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <h2>Pojazdy</h2>
+        <br />
+        <table class="table table-bordered">
+            <thead class=" thead-dark">
+                <tr>
+                    <th>
+                        Numer rejestracyjny
+                    </th>
+                    <th>
+                        Rodzaj pojazdu
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Vehicles)
+                {
+                    <tr>
+                        <td>
+                            @Html.EditorFor(modelItem => item.PlateNumbers)
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(modelitem => item.EngineTypeId, new SelectList(Model.EngineTypes, "Id", "Name"), new { @class = "custom-select" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" />
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-4">
+        <h2>Dane kontaktowe</h2>
+        <br />
+        <div class="row">
+            <div class="col-sm">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                Kontakt
+                            </th>
+                            <th>
+                                Rodzaj kontaktu
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ContactDetails)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.EditorFor(modelItem => item.ContactDetailInformation, new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(modelitem => item.ContactDetailTypeId, new SelectList(Model.ContactDetailTypes, "Id", "Name"), new { @class = "custom-select" })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+                <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

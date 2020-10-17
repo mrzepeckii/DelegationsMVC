@@ -26,6 +26,18 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return employee.Id;
         }
 
+        public void UpdateEmployee(Employee emp)
+        {
+            _context.Attach(emp);
+            _context.Entry(emp).Property("FirstName").IsModified = true;
+            _context.Entry(emp).Property("LastName").IsModified = true;
+            _context.Entry(emp).Property("BankAccountCode").IsModified = true;
+            _context.Entry(emp).Reference("EmployeeType").IsModified = true;
+            _context.Entry(emp).Collection("ContactDetails").IsModified = true;
+            _context.Entry(emp).Collection("Vehicles").IsModified = true;
+            _context.SaveChanges();
+        }
+
         public void DeleteEmployee(int employeeId)
         {
             var employee = _context.Employees.Find(employeeId);
@@ -47,6 +59,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var employee = _context.Employees
                 .Include(e => e.EmployeeType)
                 .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
+                .Include(e => e.Vehicles).ThenInclude(e => e.EngineType)
                 .FirstOrDefault(e => e.Id == id);
             return employee;
         }
@@ -94,5 +107,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var contactDetails = _context.ContactDetailTypes;
             return contactDetails;
         }
+
+       
     }
 }

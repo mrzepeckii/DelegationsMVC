@@ -53,15 +53,15 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.EngineType)
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                 @Html.ActionLink("Delete", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
-                            </td>
+                            </td>*@
                         </tr>
                     }
                 </tbody>
             </table>
-            <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" />
+            @*<input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" />*@
         </div>
         <div class="col-sm-1">
 
@@ -86,10 +86,10 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ContactDetailInformation)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                         @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
-                                    </td>
+                                    </td>*@
                                 </tr>
 
                             }
@@ -112,17 +112,17 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ContactDetailInformation)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                         @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
-                                    </td>
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-            <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />
+            @*<input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />*@
         </div>
     </div>
     <div>

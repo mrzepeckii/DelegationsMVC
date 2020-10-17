@@ -22,7 +22,7 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewEmployeeVm, Employee>();
+            profile.CreateMap<NewEmployeeVm, Employee>().ReverseMap();
         }
     }
 }
