@@ -101,9 +101,10 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewPhoneForEmployee(int employeeId)
+        public IActionResult AddNewPhoneForEmployee(NewVehicleVm vehVm)
         {
-            return View();
+            _empService.AddVehicle(vehVm);
+            return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
     }
 }

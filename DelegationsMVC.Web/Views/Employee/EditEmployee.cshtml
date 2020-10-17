@@ -108,11 +108,13 @@
                                     @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
                                 </td>
                             </tr>
-
                         }
                     </tbody>
                 </table>
                 <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />
+                <div class="form-group">
+                    @Html.Partial("AddNewVehicleForEmployee", Model.Vehicles.FirstOrDefault())
+                </div>
             </div>
         </div>
     </div>
