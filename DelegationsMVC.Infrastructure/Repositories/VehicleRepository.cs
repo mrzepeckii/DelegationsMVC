@@ -20,6 +20,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
         * *******************************************/
         public int AddVehicle(Vehicle vehicleToAdd)
         {
+            vehicleToAdd.Id = 0;
             _context.Vehicles.Add(vehicleToAdd);
             _context.SaveChanges();
             return vehicleToAdd.Id;
@@ -73,6 +74,20 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             var engineTypes = _context.EngineTypes;
             return engineTypes;
+        }
+
+        public Vehicle GetVehicleById(int id)
+        {
+            var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == id);
+            return vehicle;
+        }
+
+        public void UpdateVehicle(Vehicle veh)
+        {
+            _context.Attach(veh);
+            _context.Entry(veh).Property("PlateNumbers").IsModified = true;
+            _context.Entry(veh).Property("EngineTypeId").IsModified = true;
+            _context.SaveChanges();
         }
     }
 }

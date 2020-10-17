@@ -111,5 +111,18 @@ namespace DelegationsMVC.Application.Services
             var id = _vehicleRepo.AddVehicle(veh);
             return id;
         }
+
+        public NewVehicleVm GetVehicleForEdit(int id)
+        {
+            var veh = _vehicleRepo.GetVehicleById(id);
+            var vehVm = _mapper.Map<NewVehicleVm>(veh);
+            return vehVm;
+        }
+
+        public void UpdateVehicle(NewVehicleVm vehVm)
+        {
+            var veh = _mapper.Map<Vehicle>(vehVm);
+            _vehicleRepo.UpdateVehicle(veh);
+        }
     }
 }

@@ -90,20 +90,36 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddNewVehicleForEmployee(int employeeId)
+        public IActionResult AddNewVehicleForEmployee(int empId)
         {
             var model = new NewVehicleVm
             {
-                EmployeeId = employeeId,
+                EmployeeId = empId,
                 EngineTypes = _empService.GetEngineTypes().ToList()
             };
+            
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddNewPhoneForEmployee(NewVehicleVm vehVm)
+        public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
             _empService.AddVehicle(vehVm);
+            return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+        }
+
+        [HttpGet]
+        public IActionResult EditVehicleForEmployee(int id)
+        {
+            var veh = _empService.GetVehicleForEdit(id);
+            veh.EngineTypes = _empService.GetEngineTypes().ToList();
+            return View(veh);
+        }
+
+        [HttpPost]
+        public IActionResult EditVehicleForEmployee(NewVehicleVm vehVm)
+        {
+            _empService.UpdateVehicle(vehVm);
             return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
     }

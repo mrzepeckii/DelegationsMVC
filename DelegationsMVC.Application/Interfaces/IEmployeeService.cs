@@ -20,5 +20,7 @@ namespace DelegationsMVC.Application.Interfaces
         NewEmployeeVm GetEmployeeForEdit(int id);
         void UpdateEmployee(NewEmployeeVm empVm);
         int AddVehicle(NewVehicleVm vehVm);
+        NewVehicleVm GetVehicleForEdit(int id);
+        void UpdateVehicle(NewVehicleVm vehVm);
     }
 }
