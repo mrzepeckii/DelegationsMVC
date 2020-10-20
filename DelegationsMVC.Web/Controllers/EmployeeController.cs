@@ -89,8 +89,18 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditEmployee", new { id = idEmp });
         }
 
-        [HttpGet]
-        public IActionResult AddNewVehicleForEmployee(int empId)
+        public IActionResult NewVehicle(int id)
+        {
+            var model = new NewVehicleVm
+            {
+                EmployeeId = id,
+                EngineTypes = _empService.GetEngineTypes().ToList()
+            };
+            return PartialView("AddNewVehicleForEmployee", model);
+        }
+
+       // [HttpGet]
+      /*  public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
             var model = new NewVehicleVm
             {
@@ -99,7 +109,7 @@ namespace DelegationsMVC.Web.Controllers
             };
             
             return View(model);
-        }
+        }*/
 
         [HttpPost]
         public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)

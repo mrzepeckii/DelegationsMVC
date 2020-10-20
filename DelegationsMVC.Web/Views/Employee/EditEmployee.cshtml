@@ -73,7 +73,10 @@
                 }
             </tbody>
         </table>
-        <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" />
+        <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" onclick="AddVeh()" />
+        <div id="NewVehicle">
+
+        </div>
     </div>
     <div class="col-sm-1">
 
@@ -100,7 +103,6 @@
                             <tr>
                                 <td>
                                     @Html.EditorFor(modelItem => item.ContactDetailInformation, new { @class = "form-control" })
-                                </td>
                                 <td>
                                     @Html.DropDownListFor(modelitem => item.ContactDetailTypeId, new SelectList(Model.ContactDetailTypes, "Id", "Name"), new { @class = "custom-select" })
                                 </td>
@@ -112,10 +114,6 @@
                     </tbody>
                 </table>
                 <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />
-                <div class="form-group">
-                    @(Model.Vehicles.FirstOrDefault().EngineTypes = Model.EngineTypes)
-                    @Html.Partial("AddNewVehicleForEmployee", Model.Vehicles.FirstOrDefault())
-                </div>
             </div>
         </div>
     </div>
@@ -125,5 +123,20 @@
 </div>
 
 @section Scripts {
+    <script type="text/javascript">
+
+        function AddVeh() {
+            var $divVeh = $('#NewVehicle');
+            var url = '@Url.Action("NewVehicle","Employee", new { id = Model.Id } )'
+            $divVeh.load(url);
+            $('#AddVehicle').attr("onclick", "clearVeh()").attr("value", "Usuń formularz");
+        }
+
+        function clearVeh() {
+            $('#NewVehicle').empty();
+            $('#AddVehicle').attr("onclick", "AddVeh()").attr("value", "Dodaj pojazd");
+        }
+
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
