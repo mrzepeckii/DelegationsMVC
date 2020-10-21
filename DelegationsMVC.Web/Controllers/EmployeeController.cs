@@ -23,12 +23,7 @@ namespace DelegationsMVC.Web.Controllers
             return View(employees);
         }
 
-        public IActionResult GetEngineTypes()
-        {
-            var engineTypes = _empService.GetEngineTypes().ToList();
-            return Json(new SelectList(engineTypes, "Id", "Name"));
-        }
-
+        /****Employe****/
         [HttpGet]
         public IActionResult AddEmployee()
         {
@@ -77,18 +72,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult DeleteVehicle(int idVeh, int idEmp)
-        {
-            _empService.DeleteVehicle(idVeh);
-            return RedirectToAction("EditEmployee", new { id = idEmp });
-        }
-
-        public IActionResult DeleteContact(int idCon, int idEmp)
-        {
-            _empService.DeleteContact(idCon);
-            return RedirectToAction("EditEmployee", new { id = idEmp });
-        }
-
+        /****Vehicle****/
         public IActionResult NewVehicle(int id)
         {
             var model = new NewVehicleVm
@@ -118,19 +102,44 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
 
-        [HttpGet]
-        public IActionResult EditVehicleForEmployee(int id)
+        public IActionResult EditVehicle(int id)
         {
             var veh = _empService.GetVehicleForEdit(id);
             veh.EngineTypes = _empService.GetEngineTypes().ToList();
-            return View(veh);
+            return PartialView("EditVehicleForEmployee", veh);
         }
+
+        //[HttpGet]
+        // public IActionResult EditVehicleForEmployee(int id)
+        // {
+        //     var veh = _empService.GetVehicleForEdit(id);
+        //     veh.EngineTypes = _empService.GetEngineTypes().ToList();
+        //     return View(veh);
+        // }
 
         [HttpPost]
         public IActionResult EditVehicleForEmployee(NewVehicleVm vehVm)
         {
             _empService.UpdateVehicle(vehVm);
             return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+        }
+
+        public IActionResult DeleteVehicle(int idVeh, int idEmp)
+        {
+            _empService.DeleteVehicle(idVeh);
+            return RedirectToAction("EditEmployee", new { id = idEmp });
+        }
+
+        /****Contact****/
+
+        public IActionResult AddNewContactForEmployee(int empId)
+        {
+            var model = new NewContactDetailsVm { }
+        }
+        public IActionResult DeleteContact(int idCon, int idEmp)
+        {
+            _empService.DeleteContact(idCon);
+            return RedirectToAction("EditEmployee", new { id = idEmp });
         }
     }
 }

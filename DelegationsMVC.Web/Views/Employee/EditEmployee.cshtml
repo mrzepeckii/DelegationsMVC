@@ -4,10 +4,8 @@
     ViewData["Title"] = "EditEmployee";
 }
 
-<h1>EditEmployee</h1>
+<h1>Edytuj dane</h1>
 
-<h4>NewEmployeeVm</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditEmployee">
@@ -68,13 +66,17 @@
                         </td>
                         <td>
                             @Html.ActionLink("Delete", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
+                            <a href="javascript:EditVeh(@item.Id)">Edytuj</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
         <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" onclick="AddVeh()" />
-        <div id="NewVehicle">
+        <div id="VehicleEdit">
+
+        </div>
+        <div id="Vehicle">
 
         </div>
     </div>
@@ -113,7 +115,7 @@
                         }
                     </tbody>
                 </table>
-                <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />
+                <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" onclick="EditVeh()" />
             </div>
         </div>
     </div>
@@ -126,15 +128,23 @@
     <script type="text/javascript">
 
         function AddVeh() {
-            var $divVeh = $('#NewVehicle');
+            var $divVeh = $('#Vehicle');
+            $divVeh.empty();
             var url = '@Url.Action("NewVehicle","Employee", new { id = Model.Id } )'
             $divVeh.load(url);
             $('#AddVehicle').attr("onclick", "clearVeh()").attr("value", "Usuń formularz");
         }
 
         function clearVeh() {
-            $('#NewVehicle').empty();
+            $('#Vehicle').empty();
             $('#AddVehicle').attr("onclick", "AddVeh()").attr("value", "Dodaj pojazd");
+        }
+
+        function EditVeh(vehId) {
+            clearVeh();
+            var $divVeh = $('#Vehicle');
+            var url = '@Url.Action("EditVehicle","Employee")/' + vehId;
+            $divVeh.load(url);
         }
 
     </script>
