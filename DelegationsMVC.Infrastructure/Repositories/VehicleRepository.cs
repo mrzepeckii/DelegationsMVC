@@ -20,7 +20,6 @@ namespace DelegationsMVC.Infrastructure.Repositories
         * *******************************************/
         public int AddVehicle(Vehicle vehicleToAdd)
         {
-            vehicleToAdd.Id = 0;
             _context.Vehicles.Add(vehicleToAdd);
             _context.SaveChanges();
             return vehicleToAdd.Id;

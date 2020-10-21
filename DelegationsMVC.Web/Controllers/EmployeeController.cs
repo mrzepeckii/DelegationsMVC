@@ -98,7 +98,7 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
-            _empService.AddVehicle(vehVm);
+            var id = _empService.AddVehicle(vehVm);
             return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
 
@@ -131,11 +131,23 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Contact****/
-
-        public IActionResult AddNewContactForEmployee(int empId)
+        [HttpGet]
+        public IActionResult AddNewContactForEmployee(int id)
         {
-            var model = new NewContactDetailsVm { }
+            var model = new NewContactDetailsVm {
+                EmployeeId = id,
+                ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
+            };
+            return View(model);
         }
+
+        [HttpPost]
+        public IActionResult AddNewContactForEmployee(NewContactDetailsVm conVm)
+        {
+            var id= _empService.AddContact(conVm);
+            return RedirectToAction("EditEmployee", new { id = conVm.EmployeeId });
+        }
+
         public IActionResult DeleteContact(int idCon, int idEmp)
         {
             _empService.DeleteContact(idCon);

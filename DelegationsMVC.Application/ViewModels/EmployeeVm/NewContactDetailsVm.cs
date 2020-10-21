@@ -13,6 +13,7 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
         public string ContactDetailInformation { get; set; }
         public int ContactDetailTypeId { get; set; }
         public int EmployeeId { get; set; }
+        public List<ContactDetailTypeVm> ContactDetailTypes { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewContactDetailsVm, ContactDetail>().ReverseMap();

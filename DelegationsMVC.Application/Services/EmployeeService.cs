@@ -124,5 +124,12 @@ namespace DelegationsMVC.Application.Services
             var veh = _mapper.Map<Vehicle>(vehVm);
             _vehicleRepo.UpdateVehicle(veh);
         }
+
+        public int AddContact(NewContactDetailsVm conVm)
+        {
+            var con = _mapper.Map<ContactDetail>(conVm);
+            var id = _employeeRepo.AddContactDetail(con);
+            return id;
+        }
     }
 }
