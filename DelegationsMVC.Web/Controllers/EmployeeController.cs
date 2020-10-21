@@ -131,6 +131,17 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Contact****/
+
+        public IActionResult NewContact(int id)
+        {
+            var model = new NewContactDetailsVm
+            {
+                EmployeeId = id,
+                ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
+            };
+            return PartialView("AddNewContactForEmployee", model);
+        }
+
         [HttpGet]
         public IActionResult AddNewContactForEmployee(int id)
         {
