@@ -23,5 +23,7 @@ namespace DelegationsMVC.Application.Interfaces
         NewVehicleVm GetVehicleForEdit(int id);
         void UpdateVehicle(NewVehicleVm vehVm);
         int AddContact(NewContactDetailsVm conVm);
+        NewContactDetailsVm GetContactForEdit(int id);
+        void UpdateContact(NewContactDetailsVm con);
     }
 }

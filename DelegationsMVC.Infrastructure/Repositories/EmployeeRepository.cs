@@ -108,6 +108,18 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return contactDetails;
         }
 
-       
+        public ContactDetail GetContactDetailById(int id)
+        {
+            var contact = _context.ContactDetails.FirstOrDefault(c => c.Id == id);
+            return contact;
+        }
+
+        public void UpdateContact(ContactDetail con)
+        {
+            _context.Attach(con);
+            _context.Entry(con).Property("ContactDetailInformation").IsModified = true;
+            _context.Entry(con).Property("ContactDetailTypeId").IsModified = true;
+            _context.SaveChanges();
+        }
     }
 }

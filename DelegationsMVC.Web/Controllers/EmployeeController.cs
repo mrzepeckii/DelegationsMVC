@@ -159,6 +159,29 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditEmployee", new { id = conVm.EmployeeId });
         }
 
+        public IActionResult EditContact(int id)
+        {
+            var model = _empService.GetContactForEdit(id);
+            model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+            return PartialView("EditContactForEmployee", model);
+        }
+
+        //[HttpGet]
+        //public IActionResult EditContactForEmployee(int id)
+        //{
+        //    var contact = _empService.GetContactForEdit(id);
+        //    contact.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+        //    return View(contact);
+        //}
+
+        [HttpPost]
+        public IActionResult EditContactForEmployee(NewContactDetailsVm con)
+        {
+            _empService.UpdateContact(con);
+            return RedirectToAction("EditEmployee", new { id = con.EmployeeId });
+
+        }
+
         public IActionResult DeleteContact(int idCon, int idEmp)
         {
             _empService.DeleteContact(idCon);

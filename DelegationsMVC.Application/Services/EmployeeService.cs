@@ -131,5 +131,18 @@ namespace DelegationsMVC.Application.Services
             var id = _employeeRepo.AddContactDetail(con);
             return id;
         }
+
+        public NewContactDetailsVm GetContactForEdit(int id)
+        {
+            var con = _employeeRepo.GetContactDetailById(id);
+            var conVm = _mapper.Map<NewContactDetailsVm>(con);
+            return conVm;
+        }
+
+        public void UpdateContact(NewContactDetailsVm conVm)
+        {
+            var con = _mapper.Map<ContactDetail>(conVm);
+            _employeeRepo.UpdateContact(con);
+        }
     }
 }

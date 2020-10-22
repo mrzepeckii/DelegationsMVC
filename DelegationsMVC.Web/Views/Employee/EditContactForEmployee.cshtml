@@ -1,11 +1,11 @@
 ﻿@model DelegationsMVC.Application.ViewModels.EmployeeVm.NewContactDetailsVm
 
 <br />
-<h4>Dodaj kontakt</h4>
+<h4>Edytuj kontakt</h4>
 <div class="col">
-    <form asp-action="AddNewContactForEmployee">
+    <form asp-action="EditContactForEmployee">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value="0"/>
+        <input type="hidden" asp-for="Id" class="form-control" />
         <div class="row">
             <div class="form-group col">
                 <label asp-for="ContactDetailInformation" class="control-label">Dane</label>
@@ -18,9 +18,9 @@
                 <span asp-validation-for="ContactDetailTypeId" class="text-danger"></span>
             </div>
         </div>
-            <input type="hidden" asp-for="EmployeeId"/>
+        <input type="hidden" asp-for="EmployeeId" class="form-control" />
         <div class="form-group">
-            <input type="submit" value="Potwierdź" class="btn btn-dark" />
+            <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
         </div>
     </form>
 </div>
