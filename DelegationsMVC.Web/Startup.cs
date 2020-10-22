@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DelegationsMVC.Infrastructure;
 using DelegationsMVC.Application;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using DelegationsMVC.Application.ViewModels.EmployeeVm;
 
 namespace DelegationsMVC.Web
 {
@@ -36,8 +39,10 @@ namespace DelegationsMVC.Web
             services.AddApplication();
             services.AddInfrastructure();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false);
             services.AddRazorPages();
+
+            services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

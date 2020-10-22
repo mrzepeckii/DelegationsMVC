@@ -57,6 +57,9 @@
                     <th>
                         Rodzaj pojazdu
                     </th>
+                    <th>
+                        Akcja
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +74,7 @@
                         </td>
                         <td>
                             @Html.ActionLink("Usuń", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
+                            |
                             <a href="javascript:EditVeh(@item.Id)">Edytuj</a>
                         </td>
                     </tr>
@@ -102,6 +106,9 @@
                             <th>
                                 Rodzaj kontaktu
                             </th>
+                            <th>
+                                Akcja
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,6 +122,7 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Usuń", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
+                                    |
                                     <a href="javascript:EditContact(@item.Id)">Edytuj</a>
                                 </td>
                             </tr>
