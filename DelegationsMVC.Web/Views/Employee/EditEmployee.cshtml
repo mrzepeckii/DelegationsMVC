@@ -110,12 +110,16 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
+                                    <a href="javascript:EditVeh(@item.Id)">Edytuj</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-                <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" onclick="EditVeh()" />
+                <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" onclick="AddContact()" />
+                <div id="Contact">
+
+                </div>
             </div>
         </div>
     </div>
@@ -130,23 +134,42 @@
         function AddVeh() {
             var $divVeh = $('#Vehicle');
             $divVeh.empty();
-            var url = '@Url.Action("NewVehicle","Employee", new { id = Model.Id } )'
+            var url = '@Url.Action("NewVehicle","Employee", new { id = Model.Id } )';
             $divVeh.load(url);
-            $('#AddVehicle').attr("onclick", "clearVeh()").attr("value", "Usuń formularz");
+            $('#AddVehicle').attr("onclick", "ClearVeh()").attr("value", "Usuń formularz");
         }
 
-        function clearVeh() {
+        function ClearVeh() {
             $('#Vehicle').empty();
             $('#AddVehicle').attr("onclick", "AddVeh()").attr("value", "Dodaj pojazd");
         }
 
         function EditVeh(vehId) {
-            clearVeh();
+            ClearVeh();
             var $divVeh = $('#Vehicle');
             var url = '@Url.Action("EditVehicle","Employee")/' + vehId;
             $divVeh.load(url);
         }
 
+        function AddContact() {
+            var $divCon = $('#Contact');
+            $divCon.empty();
+            var url = '@Url.Action("NewContact","Employee", new { id = Model.Id } )';
+            $divCon.load(url);
+            $('#AddContact').attr("onclick", "ClearContact()").attr("value", "Usuń formularz");
+        }
+
+        function ClearContact() {
+            $('#Contact').empty();
+            $('#AddContact').attr("onclick", "AddContact()").attr("value", "Dodaj kontakt");
+        }
+
+        function EditContact(conId) {
+            ClearContact();
+            var $divCon = $('#Contact');
+            var url = '@Url.Action("EditContact","Employee")/' + vehId;
+            $divCon.load(url);
+        }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

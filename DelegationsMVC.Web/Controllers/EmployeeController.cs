@@ -142,15 +142,15 @@ namespace DelegationsMVC.Web.Controllers
             return PartialView("AddNewContactForEmployee", model);
         }
 
-        [HttpGet]
-        public IActionResult AddNewContactForEmployee(int id)
-        {
-            var model = new NewContactDetailsVm {
-                EmployeeId = id,
-                ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
-            };
-            return View(model);
-        }
+        //[HttpGet]
+        //public IActionResult AddNewContactForEmployee(int id)
+        //{
+        //    var model = new NewContactDetailsVm {
+        //        EmployeeId = id,
+        //        ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
+        //    };
+        //    return View(model);
+        //}
 
         [HttpPost]
         public IActionResult AddNewContactForEmployee(NewContactDetailsVm conVm)
