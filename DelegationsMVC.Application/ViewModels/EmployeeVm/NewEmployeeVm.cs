@@ -33,15 +33,24 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
         public NewEmployeeValidation()
         {
             RuleFor(e => e.Id).NotNull();
-            RuleFor(e => e.FirstName).NotEmpty().MaximumLength(255);
-            RuleFor(e => e.LastName).NotEmpty().MaximumLength(255).NotEqual(e => e.FirstName);
-            RuleFor(e => e.BankAccountCode).NotEmpty().Length(26).Custom((e, context) =>
-            {
-                if (e.Any(c => !char.IsLetter(c)))
+
+            RuleFor(e => e.FirstName).NotEmpty().WithMessage("Imie nie może pozostać puste")
+                .MaximumLength(255).WithMessage("Maksymalna dlugość imienia to 255");
+
+            RuleFor(e => e.LastName).NotEmpty().WithMessage("Naziwsko nie może pozostać puste")
+                .NotEqual(e => e.FirstName).WithMessage("Nazwisko musi się różnić od imienia")
+                .MaximumLength(255).WithMessage("Maksymalna dlugość nazwiska to 255");
+
+            RuleFor(e => e.BankAccountCode).NotEmpty().WithMessage("Konto bankowe nie może pozostać puste")
+                .Length(26).WithMessage("Długość numeru konta bankowego musi wynosić 26")
+                .Custom((bankCode, context) =>
                 {
-                    context.AddFailure("Numer konta powinien zawierać wyłącznie cyfry");
-                }
-            });
+                    if (bankCode.Any(c => !char.IsLetter(c)))
+                    {
+                        context.AddFailure("Numer konta poiwnien zawierać wyłącznie cyfry");
+                    }
+                });
+            RuleForEach(e => e.Vehicles).SetValidator(new NewVehicleValidation());
         }
     }
 }

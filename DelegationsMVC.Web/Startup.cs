@@ -42,7 +42,9 @@ namespace DelegationsMVC.Web
             services.AddControllersWithViews().AddFluentValidation(fv => fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false);
             services.AddRazorPages();
 
+            services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();
             services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();
+            services.AddTransient<IValidator<NewContactDetailsVm>, NewContactDetailsValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

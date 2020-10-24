@@ -83,23 +83,23 @@ namespace DelegationsMVC.Web.Controllers
             return PartialView("AddNewVehicleForEmployee", model);
         }
 
-       // [HttpGet]
-      /*  public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
-        {
-            var model = new NewVehicleVm
-            {
-                EmployeeId = empId,
-                EngineTypes = _empService.GetEngineTypes().ToList()
-            };
-            
-            return View(model);
-        }*/
+        //[HttpGet]
+        //  public IActionResult AddNewVehicleForEmployee(int empId)
+        //  {
+        //      var model = new NewVehicleVm
+        //      {
+        //          EmployeeId = empId,
+        //          EngineTypes = _empService.GetEngineTypes().ToList()
+        //      };
+
+        //      return View(model);
+        //  }
 
         [HttpPost]
         public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
-            var id = _empService.AddVehicle(vehVm);
-            return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+           var id = _empService.AddVehicle(vehVm);
+           return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
 
         public IActionResult EditVehicle(int id)
@@ -110,12 +110,12 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         //[HttpGet]
-        // public IActionResult EditVehicleForEmployee(int id)
-        // {
-        //     var veh = _empService.GetVehicleForEdit(id);
-        //     veh.EngineTypes = _empService.GetEngineTypes().ToList();
-        //     return View(veh);
-        // }
+        //public IActionResult EditVehicleForEmployee(int id)
+        //{
+        //    var veh = _empService.GetVehicleForEdit(id);
+        //    veh.EngineTypes = _empService.GetEngineTypes().ToList();
+        //    return View(veh);
+        //}
 
         [HttpPost]
         public IActionResult EditVehicleForEmployee(NewVehicleVm vehVm)

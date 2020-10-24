@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DelegationsMVC.Application.Mapping;
 using DelegationsMVC.Domain.Model;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,13 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
             profile.CreateMap<NewContactDetailsVm, ContactDetail>().ReverseMap()
                 .ForMember(s => s.ContactDetailType, opt => opt.MapFrom(d => d.ContactDetailType.Name));
         }
+    }
 
+    public class NewContactDetailsValidation : AbstractValidator<NewContactDetailsVm>
+    {
+        public NewContactDetailsValidation()
+        {
+           //to do
+        }
     }
 }
