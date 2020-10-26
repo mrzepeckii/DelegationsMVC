@@ -11,7 +11,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CostTypeVm, CostType>();
+            profile.CreateMap<CostType, CostTypeVm>();
         }
     }
 }

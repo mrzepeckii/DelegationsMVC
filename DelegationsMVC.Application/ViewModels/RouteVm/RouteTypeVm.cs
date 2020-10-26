@@ -5,16 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DelegationsMVC.Application.ViewModels.DestinationVm
+namespace DelegationsMVC.Application.ViewModels.RouteVm
 {
-    public class DestinationTypeVm : IMapFrom<Destination>
+    public class RouteTypeVm : IMapFrom<RouteType>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Destination, DestinationTypeVm>();
+            profile.CreateMap<RouteType, RouteTypeVm>();
         }
     }
 }
