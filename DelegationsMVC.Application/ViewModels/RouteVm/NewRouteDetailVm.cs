@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DelegationsMVC.Application.Mapping;
+using DelegationsMVC.Application.ViewModels.EmployeeVm;
 using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
         public int Kilometers { get; set; }
         public int RouteRef { get; set; }
         public int? VehicleId { get; set; }
+        public List<VehicleForListVm> Vehicles { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DelegationsMVC.Application.Mapping;
 using DelegationsMVC.Application.ViewModels.DestinationVm;
+using DelegationsMVC.Application.ViewModels.RouteVm;
 using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;

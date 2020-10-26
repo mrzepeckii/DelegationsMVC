@@ -1,10 +1,23 @@
-﻿using System;
+﻿using AutoMapper;
+using DelegationsMVC.Application.Mapping;
+using DelegationsMVC.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DelegationsMVC.Application.ViewModels.DelegationVm
 {
-    public class NewCostVm
+    public class NewCostVm : IMapFrom<Cost>
     {
+        public int Id { get; set; }
+        public decimal Amount { get; set; }
+        public int CostTypeId { get; set; }
+        public int DelegationId { get; set; }
+        public List<CostTypeVm> CostTypes { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<NewCostVm, Cost>();
+        }
     }
 }
