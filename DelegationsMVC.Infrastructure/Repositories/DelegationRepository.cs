@@ -20,8 +20,6 @@ namespace DelegationsMVC.Infrastructure.Repositories
         * *******************************************/
         public int AddDelegation(Delegation delegationToAdd)
         {
-            _context.Costs.AddRange(delegationToAdd.Costs);
-            _context.Routes.AddRange(delegationToAdd.Routes);
             _context.Delegations.Add(delegationToAdd);
             _context.SaveChanges();
             return delegationToAdd.Id;
@@ -30,11 +28,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public void DeleteDelegation(int delegationId)
         {
             var delegationToRemove = _context.Delegations.Find(delegationId);
-            var listOfRoutes = _context.Routes.Where(r => r.Delegation == delegationToRemove);
+           // var listOfRoutes = _context.Routes.Where(r => r.Delegation == delegationToRemove);
             if(delegationToRemove != null)
             {
-                _context.Costs.RemoveRange(delegationToRemove.Costs);
-                _context.Routes.RemoveRange(listOfRoutes);
+              //  _context.Costs.RemoveRange(delegationToRemove.Costs);
+              //  _context.Routes.RemoveRange(listOfRoutes);
                 _context.Delegations.Remove(delegationToRemove); 
             }
             _context.SaveChanges();
