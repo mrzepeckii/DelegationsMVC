@@ -14,6 +14,7 @@ namespace DelegationsMVC.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IDelegationService, DelegationService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
