@@ -38,6 +38,20 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
+        public void UpdateDelegation(Delegation del)
+        {
+            _context.Attach(del);
+            _context.Entry(del).Property("Purpose").IsModified = true;
+            _context.Entry(del).Property("DestinationId").IsModified = true;
+            _context.Entry(del).Reference("DelegationStatus").IsModified = true;
+            _context.Entry(del).Property("AccoutantApprovedDate").IsModified = true;
+            _context.Entry(del).Property("ChiefApprovedDate").IsModified = true;
+            _context.Entry(del).Property("PaidDateDate").IsModified = true;
+            _context.Entry(del).Collection("Routes").IsModified = true;
+            _context.Entry(del).Collection("Costs").IsModified = true;
+            _context.SaveChanges();
+        }
+
         public Delegation GetDelegationById(int delegationId)
         {
             var delegation = _context.Delegations.FirstOrDefault(d => d.Id == delegationId);
@@ -125,7 +139,5 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var costTypes = _context.CostTypes;
             return costTypes;
         }
-        
-
     }
 }

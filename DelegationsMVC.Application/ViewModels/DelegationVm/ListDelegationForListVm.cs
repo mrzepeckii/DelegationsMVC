@@ -6,7 +6,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
 {
     public class ListDelegationForListVm
     {
-        List<DelegationForListVm> Delegations { get; set; }
+        public List<DelegationForListVm> Delegations { get; set; }
         public int Count { get; set; }
 
     }

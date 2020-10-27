@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.DelegationVm;
 using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DelegationsMVC.Application.Services
@@ -35,7 +37,25 @@ namespace DelegationsMVC.Application.Services
 
         public ListDelegationForListVm GetAllDelegationsForListByStatus(int statusId)
         {
-            var delegations = _delegationRepo.GetDelegationsByStatus(statusId);
+            var delegations = _delegationRepo.GetDelegationsByStatus(statusId).ProjectTo<DelegationForListVm>(_mapper.ConfigurationProvider).ToList();
+            var delegationsVm = new ListDelegationForListVm()
+            {
+                Delegations = delegations,
+                Count = delegations.Count
+            };
+            return delegationsVm;
+        }
+
+        public void DeleteDelegation(Delegation del)
+        {
+            del.DelegationStatusId = 6;
+            _delegationRepo.UpdateDelegation(del);
+        }
+
+        public void UpdateDelegation(NewDelegationVm delVm)
+        {
+            var del = _mapper.Map<Delegation>(delVm);
+            _delegationRepo.UpdateDelegation(del);
         }
     }
 }
