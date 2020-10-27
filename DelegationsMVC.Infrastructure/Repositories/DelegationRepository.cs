@@ -142,5 +142,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var costTypes = _context.CostTypes;
             return costTypes;
         }
+
+        public IQueryable<Destination> GetAllDestinations()
+        {
+            var dest = _context.Destinations;
+            return dest;
+        }
     }
 }

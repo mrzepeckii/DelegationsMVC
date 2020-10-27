@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.DelegationVm;
+using DelegationsMVC.Application.ViewModels.DestinationVm;
 using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
 using System;
@@ -56,6 +57,12 @@ namespace DelegationsMVC.Application.Services
         {
             var del = _mapper.Map<Delegation>(delVm);
             _delegationRepo.UpdateDelegation(del);
+        }
+
+        public IQueryable<DestinationTypeVm> GetAllDestinations()
+        {
+            var destinations = _delegationRepo.GetAllDestinations().ProjectTo<DestinationTypeVm>(_mapper.ConfigurationProvider);
+            return destinations;
         }
     }
 }

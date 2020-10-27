@@ -1,0 +1,41 @@
+﻿@model DelegationsMVC.Application.ViewModels.DelegationVm.NewDelegationVm
+
+@{
+    ViewData["Title"] = "AddDelegation";
+}
+
+<h1>AddDelegation</h1>
+
+<h4>NewDelegationVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddDelegation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Purpose" class="control-label"></label>
+                <input asp-for="Purpose" class="form-control" />
+                <span asp-validation-for="Purpose" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinationId" class="control-label"></label>
+                <select asp-for="DestinationId" asp-items="@(new SelectList(Model.Destinations,"Id", "Name"))" class="custom-select"></select>
+                <span asp-validation-for="DestinationId" class="text-danger"></span>
+            </div>
+                <input type="hidden" asp-for="EmployeeId" class="form-control"  value="10"/>
+                <input type="hidden" asp-for="DelegationStatusId" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

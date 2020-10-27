@@ -24,5 +24,6 @@ namespace DelegationsMVC.Domain.Interfaces
         IQueryable<TransportType> GetAllTransportTypes();
         IQueryable<CostType> GetAllCostTypes();
         void UpdateDelegation(Delegation del);
+        IQueryable<Destination> GetAllDestinations();
     }
 }
