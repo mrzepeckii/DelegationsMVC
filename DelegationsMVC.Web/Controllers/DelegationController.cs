@@ -31,5 +31,13 @@ namespace DelegationsMVC.Web.Controllers
             };
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult AddDelegation(NewDelegationVm delVm)
+        {
+            delVm.DelegationStatusId = 1;
+            var id = _delegService.AddDelegation(delVm);
+            return RedirectToAction("Index");
+        }
     }
 }
