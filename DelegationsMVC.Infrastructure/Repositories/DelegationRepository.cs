@@ -1,5 +1,6 @@
 ﻿using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +85,9 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Delegation> GetDelegationsByStatus(int delegationStatusId)
         {
-            var delegations = _context.DelegationStatuses.FirstOrDefault(ds => ds.Id == delegationStatusId).Delegations.AsQueryable();
+            //var status = _context.DelegationStatuses.Include(d => d.Delegations).FirstOrDefault(ds => ds.Id == delegationStatusId);
+           // var delegations = status.Delegations.AsQueryable();
+            var delegations = _context.Delegations.Include(d => d.Routes).ThenInclude(r => r.RouteDetail).Where(d => d.DelegationStatusId == delegationStatusId);  
             return delegations;
         }
         

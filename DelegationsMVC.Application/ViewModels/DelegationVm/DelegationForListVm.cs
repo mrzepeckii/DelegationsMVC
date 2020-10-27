@@ -19,8 +19,8 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         {
             profile.CreateMap<Delegation, DelegationForListVm>()
                 .ForMember(s => s.DelegationNo, opt => opt.MapFrom(d => d.Employee.FirstName + d.Employee.LastName + d.CreatedDateTime))
-                .ForMember(s => s.StartDate, opt => opt.MapFrom(d => d.Routes.OrderBy(r => r.RouteDetail.StartDate).First()))
-                .ForMember(s => s.EndDate, opt => opt.MapFrom(d => d.Routes.OrderByDescending(r => r.RouteDetail.EndDate).First()))
+                .ForMember(s => s.StartDate, opt => opt.MapFrom(d => d.Routes.OrderBy(r => r.RouteDetail.StartDate).First().RouteDetail.StartDate))
+                .ForMember(s => s.EndDate, opt => opt.MapFrom(d => d.Routes.OrderByDescending(r => r.RouteDetail.EndDate).First().RouteDetail.EndDate))
                 .ForMember(s => s.Destination, opt => opt.MapFrom(d => d.Destination.Name))
                 .ForMember(s => s.DelegationStatus, opt => opt.MapFrom(d => d.DelegationStatus.Name));
         }
