@@ -39,7 +39,10 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
-            var id = _empService.AddEmployee(model);
+            if (ModelState.IsValid)
+            {
+                var id = _empService.AddEmployee(model);
+            }
             return RedirectToAction("Index");
         }
 

@@ -9,6 +9,7 @@ using System.Text;
 
 namespace DelegationsMVC.Application.ViewModels.EmployeeVm
 {
+    
     public class NewEmployeeVm : IMapFrom<Employee>
     {
         public int Id { get; set; }
@@ -42,15 +43,16 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
                 .MaximumLength(255).WithMessage("Maksymalna dlugość nazwiska to 255");
 
             RuleFor(e => e.BankAccountCode).NotEmpty().WithMessage("Konto bankowe nie może pozostać puste")
-                .Length(26).WithMessage("Długość numeru konta bankowego musi wynosić 26")
-                .Custom((bankCode, context) =>
-                {
-                    if (bankCode.Any(c => !char.IsLetter(c)))
-                    {
-                        context.AddFailure("Numer konta poiwnien zawierać wyłącznie cyfry");
-                    }
-                });
+                .Length(26).WithMessage("Długość numeru konta bankowego musi wynosić 26");
+            //.Custom((bankCode, context) =>
+            //{
+            //    if (bankCode.Any(c => !char.IsLetter(c)))
+            //    {
+            //        context.AddFailure("Numer konta poiwnien zawierać wyłącznie cyfry");
+            //    }
+            //});
             RuleForEach(e => e.Vehicles).SetValidator(new NewVehicleValidation());
+          //  RuleForEach(e => e.Vehicles).InjectValidator();
         }
     }
 }

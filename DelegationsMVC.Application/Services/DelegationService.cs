@@ -53,6 +53,11 @@ namespace DelegationsMVC.Application.Services
             _delegationRepo.UpdateDelegation(del);
         }
 
+        public void DeleteDelegationPermanently(int delId)
+        {
+            _delegationRepo.DeleteDelegation(delId);
+        }
+
         public void UpdateDelegation(NewDelegationVm delVm)
         {
             var del = _mapper.Map<Delegation>(delVm);

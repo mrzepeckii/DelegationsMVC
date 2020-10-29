@@ -15,5 +15,6 @@ namespace DelegationsMVC.Application.Interfaces
         void DeleteDelegation(Delegation del);
         void UpdateDelegation(NewDelegationVm delVm);
         IQueryable<DestinationTypeVm> GetAllDestinations();
+        void DeleteDelegationPermanently(int delId);
     }
 }
