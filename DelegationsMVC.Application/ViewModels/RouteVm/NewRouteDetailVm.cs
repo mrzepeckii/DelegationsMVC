@@ -10,7 +10,7 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
 {
     public class NewRouteDetailVm : IMapFrom<RouteDetail>
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public string StartPoint { get; set; }
         public string EndPoint { get; set; }
         public DateTime StartDate { get; set; }
