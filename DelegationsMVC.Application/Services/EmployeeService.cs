@@ -144,5 +144,11 @@ namespace DelegationsMVC.Application.Services
             var con = _mapper.Map<ContactDetail>(conVm);
             _employeeRepo.UpdateContact(con);
         }
+
+        public IQueryable<VehicleForListVm> GetVehiclesByEmploee(int id)
+        {
+            var vehsVm = _vehicleRepo.GetVehiclesByEmployee(id).ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider);
+            return vehsVm;
+        }
     }
 }

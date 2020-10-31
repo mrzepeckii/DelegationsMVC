@@ -1,5 +1,6 @@
 ﻿using DelegationsMVC.Application.ViewModels.DelegationVm;
 using DelegationsMVC.Application.ViewModels.DestinationVm;
+using DelegationsMVC.Application.ViewModels.RouteVm;
 using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace DelegationsMVC.Application.Interfaces
         void UpdateDelegation(NewDelegationVm delVm);
         IQueryable<DestinationTypeVm> GetAllDestinations();
         void DeleteDelegationPermanently(int delId);
+        Delegation GetDelegationById(int delId);
+        int AddRoute(NewRouteVm model);
     }
 }

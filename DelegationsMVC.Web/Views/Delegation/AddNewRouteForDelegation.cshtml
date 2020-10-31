@@ -1,0 +1,49 @@
+﻿@model DelegationsMVC.Application.ViewModels.RouteVm.NewRouteVm
+
+<h4>NewRouteVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddNewRouteForDelegation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="DelegationId" class="form-control" />
+            <div class="form-group">
+                <label asp-for="TypeOfTransportId" class="control-label"></label>
+                <input asp-for="TypeOfTransportId" class="form-control" />
+                <span asp-validation-for="TypeOfTransportId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RouteTypeId" class="control-label"></label>
+                <input asp-for="RouteTypeId" class="form-control" />
+                <span asp-validation-for="RouteTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
+                <input asp-for="RouteDetail.StartPoint" class="form-control" />
+                <span asp-validation-for="RouteDetail.StartPoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
+                <input asp-for="RouteDetail.EndPoint" class="form-control" />
+                <span asp-validation-for="RouteDetail.EndPoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RouteDetail.Kilometers" class="control-label">Miejsce docelowe</label>
+                <input asp-for="RouteDetail.Kilometers" class="form-control" />
+                <span asp-validation-for="RouteDetail.Kilometers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

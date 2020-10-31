@@ -25,5 +25,6 @@ namespace DelegationsMVC.Application.Interfaces
         int AddContact(NewContactDetailsVm conVm);
         NewContactDetailsVm GetContactForEdit(int id);
         void UpdateContact(NewContactDetailsVm con);
+        IQueryable<VehicleForListVm> GetVehiclesByEmploee(int id);
     }
 }

@@ -148,5 +148,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var dest = _context.Destinations;
             return dest;
         }
+
+        public int AddRoute(Route route)
+        {
+            _context.Routes.Add(route);
+            _context.SaveChanges();
+            return route.Id;
+        }
     }
 }
