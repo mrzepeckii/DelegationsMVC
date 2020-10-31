@@ -64,6 +64,7 @@
                 <div class="col-md-6 mb-3">
                     <label asp-for="Vehicles[0].PlateNumbers" class="control-label">Numer rejestracyjny</label>
                     <input asp-for="Vehicles[0].PlateNumbers" class="form-control" />
+                    <span asp-validation-for="Vehicles[0].PlateNumbers" class="text-danger"></span>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label asp-for="Vehicles[0].EngineTypeId" class="control-label">Rodzaj silnika</label>
