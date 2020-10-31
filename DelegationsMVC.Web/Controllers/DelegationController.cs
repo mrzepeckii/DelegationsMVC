@@ -61,7 +61,6 @@ namespace DelegationsMVC.Web.Controllers
                 RouteDetail = modelDetail,
                 RouteTypes = _delegService.GetRouteTypes().ToList(),
                 TransportTypes = _delegService.GetTransportTypes().ToList()
-                
             };
             return View(model);
         }

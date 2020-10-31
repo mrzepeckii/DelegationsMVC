@@ -7,11 +7,11 @@
     <div class="col-md-4">
         <form asp-action="AddNewRouteForDelegation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" class="form-control" value=0/>
+            <input type="hidden" asp-for="Id" class="form-control" value=0 />
             <input type="hidden" asp-for="DelegationId" class="form-control" />
             <div class="form-group">
                 <label asp-for="TypeOfTransportId" class="control-label"></label>
-                <select asp-for="TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select"></select>
+                <select id="TransportTypeSelector" asp-for="TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState()"></select>
                 <span asp-validation-for="TypeOfTransportId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -62,6 +62,11 @@
                 <input asp-for="RouteDetail.Kilometers" class="form-control" />
                 <span asp-validation-for="RouteDetail.Kilometers" class="text-danger"></span>
             </div>
+            <div id="Vehicle" class="form-group">
+                <label asp-for="RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
+                <select id="VehicleSelector" asp-for="RouteDetail.VehicleId" asp-items="@(new SelectList(Model.RouteDetail.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
+                <span asp-validation-for="RouteDetail.VehicleId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -83,6 +88,7 @@
     <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 
     <script type="text/javascript">
+
         $(function () {
             $('#datetimepicker').datetimepicker({
                 locale: 'pl'
@@ -94,6 +100,22 @@
                 locale: 'pl'
             });
         });
+
+
+
+        function CheckState() {
+            if ($('#TransportTypeSelector').val() == "1")
+            {
+                $('#Vehicle').show();
+            }
+            else
+            {
+                $('#Vehicle').hide();
+                $('#VehicleSelector').val("0");
+                //alert($('#Vehicle').val());
+            }
+        }
+
     </script>
 
 
