@@ -35,7 +35,6 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddDelegation(NewDelegationVm delVm)
         {
-            delVm.DelegationStatusId = 1;
             var id = _delegService.AddDelegation(delVm);
             return RedirectToAction("Index");
         }
