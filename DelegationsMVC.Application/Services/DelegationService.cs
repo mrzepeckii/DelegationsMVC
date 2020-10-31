@@ -83,5 +83,17 @@ namespace DelegationsMVC.Application.Services
             var id = _delegationRepo.AddRoute(route);
             return id;
         }
+
+        public IQueryable<RouteTypeVm> GetRouteTypes()
+        {
+            var types = _delegationRepo.GetAllRouteTypes().ProjectTo<RouteTypeVm>(_mapper.ConfigurationProvider);
+            return types;
+        }
+
+        public IQueryable<TransportTypeVm> GetTransportTypes()
+        {
+            var types = _delegationRepo.GetAllTransportTypes().ProjectTo<TransportTypeVm>(_mapper.ConfigurationProvider);
+            return types;
+        }
     }
 }

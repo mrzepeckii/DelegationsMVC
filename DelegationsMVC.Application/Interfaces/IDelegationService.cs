@@ -19,5 +19,7 @@ namespace DelegationsMVC.Application.Interfaces
         void DeleteDelegationPermanently(int delId);
         Delegation GetDelegationById(int delId);
         int AddRoute(NewRouteVm model);
+        IQueryable<RouteTypeVm> GetRouteTypes();
+        IQueryable<TransportTypeVm> GetTransportTypes();
     }
 }

@@ -11,12 +11,12 @@
             <input type="hidden" asp-for="DelegationId" class="form-control" />
             <div class="form-group">
                 <label asp-for="TypeOfTransportId" class="control-label"></label>
-                <input asp-for="TypeOfTransportId" class="form-control" />
+                <select asp-for="TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select"></select>
                 <span asp-validation-for="TypeOfTransportId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RouteTypeId" class="control-label"></label>
-                <input asp-for="RouteTypeId" class="form-control" />
+                <select asp-for="RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="custom-select"></select>
                 <span asp-validation-for="RouteTypeId" class="text-danger"></span>
             </div>
             <div class="container">

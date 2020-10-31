@@ -14,6 +14,8 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
         public int TypeOfTransportId { get; set; }
         public int RouteTypeId { get; set; }
         public NewRouteDetailVm RouteDetail { get; set; }
+        public List<TransportTypeVm> TransportTypes { get; set; }
+        public List<RouteTypeVm> RouteTypes { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewRouteVm, Route>().ReverseMap();

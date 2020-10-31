@@ -58,7 +58,10 @@ namespace DelegationsMVC.Web.Controllers
             var model = new NewRouteVm()
             {
                 DelegationId = id,
-                RouteDetail = modelDetail
+                RouteDetail = modelDetail,
+                RouteTypes = _delegService.GetRouteTypes().ToList(),
+                TransportTypes = _delegService.GetTransportTypes().ToList()
+                
             };
             return View(model);
         }
