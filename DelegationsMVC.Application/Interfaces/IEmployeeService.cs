@@ -1,4 +1,5 @@
 ﻿using DelegationsMVC.Application.ViewModels.EmployeeVm;
+using DelegationsMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,6 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<VehicleForListVm> GetVehiclesByEmploee(int id);
         List<NewVehicleVm> CheckVehiclesList(List<NewVehicleVm> newVehicles);
         List<NewContactDetailsVm> CheckContactsList(List<NewContactDetailsVm> newContacts);
+        Employee GetEmployeeById(int id);
     }
 }

@@ -39,17 +39,18 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                model.Vehicles = _empService.CheckVehiclesList(model.Vehicles);
-                model.ContactDetails = _empService.CheckContactsList(model.ContactDetails);
-                var id = _empService.AddEmployee(model);
-                return RedirectToAction("Index");
+                model.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
+                model.EngineTypes = _empService.GetEngineTypes().ToList();
+                model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+                return View(model);
             }
-            model.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
-            model.EngineTypes = _empService.GetEngineTypes().ToList();
-            model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
-            return View(model);
+            model.Vehicles = _empService.CheckVehiclesList(model.Vehicles);
+            model.ContactDetails = _empService.CheckContactsList(model.ContactDetails);
+            var id = _empService.AddEmployee(model);
+            return RedirectToAction("Index");
+
         }
 
         [HttpGet]
@@ -72,6 +73,10 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult EditEmployee(NewEmployeeVm empVm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(empVm.Id);
+            }
             _empService.UpdateEmployee(empVm);
             return RedirectToAction("Index");
         }
@@ -107,13 +112,13 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var id = _empService.AddVehicle(vehVm);
-                return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+                vehVm.EngineTypes = _empService.GetEngineTypes().ToList();
+                return RedirectToAction("NewVehicle", new { id = vehVm.EmployeeId });
             }
-            vehVm.EngineTypes = _empService.GetEngineTypes().ToList();
-            return View(vehVm);
+            var id = _empService.AddVehicle(vehVm);
+            return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
 
         public IActionResult EditVehicle(int id)
@@ -169,7 +174,7 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddNewContactForEmployee(NewContactDetailsVm conVm)
         {
-            var id= _empService.AddContact(conVm);
+            var id = _empService.AddContact(conVm);
             return RedirectToAction("EditEmployee", new { id = conVm.EmployeeId });
         }
 

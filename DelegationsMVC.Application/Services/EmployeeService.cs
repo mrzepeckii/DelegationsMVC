@@ -31,6 +31,12 @@ namespace DelegationsMVC.Application.Services
             return id;
         }
 
+        public Employee GetEmployeeById(int id)
+        {
+            var emp = _employeeRepo.GetEmployeeById(id);
+            return emp;
+        }
+
         public ListEmployeeForListVm GetAllEmployeeForList()
         {
             var employees = _employeeRepo.GetAllEmployees().ProjectTo<EmployeeForLitstVm>(_mapper.ConfigurationProvider).ToList();

@@ -26,11 +26,20 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddDelegation()
+        public IActionResult AddDelegation(int id)
         {
+            var emp = _empService.GetEmployeeById(id);
+            if(emp == null)
+            {
+                return RedirectToAction("Index");
+            }
             var model = new NewDelegationVm()
             {
-                Destinations = _delegService.GetAllDestinations().ToList()
+                EmployeeId = emp.Id,
+                Destinations = _delegService.GetAllDestinations().ToList(),
+                RouteTypes = _delegService.GetRouteTypes().ToList(),
+                TransportTypes = _delegService.GetTransportTypes().ToList(),
+                Vehicles = _empService.GetVehiclesByEmploee(id).ToList()
             };
             return View(model);
         }
