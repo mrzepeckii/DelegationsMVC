@@ -47,13 +47,16 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddDelegation(NewDelegationVm delVm)
         {
-            delVm.Routes = _delegService.CheckRoutes(delVm);
             if (!ModelState.IsValid)
             {
                 delVm.Destinations = _delegService.GetAllDestinations().ToList();
                 delVm.RouteTypes = _delegService.GetRouteTypes().ToList();
                 delVm.TransportTypes = _delegService.GetTransportTypes().ToList();
                 delVm.Vehicles = _empService.GetVehiclesByEmploee(delVm.EmployeeId).ToList();
+                if( delVm.Routes.Count != 3)
+                {
+                    delVm.Routes.Add(new NewRouteVm());
+                }
                 return View(delVm);
             }
             var id = _delegService.AddDelegation(delVm);
@@ -83,9 +86,29 @@ namespace DelegationsMVC.Web.Controllers
             return View(model);
         }
 
+        public IActionResult NewRoute(int id)
+        {
+            var modelDetail = new NewRouteDetailVm()
+            {
+                Vehicles = _empService.GetVehiclesByEmploee(id).ToList(),
+            };
+            var model = new NewRouteVm()
+            {
+                DelegationId = id,
+                RouteDetail = modelDetail,
+                RouteTypes = _delegService.GetRouteTypes().ToList(),
+                TransportTypes = _delegService.GetTransportTypes().ToList()
+            };
+            return PartialView("AddNewRouteForDelegation", model);
+        }
+
         [HttpPost]
         public IActionResult AddNewRouteForDelegation(NewRouteVm routeVm)
         {
+            if (!ModelState.IsValid)
+            {
+
+            }
             var id = _delegService.AddRoute(routeVm);
             return RedirectToAction("Index");
         }

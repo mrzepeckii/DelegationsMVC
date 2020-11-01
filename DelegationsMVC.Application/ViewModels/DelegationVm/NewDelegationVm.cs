@@ -30,24 +30,24 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         {
             profile.CreateMap<NewDelegationVm, Delegation>().ReverseMap();
         }
+    }
 
-        public class NewDelegationValidation : AbstractValidator<NewDelegationVm>
+    public class NewDelegationValidation : AbstractValidator<NewDelegationVm>
+    {
+        public NewDelegationValidation()
         {
-            public NewDelegationValidation()
-            {
-                RuleFor(d => d.Id).NotNull();
+            RuleFor(d => d.Id).NotNull();
 
-                RuleFor(d => d.Purpose).NotEmpty().WithMessage("Cel podróży nie może pozostać pusty")
-                    .MaximumLength(255).WithMessage("Maksymalna dlugość to 255");
+            RuleFor(d => d.Purpose).NotEmpty().WithMessage("Cel podróży nie może pozostać pusty")
+                .MaximumLength(255).WithMessage("Maksymalna dlugość to 255");
 
-                RuleFor(d => d.EmployeeId).NotNull();
+            RuleFor(d => d.EmployeeId).NotNull();
 
-                RuleFor(d => d.DestinationId).NotNull();
+            RuleFor(d => d.DestinationId).NotNull();
 
-                RuleForEach(d => d.Routes).SetValidator(new NewRouteValidation());
+            RuleForEach(d => d.Routes).SetValidator(new NewRouteValidation());
 
-                RuleForEach(d => d.Costs).SetValidator(new NewCostValidation());
-            }
+            RuleForEach(d => d.Costs).SetValidator(new NewCostValidation());
         }
     }
 }

@@ -20,17 +20,18 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         {
             profile.CreateMap<NewCostVm, Cost>();
         }
-
-        public class NewCostValidation : AbstractValidator<NewCostVm>
+    }
+    public class NewCostValidation : AbstractValidator<NewCostVm>
+    {
+        public NewCostValidation()
         {
-            public NewCostValidation()
-            {
-                RuleFor(c => c.Id).NotNull();
+            RuleFor(c => c.Id).NotNull();
 
-                RuleFor(c => c.CostTypeId).NotNull();
+            RuleFor(c => c.CostTypeId).NotNull();
 
-                RuleFor(c => c.DelegationId).NotNull();
-            }
+            RuleFor(c => c.DelegationId).NotNull();
+
+            RuleFor(c => c.Amount).NotEmpty().WithMessage("Koszty nie mogą pozostać puste");
         }
     }
 }

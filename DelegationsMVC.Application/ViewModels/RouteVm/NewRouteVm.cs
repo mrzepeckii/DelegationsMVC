@@ -21,21 +21,20 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
         {
             profile.CreateMap<NewRouteVm, Route>().ReverseMap();
         }
-
-        public class NewRouteValidation : AbstractValidator<NewRouteVm>
+    }
+    public class NewRouteValidation : AbstractValidator<NewRouteVm>
+    {
+        public NewRouteValidation()
         {
-            public NewRouteValidation()
-            {
-                RuleFor(r => r.Id).NotNull();
+            RuleFor(r => r.Id).NotNull();
 
-                RuleFor(r => r.DelegationId).NotNull();
+            RuleFor(r => r.DelegationId).NotNull();
 
-                RuleFor(r => r.TypeOfTransportId).NotNull();
+            RuleFor(r => r.TypeOfTransportId).NotNull();
 
-                RuleFor(r => r.RouteTypeId).NotNull();
+            RuleFor(r => r.RouteTypeId).NotNull();
 
-                RuleForEach(r => r.RouteDetail).SetValidator(new NewRouteDetailValidation());
-            }
+            RuleFor(r => r.RouteDetail).SetValidator(new NewRouteDetailValidation());
         }
     }
 }

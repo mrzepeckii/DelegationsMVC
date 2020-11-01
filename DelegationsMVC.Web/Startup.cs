@@ -16,6 +16,8 @@ using DelegationsMVC.Application;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
+using DelegationsMVC.Application.ViewModels.DelegationVm;
+using DelegationsMVC.Application.ViewModels.RouteVm;
 
 namespace DelegationsMVC.Web
 {
@@ -50,6 +52,10 @@ namespace DelegationsMVC.Web
             services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();
             services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();
             services.AddTransient<IValidator<NewContactDetailsVm>, NewContactDetailsValidation>();
+            services.AddTransient<IValidator<NewDelegationVm>, NewDelegationValidation>();
+            services.AddTransient<IValidator<NewRouteVm>, NewRouteValidation>();
+            services.AddTransient<IValidator<NewRouteDetailVm>, NewRouteDetailValidation>();
+            services.AddTransient<IValidator<NewCostVm>, NewCostValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

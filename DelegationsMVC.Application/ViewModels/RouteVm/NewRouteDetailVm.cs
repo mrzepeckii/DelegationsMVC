@@ -25,24 +25,27 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
         {
             profile.CreateMap<NewRouteDetailVm, RouteDetail>().ReverseMap();
         }
-
-        public class NewRouteDetailValidation : AbstractValidator<NewRouteDetailVm>
+    }
+    public class NewRouteDetailValidation : AbstractValidator<NewRouteDetailVm>
+    {
+        public NewRouteDetailValidation()
         {
-            public NewRouteDetailValidation()
-            {
-                RuleFor(r => r.StartPoint).NotEmpty().WithMessage("Miejsce wyjazdu nie może pozostać puste")
-                    .MaximumLength(255).WithMessage("Maksymalna ilość znaków to 255");
+            RuleFor(r => r.RouteRef).NotNull();
 
-                RuleFor(r => r.EndPoint).NotEmpty().WithMessage("Miejsce docelowe nie może pozostać puste")
-                    .MaximumLength(255).WithMessage("Maksymalna ilość znaków to 255")
-                    .NotEqual(r => r.StartPoint).WithMessage("Miejsce docelowe nie może być takie samo jak miejsce startowe");
+            RuleFor(r => r.StartPoint).NotEmpty().WithMessage("Miejsce wyjazdu nie może pozostać puste")
+                .MaximumLength(255).WithMessage("Maksymalna ilość znaków to 255");
 
-                RuleFor(r => r.StartDate).NotEmpty().WithMessage("Data wyjazdu nie może pozostać pusta")
-                    .LessThan(r => r.EndDate).WithMessage("Data wyjazdu musi być wcześniej niż data przyjazdu");
+            RuleFor(r => r.EndPoint).NotEmpty().WithMessage("Miejsce docelowe nie może pozostać puste")
+                .MaximumLength(255).WithMessage("Maksymalna ilość znaków to 255")
+                .NotEqual(r => r.StartPoint).WithMessage("Miejsce docelowe nie może być takie samo jak miejsce startowe");
 
-                RuleFor(r => r.EndDate).NotEmpty().WithMessage("Data przyjazdu nie może pozostać pusta")
-                    .GreaterThan(r => r.StartDate).WithMessage("Data przyjazdu musi być poźniej niż data wyjazdu");
-            }
+            RuleFor(r => r.StartDate).NotEmpty().WithMessage("Data wyjazdu nie może pozostać pusta")
+                .LessThan(r => r.EndDate).WithMessage("Data wyjazdu musi być wcześniej niż data przyjazdu");
+
+            RuleFor(r => r.EndDate).NotEmpty().WithMessage("Data przyjazdu nie może pozostać pusta")
+                .GreaterThan(r => r.StartDate).WithMessage("Data przyjazdu musi być poźniej niż data wyjazdu");
+
+            RuleFor(r => r.Kilometers).NotEmpty().WithMessage("Ilość kilometrów nie może pozostać pusta");
         }
     }
 }
