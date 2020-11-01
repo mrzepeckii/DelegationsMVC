@@ -308,22 +308,20 @@
 
         function CheckBox() {
 
-            if ($('#AdditionalRouteCheckBox').is(':checked')) {
+            if ($('#AdditionalRouteCheckBox').is(':checked'))
+            {
                 $('#AdditionalRoute').children().removeAttr("disabled", "disabled");
                 $('#AdditionalRoute').show();
             }
-            else {
+            else
+            {
                 $('#AdditionalRoute').hide();
-                $('#AdditionalRoute').children().attr("disabled", "disabled");
-                
+                $('#AdditionalRoute').children().attr("disabled", "disabled");    
             }
         }
 
         function CheckBoxSend() {
-            if ($('#AdditionalRouteCheckBox').is(':checked')) {
-
-            }
-            else {
+            if (!$('#AdditionalRouteCheckBox').is(':checked')) {
                 $('#AdditionalRoute').empty();
             }
         }
