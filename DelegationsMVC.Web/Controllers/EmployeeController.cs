@@ -41,9 +41,15 @@ namespace DelegationsMVC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Vehicles = _empService.CheckVehiclesList(model.Vehicles);
+                model.ContactDetails = _empService.CheckContactsList(model.ContactDetails);
                 var id = _empService.AddEmployee(model);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            model.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
+            model.EngineTypes = _empService.GetEngineTypes().ToList();
+            model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+            return View(model);
         }
 
         [HttpGet]
@@ -101,8 +107,13 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
-           var id = _empService.AddVehicle(vehVm);
-           return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+            if (ModelState.IsValid)
+            {
+                var id = _empService.AddVehicle(vehVm);
+                return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+            }
+            vehVm.EngineTypes = _empService.GetEngineTypes().ToList();
+            return View(vehVm);
         }
 
         public IActionResult EditVehicle(int id)

@@ -27,7 +27,11 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
     {
         public NewContactDetailsValidation()
         {
-           //to do
+            RuleFor(c => c.Id).NotNull();
+            RuleFor(c => c.EmployeeId).NotNull();
+            RuleFor(c => c.ContactDetailTypeId).NotNull();
+            RuleFor(c => c.ContactDetailInformation).NotEmpty().WithMessage("Pole kontaktu nie może pozosotać puste")
+                .MaximumLength(255).WithMessage("Maksymalna długość wynosi 255 znaków");
         }
     }
 }

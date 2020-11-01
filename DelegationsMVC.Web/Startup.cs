@@ -39,10 +39,12 @@ namespace DelegationsMVC.Web
             services.AddApplication();
             services.AddInfrastructure();
 
-            services.AddControllersWithViews().AddFluentValidation(fv => {
-                fv.ImplicitlyValidateChildProperties = true;
-                fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-            });
+            services.AddControllersWithViews()
+                .AddFluentValidation(fv =>
+                 {
+                     fv.ImplicitlyValidateChildProperties = true;
+                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                 });
             services.AddRazorPages();
 
             services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();

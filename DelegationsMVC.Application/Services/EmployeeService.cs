@@ -150,5 +150,27 @@ namespace DelegationsMVC.Application.Services
             var vehsVm = _vehicleRepo.GetVehiclesByEmployee(id).ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider);
             return vehsVm;
         }
+
+        public List<NewVehicleVm> CheckVehiclesList(List<NewVehicleVm> newVehicles)
+        {
+            var vehicles = new List<NewVehicleVm>();
+            vehicles = newVehicles.Where(v => v.PlateNumbers != null).ToList();
+            return vehicles;
+        }
+
+        public List<NewContactDetailsVm> CheckContactsList(List<NewContactDetailsVm> newContacts)
+        {
+            var contacts = new List<NewContactDetailsVm>();
+            contacts = newContacts.Where(c => c.ContactDetailInformation != null).ToList();
+            return contacts;
+        }
+
+        public NewEmployeeVm SetTypesToVm(NewEmployeeVm model)
+        {
+            model.EmployeeTypes = GetEmployeeTypes().ToList();
+            model.EngineTypes = GetEngineTypes().ToList();
+            model.ContactDetailTypes = GetConactDetailTypes().ToList();
+            return model;
+        }
     }
 }
