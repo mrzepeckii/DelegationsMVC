@@ -65,13 +65,13 @@
 
             <div class="form-group col">
                 <label asp-for="Routes[0].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
-                <select id="TransportTypeSelector" asp-for="Routes[0].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState()"></select>
+                <select id="TransportTypeSelectorR0" asp-for="Routes[0].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState(this,'VehicleR0','VehicleSelectorR0')"></select>
                 <span asp-validation-for="Routes[0].TypeOfTransportId" class="text-danger"></span>
             </div>
             <div class="form-group col">
-                <div id="Vehicle" class="form-group">
+                <div id="VehicleR0" class="form-group">
                     <label asp-for="Routes[0].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
-                    <select id="VehicleSelector" asp-for="Routes[0].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
+                    <select id="VehicleSelectorR0" asp-for="Routes[0].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
                     <span asp-validation-for="Routes[0].RouteDetail.VehicleId" class="text-danger"></span>
                 </div>
             </div>
@@ -142,13 +142,13 @@
 
             <div class="form-group col">
                 <label asp-for="Routes[1].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
-                <select id="TransportTypeSelector" asp-for="Routes[1].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState()"></select>
+                <select id="TransportTypeSelectorR1" asp-for="Routes[1].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState(this,'VehicleR1','VehicleSelectorR1')"></select>
                 <span asp-validation-for="Routes[1].TypeOfTransportId" class="text-danger"></span>
             </div>
             <div class="form-group col">
-                <div id="Vehicle" class="form-group">
+                <div id="VehicleR1" class="form-group">
                     <label asp-for="Routes[1].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
-                    <select id="VehicleSelector" asp-for="Routes[1].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
+                    <select id="VehicleSelectorR1" asp-for="Routes[1].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
                     <span asp-validation-for="Routes[1].RouteDetail.VehicleId" class="text-danger"></span>
                 </div>
             </div>
@@ -206,85 +206,84 @@
         </div>
     </div>
     <br />
-    <div class="row">
-        <h4>Podróż dodatkowa</h4>
-    </div>
-    <div class="form-check">
-        <input asp-for="IsAdditionalRoute" class="form-check-input" type="checkbox" id="AdditionalRouteCheckBox" onchange="CheckBox()">
-        <label class="form-check-label" for="AdditionalRouteCheckBox">
-            Podróż dodatkowa
-        </label>
-    </div>
-    <div id="AdditionalRoute" class="col-md-8">
+    <div id="AddRouteDiv">
         <div class="row">
-            <div class="form-group col">
-                <label asp-for="Routes[2].RouteTypeId" class="control-label">Rodzaj podróży</label>
-                <select asp-for="Routes[2].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="custom-select"></select>
-                <span asp-validation-for="Routes[2].RouteTypeId" class="text-danger"></span>
+            <div class="form-check">
+                <input asp-for="IsAdditionalRoute" class="form-check-input" type="checkbox" id="AdditionalRouteCheckBox" onchange="CheckBox()">
+                <h4>Dodatkowa podróż</h4>
             </div>
+        </div>
+        <div id="AdditionalRoute" class="col-md-8">
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="Routes[2].RouteTypeId" class="control-label">Rodzaj podróży</label>
+                    <select asp-for="Routes[2].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="custom-select"></select>
+                    <span asp-validation-for="Routes[2].RouteTypeId" class="text-danger"></span>
+                </div>
 
-            <div class="form-group col">
-                <label asp-for="Routes[2].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
-                <select id="TransportTypeSelector" asp-for="Routes[2].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState()"></select>
-                <span asp-validation-for="Routes[2].TypeOfTransportId" class="text-danger"></span>
-            </div>
-            <div class="form-group col">
-                <div id="Vehicle" class="form-group">
-                    <label asp-for="Routes[2].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
-                    <select id="VehicleSelector" asp-for="Routes[2].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
-                    <span asp-validation-for="Routes[2].RouteDetail.VehicleId" class="text-danger"></span>
+                <div class="form-group col">
+                    <label asp-for="Routes[2].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
+                    <select id="TransportTypeSelectorR2" asp-for="Routes[2].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="custom-select" onchange="CheckState(this,'VehicleR2','VehicleSelectorR2')"></select>
+                    <span asp-validation-for="Routes[2].TypeOfTransportId" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <div id="VehicleR2" class="form-group">
+                        <label asp-for="Routes[2].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
+                        <select id="VehicleSelectorR2" asp-for="Routes[2].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="custom-select"></select>
+                        <span asp-validation-for="Routes[2].RouteDetail.VehicleId" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="container">
-                    <div class="row">
-                        <div class='col-sm-6'>
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker'>
-                                    <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+            <div class="row">
+                <div class="col">
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker'>
+                                        <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="Routes[2].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
+                        <input asp-for="Routes[2].RouteDetail.StartPoint" class="form-control" />
+                        <span asp-validation-for="Routes[2].RouteDetail.StartPoint" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Routes[2].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
-                    <input asp-for="Routes[2].RouteDetail.StartPoint" class="form-control" />
-                    <span asp-validation-for="Routes[2].RouteDetail.StartPoint" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col">
-                <div class="container">
-                    <div class="row">
-                        <div class='col-sm-6'>
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker'>
-                                    <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                <div class="col">
+                    <div class="container">
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker'>
+                                        <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Routes[2].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
-                    <input asp-for="Routes[2].RouteDetail.EndPoint" class="form-control" />
-                    <span asp-validation-for="Routes[2].RouteDetail.EndPoint" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Routes[2].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
+                        <input asp-for="Routes[2].RouteDetail.EndPoint" class="form-control" />
+                        <span asp-validation-for="Routes[2].RouteDetail.EndPoint" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label asp-for="Routes[2].RouteDetail.Kilometers" class="control-label">Kilometry</label>
-                <input asp-for="Routes[2].RouteDetail.Kilometers" class="form-control" />
-                <span asp-validation-for="Routes[2].RouteDetail.Kilometers" class="text-danger"></span>
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="Routes[2].RouteDetail.Kilometers" class="control-label">Kilometry</label>
+                    <input asp-for="Routes[2].RouteDetail.Kilometers" class="form-control" />
+                    <span asp-validation-for="Routes[2].RouteDetail.Kilometers" class="text-danger"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -304,6 +303,9 @@
 
         $(document).ready(function () {
             $('#AdditionalRouteCheckBox').prop('checked', true);
+            CheckState('TypeTransportSelectorR0', 'VehicleR0', 'VehicleSelectorR0');
+            CheckState('TypeTransportSelectorR1', 'VehicleR1', 'VehicleSelectorR1');
+            CheckState('TypeTransportSelectorR2', 'VehicleR2', 'VehicleSelectorR2');
         });
 
         function CheckBox() {
@@ -322,7 +324,17 @@
 
         function CheckBoxSend() {
             if (!$('#AdditionalRouteCheckBox').is(':checked')) {
-                $('#AdditionalRoute').empty();
+                $('#AddRouteDiv').empty();
+            }
+        }
+
+        function CheckState(ttSelector, vehicleDiv, vehicleSelector) {
+            if ($(ttSelector).val() == "1") {
+                $("#" + vehicleDiv).show();
+            }
+            else {
+                $("#" + vehicleDiv).hide();
+                $("#" + vehicleSelector).val("0");
             }
         }
 
