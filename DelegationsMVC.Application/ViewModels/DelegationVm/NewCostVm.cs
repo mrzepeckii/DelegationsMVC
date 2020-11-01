@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DelegationsMVC.Application.Mapping;
 using DelegationsMVC.Domain.Model;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,18 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewCostVm, Cost>();
+        }
+
+        public class NewCostValidation : AbstractValidator<NewCostVm>
+        {
+            public NewCostValidation()
+            {
+                RuleFor(c => c.Id).NotNull();
+
+                RuleFor(c => c.CostTypeId).NotNull();
+
+                RuleFor(c => c.DelegationId).NotNull();
+            }
         }
     }
 }

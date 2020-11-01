@@ -95,5 +95,16 @@ namespace DelegationsMVC.Application.Services
             var types = _delegationRepo.GetAllTransportTypes().ProjectTo<TransportTypeVm>(_mapper.ConfigurationProvider);
             return types;
         }
+
+        public List<NewRouteVm> CheckRoutes(NewDelegationVm delVm)
+        {
+            if (delVm.IsAdditionalRoute)
+            {
+                return delVm.Routes;
+            }
+            var routes = delVm.Routes;
+            routes.RemoveAt(2);
+            return routes;
+        }
     }
 }

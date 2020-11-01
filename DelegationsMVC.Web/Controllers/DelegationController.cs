@@ -47,6 +47,15 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddDelegation(NewDelegationVm delVm)
         {
+            delVm.Routes = _delegService.CheckRoutes(delVm);
+            if (!ModelState.IsValid)
+            {
+                delVm.Destinations = _delegService.GetAllDestinations().ToList();
+                delVm.RouteTypes = _delegService.GetRouteTypes().ToList();
+                delVm.TransportTypes = _delegService.GetTransportTypes().ToList();
+                delVm.Vehicles = _empService.GetVehiclesByEmploee(delVm.EmployeeId).ToList();
+                return View(delVm);
+            }
             var id = _delegService.AddDelegation(delVm);
             return RedirectToAction("Index");
         }

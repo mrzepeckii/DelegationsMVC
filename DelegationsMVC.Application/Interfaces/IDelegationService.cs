@@ -21,5 +21,6 @@ namespace DelegationsMVC.Application.Interfaces
         int AddRoute(NewRouteVm model);
         IQueryable<RouteTypeVm> GetRouteTypes();
         IQueryable<TransportTypeVm> GetTransportTypes();
+        List<NewRouteVm> CheckRoutes(NewDelegationVm delVm);
     }
 }
