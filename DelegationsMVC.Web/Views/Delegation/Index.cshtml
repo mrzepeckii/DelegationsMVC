@@ -9,26 +9,23 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table" id="table">
-    <thead>
+<table class="table table-bordered" id="table">
+    <thead class="thead-dark">
         <tr>
             <th>
-                id
+                Numer delegacji
             </th>
             <th>
-                del no
+                Początek delegacji
             </th>
             <th>
-                start date
+                Koniec delegacji
             </th>
             <th>
-                end date
+                Miejsce delegacji
             </th>
             <th>
-                destination
-            </th>
-            <th>
-                status
+                Status
             </th>
             <th></th>
         </tr>
@@ -37,9 +34,6 @@
         @foreach (var item in Model.Delegations)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DelegationNo)
                 </td>

@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.DelegationVm;
 using DelegationsMVC.Application.ViewModels.DestinationVm;
+using DelegationsMVC.Application.ViewModels.EmployeeVm;
 using DelegationsMVC.Application.ViewModels.RouteVm;
 using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
@@ -17,12 +18,14 @@ namespace DelegationsMVC.Application.Services
     {
         private readonly IDelegationRepository _delegationRepo;
         private readonly IEmployeeRepository _employeeRepo;
+        private readonly IVehicleRepository _vehRepo;
         private readonly IMapper _mapper;
 
-        public DelegationService(IDelegationRepository delegRepo, IEmployeeRepository empRepo, IMapper mapper)
+        public DelegationService(IDelegationRepository delegRepo, IEmployeeRepository empRepo, IVehicleRepository vehRepo, IMapper mapper)
         {
             _delegationRepo = delegRepo;
             _employeeRepo = empRepo;
+            _vehRepo = vehRepo;
             _mapper = mapper;
         }
 
@@ -105,6 +108,26 @@ namespace DelegationsMVC.Application.Services
             var routes = delVm.Routes;
             routes.RemoveAt(2);
             return routes;
+        }
+
+        public NewRouteVm SetParametersToVm(NewRouteVm routeVm)
+        {
+            var del = GetDelegationById(routeVm.DelegationId);
+            routeVm.TransportTypes = GetTransportTypes().ToList();
+            routeVm.RouteTypes = GetRouteTypes().ToList();
+            routeVm.RouteDetail.Vehicles = _vehRepo.GetVehiclesByEmployee(del.EmployeeId)
+                .ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+            return routeVm;
+        }
+
+        public NewDelegationVm SetParametersToVm(NewDelegationVm delVm)
+        {
+            delVm.Destinations = GetAllDestinations().ToList();
+            delVm.RouteTypes = GetRouteTypes().ToList();
+            delVm.TransportTypes = GetTransportTypes().ToList();
+            delVm.Vehicles = _vehRepo.GetVehiclesByEmployee(delVm.EmployeeId)
+                .ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+            return delVm;
         }
     }
 }

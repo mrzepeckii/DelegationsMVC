@@ -22,5 +22,7 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<RouteTypeVm> GetRouteTypes();
         IQueryable<TransportTypeVm> GetTransportTypes();
         List<NewRouteVm> CheckRoutes(NewDelegationVm delVm);
+        NewRouteVm SetParametersToVm(NewRouteVm routeVm);
+        NewDelegationVm SetParametersToVm(NewDelegationVm delVm);
     }
 }
