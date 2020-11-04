@@ -176,9 +176,8 @@
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
-                            <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
                         </div>
-
+                        <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Routes[1].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
@@ -298,13 +297,31 @@
 
         $(document).ready(function () {
             $('#AdditionalRouteCheckBox').prop('checked', true);
-              CheckState('TypeTransportSelectorR0', 'VehicleR0', 'VehicleSelectorR0');
-              CheckState('TypeTransportSelectorR1', 'VehicleR1', 'VehicleSelectorR1');
-               CheckState('TypeTransportSelectorR2', 'VehicleR2', 'VehicleSelectorR2');
+            @if (Model.Routes != null)
+            {
+                @*for (int i = 0; i < 3; i++)
+                {
+                    if(Model.Routes[i].TypeOfTransportId != 1)
+                    {
+                        @: $("#VehicleR"+i).hide();
+                    }
+                }*@
+                if(Model.Routes[0].TypeOfTransportId != 1 )
+                {
+                    @:  $("#VehicleR0").hide();
+                }
+                if(Model.Routes[1].TypeOfTransportId != 1)
+                {
+                    @: $("#VehicleR1").hide();
+                }
+                if (Model.Routes[2].TypeOfTransportId != 1)
+                {
+                    @: $("#VehicleR2").hide();
+                }
+            }
         });
 
         function CheckBox() {
-
             if ($('#AdditionalRouteCheckBox').is(':checked')) {
                 $('#AdditionalRoute').children().removeAttr("disabled", "disabled");
                 $('#AdditionalRoute').show();
@@ -324,12 +341,11 @@
         function CheckState(ttSelector, vehicleDiv, vehicleSelector) {
             if ($(ttSelector).val() != "1") {
                 $("#" + vehicleDiv).hide();
-                $("#" + vehicleSelector).val("0");  
+                $("#" + vehicleSelector).val("0");
             }
             else {
                 $("#" + vehicleDiv).show();
                 $("#" + vehicleSelector).prop('selectedIndex', 0);
-
             }
         }
 

@@ -110,6 +110,7 @@
         function CheckState() {
             if ($('#TransportTypeSelector').val() == "1") {
                 $('#Vehicle').show();
+                $('#Vehicle').prop('selectedIndex', 0);
             }
             else {
                 $('#Vehicle').hide();
