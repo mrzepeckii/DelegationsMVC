@@ -47,7 +47,7 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
 
             RuleFor(r => r.Kilometers).NotEmpty().WithMessage("Ilość kilometrów nie może pozostać pusta");
 
-            RuleFor(r => r.VehicleId).NotEmpty().WithMessage("Numer rejestracyjny nie może pozostać pusty");
+          //  RuleFor(r => r.VehicleId).NotEmpty().WithMessage("Numer rejestracyjny nie może pozostać pusty");
         }
     }
 }
