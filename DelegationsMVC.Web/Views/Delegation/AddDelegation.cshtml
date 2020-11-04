@@ -7,14 +7,14 @@
 <h1>Dodaj delegację</h1>
 
 <form asp-action="AddDelegation">
-    <div class="row">
+    <div class="form-row">
         <h3>Dane podstawowe</h3>
     </div>
-    <div class="row">
+    <div class="form-row ">
         <div class="col-md-8">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" class="form-control" />
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group col">
                     <label asp-for="Purpose" class="control-label">Cel delegacji</label>
                     <input asp-for="Purpose" class="form-control" />
@@ -30,11 +30,11 @@
             <input type="hidden" asp-for="DelegationStatusId" class="form-control" />
         </div>
     </div>
-    <div class="row">
+    <div class="form-row">
         <h3>Koszty</h3>
     </div>
     <div class="col-md-8">
-        <div class="row">
+        <div class="form-row">
             <div class="form-group col">
                 <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
                 <input asp-for="Costs[0].Amount" class="form-control" />
@@ -49,15 +49,15 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="form-row">
         <h3>Podróże</h3>
     </div>
     <div id="Podroze">
-        <div class="row">
+        <div class="form-row">
             <h4>I etap - do klienta</h4>
         </div>
         <div class="col-md-8">
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group col">
                     <label asp-for="Routes[0].RouteTypeId" class="control-label">Rodzaj podróży</label>
                     <select asp-for="Routes[0].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
@@ -78,17 +78,17 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="form-row">
                 <div class="col">
                     <div class="form-group">
                         <label asp-for="Routes[0].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
                         <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                             <input asp-for="Routes[0].RouteDetail.StartDate" type='text' class="form-control" />
-                            <span asp-validation-for="Routes[0].RouteDetail.StartDate" class="text-danger"></span>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
+                        <span asp-validation-for="Routes[0].RouteDetail.StartDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Routes[0].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
@@ -101,11 +101,11 @@
                         <label asp-for="Routes[0].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
                         <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                             <input asp-for="Routes[0].RouteDetail.EndDate" type='text' class="form-control" />
-                            <span asp-validation-for="Routes[0].RouteDetail.EndDate" class="text-danger"></span>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
+                        <span asp-validation-for="Routes[0].RouteDetail.EndDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Routes[0].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group">
                     <label asp-for="Routes[0].RouteDetail.Kilometers" class="control-label">Kilometry</label>
                     <input asp-for="Routes[0].RouteDetail.Kilometers" class="form-control" />
@@ -123,11 +123,11 @@
             </div>
         </div>
         <br />
-        <div class="row">
+        <div class="form-row">
             <h4>II etap - od klienta</h4>
         </div>
         <div class="col-md-8">
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group col">
                     <label asp-for="Routes[1].RouteTypeId" class="control-label">Rodzaj podróży</label>
                     <select asp-for="Routes[1].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
@@ -147,18 +147,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="col">
 
                     <div class="form-group">
                         <label asp-for="Routes[1].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
                         <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                             <input asp-for="Routes[1].RouteDetail.StartDate" type='text' class="form-control" />
-                            <span asp-validation-for="Routes[1].RouteDetail.StartDate" class="text-danger"></span>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
+                        <span asp-validation-for="Routes[1].RouteDetail.StartDate" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
@@ -173,10 +173,10 @@
                         <label asp-for="Routes[1].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
                         <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                             <input asp-for="Routes[1].RouteDetail.EndDate" type='text' class="form-control" />
-                            <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
+                            <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
                         </div>
 
                     </div>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group">
                     <label asp-for="Routes[1].RouteDetail.Kilometers" class="control-label">Kilometry</label>
                     <input asp-for="Routes[1].RouteDetail.Kilometers" class="form-control" />
@@ -197,14 +197,14 @@
         </div>
         <br />
         <div id="AddRouteDiv">
-            <div class="row">
+            <div class="form-row">
                 <div class="form-check">
                     <input asp-for="IsAdditionalRoute" class="form-check-input" type="checkbox" id="AdditionalRouteCheckBox" onchange="CheckBox()">
                     <h4>Dodatkowa podróż</h4>
                 </div>
             </div>
             <div id="AdditionalRoute" class="col-md-8">
-                <div class="row">
+                <div class="form-row">
                     <div class="form-group col">
                         <label asp-for="Routes[2].RouteTypeId" class="control-label">Rodzaj podróży</label>
                         <select asp-for="Routes[2].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
@@ -224,17 +224,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Routes[2].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
                             <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                                 <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
-                                <span asp-validation-for="Routes[2].RouteDetail.StartDate" class="text-danger"></span>
                                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
+                            <span asp-validation-for="Routes[2].RouteDetail.StartDate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Routes[2].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
@@ -247,11 +247,11 @@
                             <label asp-for="Routes[2].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
                             <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                                 <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
-                                <span asp-validation-for="Routes[2].RouteDetail.EndDate" class="text-danger"></span>
                                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
+                            <span asp-validation-for="Routes[2].RouteDetail.EndDate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Routes[2].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
@@ -260,7 +260,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                     <div class="form-group">
                         <label asp-for="Routes[2].RouteDetail.Kilometers" class="control-label">Kilometry</label>
                         <input asp-for="Routes[2].RouteDetail.Kilometers" class="form-control" />
@@ -282,26 +282,25 @@
 
 
 
+
 @section Scripts {
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
 
         $(document).ready(function () {
             $('#AdditionalRouteCheckBox').prop('checked', true);
-          //  CheckState('TypeTransportSelectorR0', 'VehicleR0', 'VehicleSelectorR0');
-          //  CheckState('TypeTransportSelectorR1', 'VehicleR1', 'VehicleSelectorR1');
-         //   CheckState('TypeTransportSelectorR2', 'VehicleR2', 'VehicleSelectorR2');
+              CheckState('TypeTransportSelectorR0', 'VehicleR0', 'VehicleSelectorR0');
+              CheckState('TypeTransportSelectorR1', 'VehicleR1', 'VehicleSelectorR1');
+               CheckState('TypeTransportSelectorR2', 'VehicleR2', 'VehicleSelectorR2');
         });
 
         function CheckBox() {
@@ -323,12 +322,13 @@
         }
 
         function CheckState(ttSelector, vehicleDiv, vehicleSelector) {
-            if ($(ttSelector).val() == "1") {
-                $("#" + vehicleDiv).show();
+            if ($(ttSelector).val() != "1") {
+                $("#" + vehicleDiv).hide();
+                $("#" + vehicleSelector).val("0");  
             }
             else {
-                $("#" + vehicleDiv).hide();
-                $("#" + vehicleSelector).val("0");
+                $("#" + vehicleDiv).show();
+                $("#" + vehicleDiv).val("1");
             }
         }
 

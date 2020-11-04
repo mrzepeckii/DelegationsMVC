@@ -46,6 +46,8 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
                 .GreaterThan(r => r.StartDate).WithMessage("Data przyjazdu musi być poźniej niż data wyjazdu");
 
             RuleFor(r => r.Kilometers).NotEmpty().WithMessage("Ilość kilometrów nie może pozostać pusta");
+
+            RuleFor(r => r.VehicleId).NotEmpty().WithMessage("Numer rejestracyjny nie może pozostać pusty");
         }
     }
 }
