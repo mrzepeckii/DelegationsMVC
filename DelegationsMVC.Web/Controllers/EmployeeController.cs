@@ -75,6 +75,9 @@ namespace DelegationsMVC.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                empVm.EngineTypes = _empService.GetEngineTypes().ToList();
+                empVm.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+                empVm.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
                 return View(empVm.Id);
             }
             _empService.UpdateEmployee(empVm);

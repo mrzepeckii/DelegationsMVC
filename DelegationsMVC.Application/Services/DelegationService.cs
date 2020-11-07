@@ -129,5 +129,17 @@ namespace DelegationsMVC.Application.Services
                 .ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
             return delVm;
         }
+
+        public NewDelegationVm GetDelegationForEdit(int id)
+        {
+            var del = _delegationRepo.GetDelegationById(id);
+            var delVm = _mapper.Map<NewDelegationVm>(del);
+            return delVm;
+        }
+
+        public void DeleteRoute(int idRoute)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

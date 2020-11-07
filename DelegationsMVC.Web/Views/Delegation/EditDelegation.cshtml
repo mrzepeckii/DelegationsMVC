@@ -1,0 +1,131 @@
+﻿@model DelegationsMVC.Application.ViewModels.DelegationVm.NewDelegationVm
+
+@{
+    ViewData["Title"] = "EditDelegation";
+}
+
+<h1>Edytuj delegację</h1>
+
+<div class="form-row">
+    <div class="col-md-8">
+        <form asp-action="EditDelegation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" class="form-control" />
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Purpose" class="control-label">Cel delegacji</label>
+                    <input asp-for="Purpose" class="form-control" />
+                    <span asp-validation-for="Purpose" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="DestinationId" class="control-label">Miejsce delegacji</label>
+                    <select asp-for="DestinationId" asp-items="@(new SelectList(Model.Destinations, "Id", "Name"))" class="form-control"></select>
+                    <span asp-validation-for="DestinationId" class="text-danger"></span>
+                </div>
+            </div>
+            <input asp-for="EmployeeId" type="hidden" class="form-control" />
+            <input asp-for="DelegationStatusId" type="hidden" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Zapisz zmiany" class="btn btn-primary btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="form-row">
+    <table class="table table-bordered" id="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Data wyjazdu
+                </th>
+                <th>
+                    Miejsce wyjazdu
+                </th>
+                <th>
+                    Data przyjazdu
+                </th>
+                <th>
+                    Miejsce przyjazdu
+                </th>
+                <th>
+                    Kilometry
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var route in Model.Routes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.RouteDetail.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.RouteDetail.StartPoint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.RouteDetail.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.RouteDetail.EndPoint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.RouteDetail.Kilometers)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Usuń", "DeleteRoute", new { idVeh = route.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
+<div id="Route">
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+         function AddRoute() {
+            var $divRoute = $('#Route');
+             $divRoute.empty();
+            var url = '@Url.Action("NewRoute","Delegation", new { id = Model.Id} )';
+            $divRoute.load(url);
+            $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
+        }
+
+        function ClearRoute() {
+            $('#Route').empty();
+            $('#AddRoute').attr("onclick", "AddRoute()").attr("value", "Dodaj podróż");
+        }
+
+        function CheckState() {
+            if ($('#TransportTypeSelector').val() == "1") {
+                $('#Vehicle').show();
+                $('#VehicleSelector').prop('selectedIndex', 0);
+            }
+            else {
+                $('#Vehicle').hide();
+                $('#VehicleSelector').val("0");
+            }
+        }
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

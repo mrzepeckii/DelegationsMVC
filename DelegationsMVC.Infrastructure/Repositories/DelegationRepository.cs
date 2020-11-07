@@ -55,7 +55,10 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Delegation GetDelegationById(int delegationId)
         {
-            var delegation = _context.Delegations.FirstOrDefault(d => d.Id == delegationId);
+            var delegation = _context.Delegations
+                .Include(d => d.Routes)
+                .ThenInclude(r => r.RouteDetail)
+                .FirstOrDefault(d => d.Id == delegationId);
             return delegation;
         }
 
@@ -87,7 +90,10 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             //var status = _context.DelegationStatuses.Include(d => d.Delegations).FirstOrDefault(ds => ds.Id == delegationStatusId);
            // var delegations = status.Delegations.AsQueryable();
-            var delegations = _context.Delegations.Include(d => d.Routes).ThenInclude(r => r.RouteDetail).Where(d => d.DelegationStatusId == delegationStatusId);  
+            var delegations = _context.Delegations
+                .Include(d => d.Routes)
+                .ThenInclude(r => r.RouteDetail)
+                .Where(d => d.DelegationStatusId == delegationStatusId);  
             return delegations;
         }
         

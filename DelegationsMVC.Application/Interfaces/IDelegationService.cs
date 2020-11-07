@@ -24,5 +24,7 @@ namespace DelegationsMVC.Application.Interfaces
         List<NewRouteVm> CheckRoutes(NewDelegationVm delVm);
         NewRouteVm SetParametersToVm(NewRouteVm routeVm);
         NewDelegationVm SetParametersToVm(NewDelegationVm delVm);
+        NewDelegationVm GetDelegationForEdit(int id);
+        void DeleteRoute(int idRoute);
     }
 }
