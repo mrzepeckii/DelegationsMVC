@@ -11,7 +11,7 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
 {
     public class NewRouteDetailVm : IMapFrom<RouteDetail>
     {
-       // public int Id { get; set; }
+        public int RouteDetailId { get; set; }
         public string StartPoint { get; set; }
         public string EndPoint { get; set; }
         public DateTime StartDate { get; set; }
@@ -29,7 +29,9 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewRouteDetailVm, RouteDetail>().ReverseMap();
+            profile.CreateMap<NewRouteDetailVm, RouteDetail>()
+                .ForMember(s => s.Id, opt => opt.MapFrom(d => d.RouteDetailId))
+                .ReverseMap();
         }
     }
     public class NewRouteDetailValidation : AbstractValidator<NewRouteDetailVm>

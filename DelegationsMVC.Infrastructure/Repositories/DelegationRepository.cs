@@ -171,5 +171,28 @@ namespace DelegationsMVC.Infrastructure.Repositories
                 _context.SaveChanges();
             }
         }
+
+        public Route GetRouteById(int id)
+        {
+            var route = _context.Routes
+                .Include(r => r.RouteDetail)
+                .FirstOrDefault(r => r.Id == id);
+            return route;
+        }
+
+        public void UpdateRoute(Route route)
+        {
+            _context.Attach(route);
+            _context.Entry(route).Property("TypeOfTransportId").IsModified = true;
+            _context.Entry(route).Property("RouteTypeId").IsModified = true;
+           // _context.Entry(route).Reference("RouteDetail").IsModified = true;
+            _context.Entry(route.RouteDetail).Property("StartPoint").IsModified = true;
+            _context.Entry(route.RouteDetail).Property("EndPoint").IsModified = true;
+            _context.Entry(route.RouteDetail).Property("StartDate").IsModified = true;
+            _context.Entry(route.RouteDetail).Property("EndDate").IsModified = true;
+            _context.Entry(route.RouteDetail).Property("Kilometers").IsModified = true;
+            _context.Entry(route.RouteDetail).Property("VehicleId").IsModified = true;
+            _context.SaveChanges();
+        }
     }
 }

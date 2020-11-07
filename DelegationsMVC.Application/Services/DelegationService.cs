@@ -141,5 +141,18 @@ namespace DelegationsMVC.Application.Services
         {
             _delegationRepo.DeleteRoute(idRoute);
         }
+
+        public NewRouteVm GetRouteForEdit(int id)
+        {
+            var route = _delegationRepo.GetRouteById(id);
+            var routeVm = _mapper.Map<NewRouteVm>(route);
+            return routeVm;
+        }
+
+        public void UpdateRoute(NewRouteVm routeVm)
+        {
+            var route = _mapper.Map<Route>(routeVm);
+            _delegationRepo.UpdateRoute(route);
+        }
     }
 }

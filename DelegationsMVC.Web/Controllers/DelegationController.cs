@@ -132,5 +132,28 @@ namespace DelegationsMVC.Web.Controllers
             _delegService.DeleteRoute(idRoute);
             return RedirectToAction("EditDelegation", new { id = idDel });
         }
+
+        public IActionResult EditRoute(int idRoute, int idDel)
+        {
+            var model = _delegService.GetRouteForEdit(idRoute);
+            if(model == null)
+            {
+                return RedirectToAction("EditDelegation", new { id = idDel });
+            }
+            _delegService.SetParametersToVm(model);
+            return PartialView("EditRouteForDelegation", model);
+        }
+
+        [HttpPost]
+        public IActionResult EditRouteForDelegation(NewRouteVm routeVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                _delegService.SetParametersToVm(routeVm);
+                return View(routeVm);
+            }
+            _delegService.UpdateRoute(routeVm);
+            return RedirectToAction("EditDelegation", new { id = routeVm.DelegationId });
+        }
     }
 }
