@@ -21,6 +21,12 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
         public int? VehicleId { get; set; }
         public List<VehicleForListVm> Vehicles { get; set; }
 
+        public NewRouteDetailVm()
+        {
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
+        }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewRouteDetailVm, RouteDetail>().ReverseMap();
@@ -47,7 +53,6 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
 
             RuleFor(r => r.Kilometers).NotEmpty().WithMessage("Ilość kilometrów nie może pozostać pusta");
 
-          //  RuleFor(r => r.VehicleId).NotEmpty().WithMessage("Numer rejestracyjny nie może pozostać pusty");
         }
     }
 }
