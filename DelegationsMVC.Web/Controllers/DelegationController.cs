@@ -127,9 +127,10 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditDelegation", new { id = routeVm.DelegationId });
         }
 
-        public IActionResult DeleteRoute(int idRoute)
+        public IActionResult DeleteRoute(int idRoute, int idDel)
         {
             _delegService.DeleteRoute(idRoute);
+            return RedirectToAction("EditDelegation", new { id = idDel });
         }
     }
 }

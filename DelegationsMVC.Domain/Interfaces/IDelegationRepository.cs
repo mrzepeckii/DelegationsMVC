@@ -26,5 +26,6 @@ namespace DelegationsMVC.Domain.Interfaces
         void UpdateDelegation(Delegation del);
         IQueryable<Destination> GetAllDestinations();
         int AddRoute(Route route);
+        void DeleteRoute(int idRoute);
     }
 }

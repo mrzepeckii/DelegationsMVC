@@ -139,7 +139,7 @@ namespace DelegationsMVC.Application.Services
 
         public void DeleteRoute(int idRoute)
         {
-            throw new NotImplementedException();
+            _delegationRepo.DeleteRoute(idRoute);
         }
     }
 }

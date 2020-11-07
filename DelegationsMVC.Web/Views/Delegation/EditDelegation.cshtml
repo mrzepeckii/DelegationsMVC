@@ -26,7 +26,7 @@
             <input asp-for="EmployeeId" type="hidden" class="form-control" />
             <input asp-for="DelegationStatusId" type="hidden" class="form-control" />
             <div class="form-group">
-                <input type="submit" value="Zapisz zmiany" class="btn btn-primary btn-dark" />
+                <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
             </div>
         </form>
     </div>
@@ -73,7 +73,7 @@
                         @Html.DisplayFor(modelItem => route.RouteDetail.Kilometers)
                     </td>
                     <td>
-                        @Html.ActionLink("Usuń", "DeleteRoute", new { idVeh = route.Id })
+                        @Html.ActionLink("Usuń", "DeleteRoute", new { idRoute = route.Id, idDel = route.DelegationId })
                     </td>
                 </tr>
             }

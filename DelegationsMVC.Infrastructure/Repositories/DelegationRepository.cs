@@ -34,9 +34,9 @@ namespace DelegationsMVC.Infrastructure.Repositories
             {
               //  _context.Costs.RemoveRange(delegationToRemove.Costs);
               //  _context.Routes.RemoveRange(listOfRoutes);
-                _context.Delegations.Remove(delegationToRemove); 
-            }
-            _context.SaveChanges();
+                _context.Delegations.Remove(delegationToRemove);
+                _context.SaveChanges();
+            } 
         }
 
         public void UpdateDelegation(Delegation del)
@@ -160,6 +160,16 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Routes.Add(route);
             _context.SaveChanges();
             return route.Id;
+        }
+
+        public void DeleteRoute(int idRoute)
+        {
+            var route = _context.Routes.FirstOrDefault(r => r.Id == idRoute);
+            if(route != null)
+            {
+                _context.Routes.Remove(route);
+                _context.SaveChanges();
+            }
         }
     }
 }
