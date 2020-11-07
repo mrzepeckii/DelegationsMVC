@@ -82,9 +82,9 @@
                 <div class="col">
                     <div class="form-group">
                         <label asp-for="Routes[0].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                        <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                        <div class="input-group date" id="dateTimePickerR0SD" data-target-input="nearest">
                             <input asp-for="Routes[0].RouteDetail.StartDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-append" data-target="#dateTimePickerR0SD" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -99,9 +99,9 @@
                 <div class="col">
                     <div class="form-group">
                         <label asp-for="Routes[0].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                        <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                        <div class="input-group date" id="dateTimePickerR0ED" data-target-input="nearest">
                             <input asp-for="Routes[0].RouteDetail.EndDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-append" data-target="#dateTimePickerR0ED" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -152,9 +152,9 @@
 
                     <div class="form-group">
                         <label asp-for="Routes[1].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                        <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                        <div class="input-group date" id="dateTimePickerR1SD" data-target-input="nearest">
                             <input asp-for="Routes[1].RouteDetail.StartDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-append" data-target="#dateTimePickerR1SD" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -171,9 +171,9 @@
 
                     <div class="form-group">
                         <label asp-for="Routes[1].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                        <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                        <div class="input-group date" id="dateTimePickerR1ED" data-target-input="nearest">
                             <input asp-for="Routes[1].RouteDetail.EndDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-append" data-target="#dateTimePickerR1ED" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -227,9 +227,9 @@
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Routes[2].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                            <div class="input-group date" id="dateTimePickerR2SD" data-target-input="nearest">
                                 <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-append" data-target="#dateTimePickerR2SD" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
@@ -244,9 +244,9 @@
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Routes[2].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                            <div class="input-group date" id="dateTimePickerR2ED" data-target-input="nearest">
                                 <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-append" data-target="#dateTimePickerR2ED" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
@@ -348,6 +348,38 @@
                 $("#" + vehicleSelector).prop('selectedIndex', 0);
             }
         }
+
+        $(function () {
+            $('#dateTimePickerR0SD').datetimepicker({
+                locale: 'pl'
+            });
+        });
+        $(function () {
+            $('#dateTimePickerR0ED').datetimepicker({
+                locale: 'pl'
+            });
+        });
+         $(function () {
+            $('#dateTimePickerR1SD').datetimepicker({
+                locale: 'pl'
+            });
+         });
+        $(function () {
+            $('#dateTimePickerR1ED').datetimepicker({
+                locale: 'pl'
+            });
+        });
+        $(function () {
+            $('#dateTimePickerR2SD').datetimepicker({
+                locale: 'pl'
+            });
+        });
+        $(function () {
+            $('#dateTimePickerR2ED').datetimepicker({
+                locale: 'pl'
+            });
+        });
+
 
     </script>
 
