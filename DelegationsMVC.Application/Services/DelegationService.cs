@@ -127,6 +127,11 @@ namespace DelegationsMVC.Application.Services
             delVm.TransportTypes = GetTransportTypes().ToList();
             delVm.Vehicles = _vehRepo.GetVehiclesByEmployee(delVm.EmployeeId)
                 .ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+            if(delVm.Id != 0)
+            {
+                delVm.Routes = _delegationRepo.GetRoutesByDelegation(delVm.Id)
+                .ProjectTo<NewRouteVm>(_mapper.ConfigurationProvider).ToList();
+            }
             return delVm;
         }
 

@@ -50,12 +50,17 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(del).Property("PaidDateDate").IsModified = true;
             _context.Entry(del).Collection("Routes").IsModified = true;
             _context.Entry(del).Collection("Costs").IsModified = true;
+            foreach (var item in del.Costs)
+            {
+                _context.Entry(item).Property("Amount").IsModified = true;
+            }
             _context.SaveChanges();
         }
 
         public Delegation GetDelegationById(int delegationId)
         {
             var delegation = _context.Delegations
+                .Include(d => d.Costs)
                 .Include(d => d.Routes)
                 .ThenInclude(r => r.RouteDetail)
                 .FirstOrDefault(d => d.Id == delegationId);

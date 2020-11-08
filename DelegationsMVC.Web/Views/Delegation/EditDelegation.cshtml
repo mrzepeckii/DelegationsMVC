@@ -25,12 +25,29 @@
             </div>
             <input asp-for="EmployeeId" type="hidden" class="form-control" />
             <input asp-for="DelegationStatusId" type="hidden" class="form-control" />
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
+                    <input step="0.1" asp-for="Costs[0].Amount" asp-format="{0:n0}" class="form-control" />
+                    <span asp-validation-for="Costs[0].Amount" class="text-danger"></span>
+                    <input type="hidden" asp-for="Costs[0].CostTypeId" value="1" />
+                    <input type="hidden" asp-for="Costs[0].CostId" />
+                </div>
+                <div class="form-group col">
+                    <label asp-for="Costs[1].Amount" class="control-label">Dodatkowe wydatki</label>
+                    <input asp-for="Costs[1].Amount" asp-format="{0:n0}" class="form-control" />
+                    <span asp-validation-for="Costs[1].Amount" class="text-danger"></span>
+                    <input type="hidden" asp-for="Costs[1].CostTypeId" value="2" />
+                    <input type="hidden" asp-for="Costs[1].CostId" />
+                </div>                
+            </div>
             <div class="form-group">
                 <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
             </div>
         </form>
     </div>
 </div>
+
 <div class="form-row">
     <table class="table table-bordered" id="table">
         <thead class="thead-dark">
