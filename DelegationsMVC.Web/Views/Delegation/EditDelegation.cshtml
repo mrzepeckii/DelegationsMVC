@@ -75,7 +75,7 @@
                     <td>
                         @Html.ActionLink("Usuń", "DeleteRoute", new { idRoute = route.Id, idDel = route.DelegationId })
                         |
-                        <a href="javascript:EditRoute(@route.Id,@route.DelegationId)">Edytuj</a>
+                        <a href="javascript:EditRoute(@route.Id,@route.DelegationId,@route.TypeOfTransportId)">Edytuj</a>
                     </td>
                 </tr>
             }
@@ -128,15 +128,16 @@
             }
         }
 
-        function EditRoute(routeId, delId) {
+        function EditRoute(routeId, delId, transportId) {
             ClearRoute();
             var $divRoute = $('#Route');
            var url = '@Url.Action("EditRoute", "Delegation")?idRoute=' + routeId + '&idDel=' + delId;
-            alert(routeId);
-            alert(delId);
-            $divRoute.load(url);
+            $divRoute.load(url, function () {
+                if (transportId != 1) {
+                    $('#Vehicle').hide();
+                }
+            });
         }
-
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
