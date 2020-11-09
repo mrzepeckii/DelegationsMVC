@@ -1,8 +1,11 @@
 ﻿@model DelegationsMVC.Application.ViewModels.RouteVm.NewRouteVm
 
 <br />
-<h4>Dodaj nową podróż</h4>
-<div class="col-form-label">
+<div class="form-row">
+    <h4>Dodaj nową podróż</h4>
+</div>
+
+<div class="col-form">
     <form asp-action="AddNewRouteForDelegation">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" class="form-control" value=0 />
@@ -68,7 +71,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group">
+            <div class="form-group col-sm-6">
                 <label asp-for="RouteDetail.Kilometers" class="control-label">Kilometry</label>
                 <input asp-for="RouteDetail.Kilometers" class="form-control" />
                 <span asp-validation-for="RouteDetail.Kilometers" class="text-danger"></span>
@@ -78,10 +81,6 @@
             <input type="submit" value="Potwierdź" class="btn btn-dark" />
         </div>
     </form>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

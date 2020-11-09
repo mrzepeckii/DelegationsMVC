@@ -1,30 +1,36 @@
 ﻿@model DelegationsMVC.Application.ViewModels.EmployeeVm.NewVehicleVm
 
     <br />
-    <h4>Dodaj pojazd</h4>
-    <div class="col">
-        <form asp-action="AddNewVehicleForEmployee">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-row">
+        <h4>Dodaj pojazd</h4>
+    </div>
+    
+    <div class="form-row">
+        <div class="col">
+            <form asp-action="AddNewVehicleForEmployee">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" value="0" />
-            <div class="row">
-                <div class="form-group col">
-                    <label asp-for="PlateNumbers" class="control-label">Numer rejestracyjny</label>
-                    <input asp-for="PlateNumbers" class="form-control" />
-                    <span asp-validation-for="PlateNumbers" class="text-danger"></span>
+                <div class="row">
+                    <div class="form-group col">
+                        <label asp-for="PlateNumbers" class="control-label">Numer rejestracyjny</label>
+                        <input asp-for="PlateNumbers" class="form-control" />
+                        <span asp-validation-for="PlateNumbers" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col">
+                        <label asp-for="EngineTypeId" class="control-label">Pojemność silnika</label>
+                        <select asp-for="EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes,"Id", "Name"))" class="custom-select"></select>
+                        <span asp-validation-for="EngineTypeId" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group col">
-                    <label asp-for="EngineTypeId" class="control-label">Pojemność silnika</label>
-                    <select asp-for="EngineTypeId" asp-items="@(new SelectList(Model.EngineTypes,"Id", "Name"))" class="custom-select"></select>
-                    <span asp-validation-for="EngineTypeId" class="text-danger"></span>
-                </div>
-            </div>
 
                 <input type="hidden" asp-for="EmployeeId" class="form-control" />
-            <div class="form-group">
-                <input type="submit" value="Potwierdz" class="btn btn-dark" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Potwierdz" class="btn btn-dark" />
+                </div>
+            </form>
+        </div>
     </div>
+   
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

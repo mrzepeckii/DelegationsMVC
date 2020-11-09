@@ -5,9 +5,8 @@
 }
 
 <h1>Dane szczegółowe</h1>
-
+<br />
 <div>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayName("Imię i naziwsko:")
@@ -53,15 +52,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.EngineType)
                             </td>
-                            @*<td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
-                            </td>*@
                         </tr>
                     }
                 </tbody>
             </table>
-            @*<input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" />*@
         </div>
         <div class="col-sm-1">
 
@@ -86,10 +80,6 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ContactDetailInformation)
                                     </td>
-                                    @*<td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
-                                    </td>*@
                                 </tr>
 
                             }
@@ -112,21 +102,15 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ContactDetailInformation)
                                     </td>
-                                    @*<td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Delete", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
-                                    </td>*@
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-            @*<input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" />*@
         </div>
     </div>
     <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Powrót do listy pracowników</a>
     </div>
 </div>

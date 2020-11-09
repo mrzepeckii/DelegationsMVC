@@ -4,8 +4,10 @@
     ViewData["Title"] = "AddDelegation";
 }
 
-<h1>Dodaj delegację</h1>
-
+<div class="form-row">
+    <h1>Dodaj delegację</h1>   
+</div>
+<br />
 <form asp-action="AddDelegation">
     <div class="form-row">
         <h3>Dane podstawowe</h3>
@@ -33,92 +35,97 @@
     <div class="form-row">
         <h3>Koszty</h3>
     </div>
-    <div class="col-md-8">
-        <div class="form-row">
-            <div class="form-group col">
-                <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
-                <input asp-for="Costs[0].Amount" class="form-control" />
-                <span asp-validation-for="Costs[0].Amount" class="text-danger"></span>
-                <input type="hidden" asp-for="Costs[0].CostTypeId" value="1" />
-            </div>
-            <div class="form-group col">
-                <label asp-for="Costs[1].Amount" class="control-label">Dodatkowe wydatki</label>
-                <input asp-for="Costs[1].Amount" class="form-control" />
-                <span asp-validation-for="Costs[1].Amount" class="text-danger"></span>
-                <input type="hidden" asp-for="Costs[1].CostTypeId" value="2" />
+    <div class="form-row">
+        <div class="col-md-8">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
+                    <input asp-for="Costs[0].Amount" class="form-control" />
+                    <span asp-validation-for="Costs[0].Amount" class="text-danger"></span>
+                    <input type="hidden" asp-for="Costs[0].CostTypeId" value="1" />
+                </div>
+                <div class="form-group col">
+                    <label asp-for="Costs[1].Amount" class="control-label">Dodatkowe wydatki</label>
+                    <input asp-for="Costs[1].Amount" class="form-control" />
+                    <span asp-validation-for="Costs[1].Amount" class="text-danger"></span>
+                    <input type="hidden" asp-for="Costs[1].CostTypeId" value="2" />
+                </div>
             </div>
         </div>
     </div>
     <div class="form-row">
         <h3>Podróże</h3>
     </div>
+
     <div id="Podroze">
         <div class="form-row">
             <h4>I etap - do klienta</h4>
         </div>
-        <div class="col-md-8">
-            <div class="form-row">
-                <div class="form-group col">
-                    <label asp-for="Routes[0].RouteTypeId" class="control-label">Rodzaj podróży</label>
-                    <select asp-for="Routes[0].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
-                    <span asp-validation-for="Routes[0].RouteTypeId" class="text-danger"></span>
+        <div class="form-row">
+            <div class="col-md-8">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label asp-for="Routes[0].RouteTypeId" class="control-label">Rodzaj podróży</label>
+                        <select asp-for="Routes[0].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
+                        <span asp-validation-for="Routes[0].RouteTypeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col">
+                        <label asp-for="Routes[0].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
+                        <select id="TransportTypeSelectorR0" asp-for="Routes[0].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="form-control" onchange="CheckState(this,'VehicleR0','VehicleSelectorR0')"></select>
+                        <span asp-validation-for="Routes[0].TypeOfTransportId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col">
+                        <div id="VehicleR0" class="form-group">
+                            <label asp-for="Routes[0].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
+                            <select id="VehicleSelectorR0" asp-for="Routes[0].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="form-control"></select>
+                            <span asp-validation-for="Routes[0].RouteDetail.VehicleId" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group col">
-                    <label asp-for="Routes[0].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
-                    <select id="TransportTypeSelectorR0" asp-for="Routes[0].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="form-control" onchange="CheckState(this,'VehicleR0','VehicleSelectorR0')"></select>
-                    <span asp-validation-for="Routes[0].TypeOfTransportId" class="text-danger"></span>
-                </div>
-                <div class="form-group col">
-                    <div id="VehicleR0" class="form-group">
-                        <label asp-for="Routes[0].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
-                        <select id="VehicleSelectorR0" asp-for="Routes[0].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="form-control"></select>
-                        <span asp-validation-for="Routes[0].RouteDetail.VehicleId" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group">
-                        <label asp-for="Routes[0].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                        <div class="input-group date" id="dateTimePickerR0SD" data-target-input="nearest">
-                            <input asp-for="Routes[0].RouteDetail.StartDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#dateTimePickerR0SD" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Routes[0].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
+                            <div class="input-group date" id="dateTimePickerR0SD" data-target-input="nearest">
+                                <input asp-for="Routes[0].RouteDetail.StartDate" type='text' class="form-control" />
+                                <div class="input-group-append" data-target="#dateTimePickerR0SD" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
+                            <span asp-validation-for="Routes[0].RouteDetail.StartDate" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="Routes[0].RouteDetail.StartDate" class="text-danger"></span>
+                        <div class="form-group">
+                            <label asp-for="Routes[0].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
+                            <input asp-for="Routes[0].RouteDetail.StartPoint" class="form-control" />
+                            <span asp-validation-for="Routes[0].RouteDetail.StartPoint" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Routes[0].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
-                        <input asp-for="Routes[0].RouteDetail.StartPoint" class="form-control" />
-                        <span asp-validation-for="Routes[0].RouteDetail.StartPoint" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label asp-for="Routes[0].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                        <div class="input-group date" id="dateTimePickerR0ED" data-target-input="nearest">
-                            <input asp-for="Routes[0].RouteDetail.EndDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#dateTimePickerR0ED" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="Routes[0].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
+                            <div class="input-group date" id="dateTimePickerR0ED" data-target-input="nearest">
+                                <input asp-for="Routes[0].RouteDetail.EndDate" type='text' class="form-control" />
+                                <div class="input-group-append" data-target="#dateTimePickerR0ED" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
+                            <span asp-validation-for="Routes[0].RouteDetail.EndDate" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="Routes[0].RouteDetail.EndDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Routes[0].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
-                        <input asp-for="Routes[0].RouteDetail.EndPoint" class="form-control" />
-                        <span asp-validation-for="Routes[0].RouteDetail.EndPoint" class="text-danger"></span>
+                        <div class="form-group">
+                            <label asp-for="Routes[0].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
+                            <input asp-for="Routes[0].RouteDetail.EndPoint" class="form-control" />
+                            <span asp-validation-for="Routes[0].RouteDetail.EndPoint" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label asp-for="Routes[0].RouteDetail.Kilometers" class="control-label">Kilometry</label>
-                    <input asp-for="Routes[0].RouteDetail.Kilometers" class="form-control" />
-                    <span asp-validation-for="Routes[0].RouteDetail.Kilometers" class="text-danger"></span>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label asp-for="Routes[0].RouteDetail.Kilometers" class="control-label">Kilometry</label>
+                        <input asp-for="Routes[0].RouteDetail.Kilometers" class="form-control" />
+                        <span asp-validation-for="Routes[0].RouteDetail.Kilometers" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,155 +133,158 @@
         <div class="form-row">
             <h4>II etap - od klienta</h4>
         </div>
-        <div class="col-md-8">
-            <div class="form-row">
-                <div class="form-group col">
-                    <label asp-for="Routes[1].RouteTypeId" class="control-label">Rodzaj podróży</label>
-                    <select asp-for="Routes[1].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
-                    <span asp-validation-for="Routes[1].RouteTypeId" class="text-danger"></span>
-                </div>
-
-                <div class="form-group col">
-                    <label asp-for="Routes[1].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
-                    <select id="TransportTypeSelectorR1" asp-for="Routes[1].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="form-control" onchange="CheckState(this,'VehicleR1','VehicleSelectorR1')"></select>
-                    <span asp-validation-for="Routes[1].TypeOfTransportId" class="text-danger"></span>
-                </div>
-                <div class="form-group col">
-                    <div id="VehicleR1" class="form-group">
-                        <label asp-for="Routes[1].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
-                        <select id="VehicleSelectorR1" asp-for="Routes[1].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="form-control"></select>
-                        <span asp-validation-for="Routes[1].RouteDetail.VehicleId" class="text-danger"></span>
+        <div class="form-row">
+            <div class="col-md-8">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label asp-for="Routes[1].RouteTypeId" class="control-label">Rodzaj podróży</label>
+                        <select asp-for="Routes[1].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
+                        <span asp-validation-for="Routes[1].RouteTypeId" class="text-danger"></span>
                     </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col">
 
-                    <div class="form-group">
-                        <label asp-for="Routes[1].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                        <div class="input-group date" id="dateTimePickerR1SD" data-target-input="nearest">
-                            <input asp-for="Routes[1].RouteDetail.StartDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#dateTimePickerR1SD" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
+                    <div class="form-group col">
+                        <label asp-for="Routes[1].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
+                        <select id="TransportTypeSelectorR1" asp-for="Routes[1].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="form-control" onchange="CheckState(this,'VehicleR1','VehicleSelectorR1')"></select>
+                        <span asp-validation-for="Routes[1].TypeOfTransportId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col">
+                        <div id="VehicleR1" class="form-group">
+                            <label asp-for="Routes[1].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
+                            <select id="VehicleSelectorR1" asp-for="Routes[1].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="form-control"></select>
+                            <span asp-validation-for="Routes[1].RouteDetail.VehicleId" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="Routes[1].RouteDetail.StartDate" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Routes[1].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
-                        <input asp-for="Routes[1].RouteDetail.StartPoint" class="form-control" />
-                        <span asp-validation-for="Routes[1].RouteDetail.StartPoint" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col">
+                <div class="form-row">
+                    <div class="col">
 
-                    <div class="form-group">
-                        <label asp-for="Routes[1].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                        <div class="input-group date" id="dateTimePickerR1ED" data-target-input="nearest">
-                            <input asp-for="Routes[1].RouteDetail.EndDate" type='text' class="form-control" />
-                            <div class="input-group-append" data-target="#dateTimePickerR1ED" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        <div class="form-group">
+                            <label asp-for="Routes[1].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
+                            <div class="input-group date" id="dateTimePickerR1SD" data-target-input="nearest">
+                                <input asp-for="Routes[1].RouteDetail.StartDate" type='text' class="form-control" />
+                                <div class="input-group-append" data-target="#dateTimePickerR1SD" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
+                            <span asp-validation-for="Routes[1].RouteDetail.StartDate" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
+
+                        <div class="form-group">
+                            <label asp-for="Routes[1].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
+                            <input asp-for="Routes[1].RouteDetail.StartPoint" class="form-control" />
+                            <span asp-validation-for="Routes[1].RouteDetail.StartPoint" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Routes[1].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
-                        <input asp-for="Routes[1].RouteDetail.EndPoint" class="form-control" />
-                        <span asp-validation-for="Routes[1].RouteDetail.EndPoint" class="text-danger"></span>
+                    <div class="col">
+
+                        <div class="form-group">
+                            <label asp-for="Routes[1].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
+                            <div class="input-group date" id="dateTimePickerR1ED" data-target-input="nearest">
+                                <input asp-for="Routes[1].RouteDetail.EndDate" type='text' class="form-control" />
+                                <div class="input-group-append" data-target="#dateTimePickerR1ED" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Routes[1].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
+                            <input asp-for="Routes[1].RouteDetail.EndPoint" class="form-control" />
+                            <span asp-validation-for="Routes[1].RouteDetail.EndPoint" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label asp-for="Routes[1].RouteDetail.Kilometers" class="control-label">Kilometry</label>
-                    <input asp-for="Routes[1].RouteDetail.Kilometers" class="form-control" />
-                    <span asp-validation-for="Routes[1].RouteDetail.Kilometers" class="text-danger"></span>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label asp-for="Routes[1].RouteDetail.Kilometers" class="control-label">Kilometry</label>
+                        <input asp-for="Routes[1].RouteDetail.Kilometers" class="form-control" />
+                        <span asp-validation-for="Routes[1].RouteDetail.Kilometers" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
         </div>
         <br />
         <div id="AddRouteDiv">
             <div class="form-row">
-                <div class="form-check">
+                <div class="form-check form-row">
                     <input asp-for="IsAdditionalRoute" class="form-check-input" type="checkbox" id="AdditionalRouteCheckBox" onchange="CheckBox()">
                     <h4>Dodatkowa podróż</h4>
                 </div>
             </div>
-            <div id="AdditionalRoute" class="col-md-8">
-                <div class="form-row">
-                    <div class="form-group col">
-                        <label asp-for="Routes[2].RouteTypeId" class="control-label">Rodzaj podróży</label>
-                        <select asp-for="Routes[2].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
-                        <span asp-validation-for="Routes[2].RouteTypeId" class="text-danger"></span>
-                    </div>
+            <div class="form-row">
+                <div id="AdditionalRoute" class="col-md-8">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label asp-for="Routes[2].RouteTypeId" class="control-label">Rodzaj podróży</label>
+                            <select asp-for="Routes[2].RouteTypeId" asp-items="@(new SelectList(Model.RouteTypes,"Id", "Name"))" class="form-control"></select>
+                            <span asp-validation-for="Routes[2].RouteTypeId" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group col">
-                        <label asp-for="Routes[2].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
-                        <select id="TransportTypeSelectorR2" asp-for="Routes[2].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="form-control" onchange="CheckState(this,'VehicleR2','VehicleSelectorR2')"></select>
-                        <span asp-validation-for="Routes[2].TypeOfTransportId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col">
-                        <div id="VehicleR2" class="form-group">
-                            <label asp-for="Routes[2].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
-                            <select id="VehicleSelectorR2" asp-for="Routes[2].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="form-control"></select>
-                            <span asp-validation-for="Routes[2].RouteDetail.VehicleId" class="text-danger"></span>
+                        <div class="form-group col">
+                            <label asp-for="Routes[2].TypeOfTransportId" class="control-label">Rodzaj transportu</label>
+                            <select id="TransportTypeSelectorR2" asp-for="Routes[2].TypeOfTransportId" asp-items="@(new SelectList(Model.TransportTypes,"Id", "Name"))" class="form-control" onchange="CheckState(this,'VehicleR2','VehicleSelectorR2')"></select>
+                            <span asp-validation-for="Routes[2].TypeOfTransportId" class="text-danger"></span>
                         </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="Routes[2].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                            <div class="input-group date" id="dateTimePickerR2SD" data-target-input="nearest">
-                                <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#dateTimePickerR2SD" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
+                        <div class="form-group col">
+                            <div id="VehicleR2" class="form-group">
+                                <label asp-for="Routes[2].RouteDetail.VehicleId" class="control-label">Numer rejestracyjny pojazdu</label>
+                                <select id="VehicleSelectorR2" asp-for="Routes[2].RouteDetail.VehicleId" asp-items="@(new SelectList(Model.Vehicles,"Id", "PlateNumbers"))" class="form-control"></select>
+                                <span asp-validation-for="Routes[2].RouteDetail.VehicleId" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="Routes[2].RouteDetail.StartDate" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Routes[2].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
-                            <input asp-for="Routes[2].RouteDetail.StartPoint" class="form-control" />
-                            <span asp-validation-for="Routes[2].RouteDetail.StartPoint" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label asp-for="Routes[2].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                            <div class="input-group date" id="dateTimePickerR2ED" data-target-input="nearest">
-                                <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#dateTimePickerR2ED" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Routes[2].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
+                                <div class="input-group date" id="dateTimePickerR2SD" data-target-input="nearest">
+                                    <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
+                                    <div class="input-group-append" data-target="#dateTimePickerR2SD" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
                                 </div>
+                                <span asp-validation-for="Routes[2].RouteDetail.StartDate" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="Routes[2].RouteDetail.EndDate" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="Routes[2].RouteDetail.StartPoint" class="control-label">Miejsce wyjazdu</label>
+                                <input asp-for="Routes[2].RouteDetail.StartPoint" class="form-control" />
+                                <span asp-validation-for="Routes[2].RouteDetail.StartPoint" class="text-danger"></span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Routes[2].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
-                            <input asp-for="Routes[2].RouteDetail.EndPoint" class="form-control" />
-                            <span asp-validation-for="Routes[2].RouteDetail.EndPoint" class="text-danger"></span>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Routes[2].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
+                                <div class="input-group date" id="dateTimePickerR2ED" data-target-input="nearest">
+                                    <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
+                                    <div class="input-group-append" data-target="#dateTimePickerR2ED" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Routes[2].RouteDetail.EndDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-row">
+                                <label asp-for="Routes[2].RouteDetail.EndPoint" class="control-label">Miejsce docelowe</label>
+                                <input asp-for="Routes[2].RouteDetail.EndPoint" class="form-control" />
+                                <span asp-validation-for="Routes[2].RouteDetail.EndPoint" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label asp-for="Routes[2].RouteDetail.Kilometers" class="control-label">Kilometry</label>
-                        <input asp-for="Routes[2].RouteDetail.Kilometers" class="form-control" />
-                        <span asp-validation-for="Routes[2].RouteDetail.Kilometers" class="text-danger"></span>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label asp-for="Routes[2].RouteDetail.Kilometers" class="control-label">Kilometry</label>
+                            <input asp-for="Routes[2].RouteDetail.Kilometers" class="form-control" />
+                            <span asp-validation-for="Routes[2].RouteDetail.Kilometers" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" onclick="CheckBoxSend()" />
     </div>
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Powrót do listy delegacji</a>
     </div>
 </form>
 

@@ -4,22 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista pracowników</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table table-bordered" id="table">
     <thead class=" thead-dark">
         <tr>
             <th>
-                Name
+                Imię i nazwisko
             </th>
             <th>
-                Position
+                Stanowisko
             </th>
             <th>
-                Action
+               
             </th>
         </tr>
     </thead>
@@ -34,8 +31,7 @@
                     @Html.DisplayFor(modelItem => item.Position)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "ViewEmployee", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>

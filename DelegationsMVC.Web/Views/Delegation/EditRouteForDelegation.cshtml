@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group">
+            <div class="form-group col-sm-6">
                 <label asp-for="RouteDetail.Kilometers" class="control-label">Kilometry</label>
                 <input asp-for="RouteDetail.Kilometers" class="form-control" />
                 <span asp-validation-for="RouteDetail.Kilometers" class="text-danger"></span>
@@ -79,10 +79,6 @@
             <input type="submit" value="Potwierdź" class="btn btn-dark" />
         </div>
     </form>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

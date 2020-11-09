@@ -4,9 +4,11 @@
     ViewData["Title"] = "EditEmployee";
 }
 
-<h1>Edytuj dane</h1>
+<div class="form-row">
+    <h1>Edytuj dane</h1>
+</div>
 
-<div class="row">
+<div class=" form-row">
     <div class="col-md-8">
         <form asp-action="EditEmployee">
             <div class="form-row">
@@ -14,7 +16,7 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" class="form-control" />
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label asp-for="FirstName" class="control-label">Imię</label>
                     <input asp-for="FirstName" class="form-control" />
@@ -26,7 +28,7 @@
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label asp-for="EmployeeTypeId" class="control-label">Pozycja</label>
                     <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes, "Id", "Name"))" class="custom-select"></select>
@@ -44,7 +46,7 @@
         </form>
     </div>
 </div>
-<div class="row">
+<div class="form-row">
     <div class="col">
         <h2>Pojazdy</h2>
         <br />
@@ -95,7 +97,7 @@
     <div class="col">
         <h2>Dane kontaktowe</h2>
         <br />
-        <div class="row">
+        <div class="form-row">
             <div class="col">
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -138,7 +140,7 @@
     </div>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Index">Back to List</a>*@
 </div>
 
 @section Scripts {

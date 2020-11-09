@@ -4,7 +4,10 @@
     ViewData["Title"] = "EditDelegation";
 }
 
-<h1>Edytuj delegację</h1>
+<div class="form-row">
+    <h1>Edytuj delegację</h1>
+</div>
+
 
 <div class="form-row">
     <div class="col-md-8">
@@ -100,12 +103,13 @@
     </table>
 </div>
 <input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
+<button id="DeleteForm" type="button" class="btn btn-dark" onclick="ClearRoute()">Usuń formularz</button>
 <div id="Route">
 
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Powrót do listy delegacji</a>
 </div>
 
 @section Scripts {
@@ -121,17 +125,22 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+            $('#DeleteForm').hide();
+        });
+
          function AddRoute() {
             var $divRoute = $('#Route');
              $divRoute.empty();
             var url = '@Url.Action("NewRoute","Delegation", new { id = Model.Id} )';
             $divRoute.load(url);
-            $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
+             $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
         }
 
         function ClearRoute() {
             $('#Route').empty();
             $('#AddRoute').attr("onclick", "AddRoute()").attr("value", "Dodaj podróż");
+            $('#DeleteForm').hide();
         }
 
         function CheckState() {
@@ -145,6 +154,18 @@
             }
         }
 
+        $(function () {
+            $('#dateTimePickerSD').datetimepicker({
+                locale: 'pl'
+            });
+        });
+
+        $(function () {
+            $('#dateTimePickerED').datetimepicker({
+                locale: 'pl'
+            });
+        });
+
         function EditRoute(routeId, delId, transportId) {
             ClearRoute();
             var $divRoute = $('#Route');
@@ -154,6 +175,7 @@
                     $('#Vehicle').hide();
                 }
             });
+            $('#DeleteForm').show();
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

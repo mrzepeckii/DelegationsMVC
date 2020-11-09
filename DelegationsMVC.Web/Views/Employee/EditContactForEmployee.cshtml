@@ -1,29 +1,35 @@
 ﻿@model DelegationsMVC.Application.ViewModels.EmployeeVm.NewContactDetailsVm
 
 <br />
-<h4>Edytuj kontakt</h4>
-<div class="col">
-    <form asp-action="EditContactForEmployee">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Id" class="form-control" />
-        <div class="row">
-            <div class="form-group col">
-                <label asp-for="ContactDetailInformation" class="control-label">Dane</label>
-                <input asp-for="ContactDetailInformation" class="form-control" />
-                <span asp-validation-for="ContactDetailInformation" class="text-danger"></span>
-            </div>
-            <div class="form-group col">
-                <label asp-for="ContactDetailTypeId" class="control-label">Rodzaj kontaktu</label>
-                <select asp-for="ContactDetailTypeId" asp-items="@(new SelectList(Model.ContactDetailTypes,"Id", "Name"))" class="custom-select"></select>
-                <span asp-validation-for="ContactDetailTypeId" class="text-danger"></span>
-            </div>
-        </div>
-        <input type="hidden" asp-for="EmployeeId" class="form-control" />
-        <div class="form-group">
-            <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
-        </div>
-    </form>
+<div class="form-row">
+    <h4>Edytuj kontakt</h4>
 </div>
+
+<div class="form-row">
+    <div class="col">
+        <form asp-action="EditContactForEmployee">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="ContactDetailInformation" class="control-label">Dane</label>
+                    <input asp-for="ContactDetailInformation" class="form-control" />
+                    <span asp-validation-for="ContactDetailInformation" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="ContactDetailTypeId" class="control-label">Rodzaj kontaktu</label>
+                    <select asp-for="ContactDetailTypeId" asp-items="@(new SelectList(Model.ContactDetailTypes,"Id", "Name"))" class="custom-select"></select>
+                    <span asp-validation-for="ContactDetailTypeId" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" asp-for="EmployeeId" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
