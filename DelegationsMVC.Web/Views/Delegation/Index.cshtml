@@ -13,29 +13,29 @@
 <table class="table table-bordered" id="table">
     <thead class="thead-dark">
         <tr>
-            <th>
+            <th style="text-align :center">
                 Numer
             </th>
-            <th>
+            <th style="text-align :center">
                 Początek
             </th>
-            <th>
+            <th style="text-align :center">
                 Koniec
             </th>
-            <th>
+            <th style="text-align :center">
                 Miejsce
             </th>
-            <th>
+            <th style="text-align :center">
                 Status
             </th>
-            <th>
-                Zatw. prezesa
+            <th style="text-align :center">
+                Prezes
             </th>
-            <th>
-                Zatw. księgowości
+            <th style="text-align :center">
+                Księgowość
             </th>
             <th></th>
-            <th>
+            <th style="text-align :center">
                 Podpis
             </th>
         </tr>
@@ -44,28 +44,28 @@
         @foreach (var item in Model.Delegations)
         {
             <tr>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.DelegationNo)
                 </td>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.Destination)
                 </td>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.DelegationStatus)
                 </td>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.ChiefApprovedDate)
                 </td>
-                <td>
+                <td style="text-align :center">
                     @Html.DisplayFor(modelItem => item.AccoutantApprovedDate)
                 </td>
-                <td>
+                <td style="text-anchor:middle; text-align :center">
                     <a class="btn btn-info btn-sm" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">Szczegóły</a>
                     <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">Usuń</a>
                 </td>
@@ -101,7 +101,7 @@
                     "zeroRecords": "Brak pasujących delegacji",
                     "info": "Strona _PAGE_ z _PAGES_",
                     "infoEmpty": "Brak delegacji w bazie",
-                    "infoFiltered": "(z _MAX_)",
+                    "infoFiltered": "(przeszukano z _MAX_ liczby rekordów)",
                     "search": "Wyszukaj: ",
                     "select": {
                         "rows": " (%d wybranych)"
@@ -153,6 +153,5 @@
                 ]
             });
         });
-
     </script>
 }

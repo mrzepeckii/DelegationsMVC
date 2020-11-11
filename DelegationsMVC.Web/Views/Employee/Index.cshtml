@@ -5,14 +5,14 @@
 }
 
 <h1>Lista pracowników</h1>
-
+<br />
 <table class="table table-bordered" id="table">
     <thead class=" thead-dark">
         <tr>
-            <th>
+            <th style="text-align:center">
                 Imię i nazwisko
             </th>
-            <th>
+            <th style="text-align:center">
                 Stanowisko
             </th>
             <th>
@@ -23,18 +23,18 @@
     <tbody>
         @foreach (var item in Model.Employees)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Position)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "ViewEmployee", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+        <tr>
+            <td style="text-align:left">
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td style="text-align:center">
+                <a class="btn btn-info btn-sm" href="@Url.Action("ViewEmployee", "Employee", new { id = item.Id })">Szczegóły</a>
+                <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Employee", new { id = item.Id })">Usuń</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -48,7 +48,27 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#table').DataTable({
-                "pagingType": "full_numbers"
+                "pagingType": "full_numbers",
+                 "language": {
+                    "lengthMenu": "Pokaż _MENU_ pracowników na stronie",
+                    "zeroRecords": "Brak pasujących pracowników",
+                    "info": "Strona _PAGE_ z _PAGES_",
+                    "infoEmpty": "Brak pracowników w bazie",
+                    "infoFiltered": "(przeszukano z _MAX_ liczby rekordów)",
+                    "search": "Wyszukaj: ",
+                    "paginate": {
+                        "first": "Pierwsza",
+                        "last": "Ostatnia",
+                        "next": "Następna",
+                        "previous": "Poprzednia"
+                    },
+
+                },
+                "columns": [
+                    null,
+                    null,
+                    { "width": "20%", "orderable": false }
+                ]
             });
         });
     </script>
