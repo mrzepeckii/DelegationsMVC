@@ -60,6 +60,9 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public Delegation GetDelegationById(int delegationId)
         {
             var delegation = _context.Delegations
+                .Include(d => d.Employee)
+                .Include(d => d.Destination)
+                .Include(d => d.DelegationStatus)
                 .Include(d => d.Costs)
                 .Include(d => d.Routes)
                 .ThenInclude(r => r.RouteDetail)
