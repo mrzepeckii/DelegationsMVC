@@ -10,62 +10,141 @@
     <h4>DelegationDetailVm</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+        <dt class="col-sm-2">
+            Imię i nazwisko:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Purpose)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Purpose)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployeeName)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EmployeeName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Destination)
+        <dt class="col-sm-2">
+            Miejsce podróży:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Destination)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DelegationStatus)
+        <dt class="col-sm-2">
+            Cel podróży:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DelegationStatus)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Purpose)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDateTime)
+        <dt class="col-sm-2">
+            Data utworzenia:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreatedDateTime)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccoutantApprovedDate)
+        <dt class="col-sm-2">
+            Status delegacji:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccoutantApprovedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ChiefApprovedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ChiefApprovedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaidDateDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaidDateDate)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DelegationStatus)
         </dd>
     </dl>
 </div>
+
+<div class="row">
+    <table class="table table-bordered" id="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Data wyjazdu
+                </th>
+                <th>
+                    Miejsce wyjazdu
+                </th>
+                <th>
+                    Data przyjazdu
+                </th>
+                <th>
+                    Miejsce przyjazdu
+                </th>
+                <th>
+                    Rodzaj transportu
+                </th>
+                <th>
+                    Rodzaj podróży
+                </th>
+                <th>
+                    Kilometry
+                </th>
+                <th>
+                    Zwrot
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var route in Model.Routes)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => route.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => route.StartPoint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => route.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => route.EndPoint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => route.TypeOfTransport)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => route.RouteType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => route.Kilometers)
+                </td>
+                <td>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<dl class="row">
+    <dt class="col-sm-2">
+        Ilość noclegów:
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.ChiefApprovedDate)
+    </dd>
+    <dt class="col-sm-2">
+        Dieta:
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.ChiefApprovedDate)
+    </dd>
+    <dt class="col-sm-2">
+        Zwot z podróży:
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.ChiefApprovedDate)
+    </dd>
+</dl>
+<dl class="row">
+    <dt class="col">
+        Data zatwierdzenia prezesa:
+    </dt>
+    <dd class="col">
+        @Html.DisplayFor(model => model.ChiefApprovedDate)
+    </dd>
+    <dt class="col">
+        Data zatwierdzenia księgowości:
+    </dt>
+    <dd class="col">
+        @Html.DisplayFor(model => model.AccoutantApprovedDate)
+    </dd>
+    <dt class="col">
+        Data wypłaty:
+    </dt>
+    <dd class="col">
+        @Html.DisplayFor(model => model.PaidDateDate)
+    </dd>
+</dl>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>

@@ -27,8 +27,8 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
                 .ForMember(s => s.Kilometers, opt => opt.MapFrom(d => d.RouteDetail.Kilometers))
                 .ForMember(s => s.StartDate, opt => opt.MapFrom(d => d.RouteDetail.StartDate))
                 .ForMember(s => s.EndDate, opt => opt.MapFrom(d => d.RouteDetail.EndDate))
-                .ForMember(s => s.TypeOfTransport, opt => opt.MapFrom(d => d.TypeOfTransport))
-                .ForMember(s => s.RouteType, opt => opt.MapFrom(d => d.RouteType));
+                .ForMember(s => s.TypeOfTransport, opt => opt.MapFrom(d => d.TypeOfTransport.Name))
+                .ForMember(s => s.RouteType, opt => opt.MapFrom(d => d.RouteType.Name));
         }
     }
 }
