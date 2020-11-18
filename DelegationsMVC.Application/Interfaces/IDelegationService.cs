@@ -28,5 +28,6 @@ namespace DelegationsMVC.Application.Interfaces
         void DeleteRoute(int idRoute);
         NewRouteVm GetRouteForEdit(int id);
         void UpdateRoute(NewRouteVm routeVm);
+        DelegationDetailVm GetDelegationDetails(int id);
     }
 }

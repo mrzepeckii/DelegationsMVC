@@ -64,8 +64,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
                 .Include(d => d.Destination)
                 .Include(d => d.DelegationStatus)
                 .Include(d => d.Costs)
+                    .ThenInclude(d => d.CostType)
                 .Include(d => d.Routes)
-                .ThenInclude(r => r.RouteDetail)
+                    .ThenInclude(r => r.RouteDetail)
+                .Include(d => d.Routes)
+                    .ThenInclude(r => r.RouteType)
+                .Include(d => d.Routes)
+                    .ThenInclude(r => r.TypeOfTransport)
                 .FirstOrDefault(d => d.Id == delegationId);
             return delegation;
         }
@@ -100,7 +105,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
            // var delegations = status.Delegations.AsQueryable();
             var delegations = _context.Delegations
                 .Include(d => d.Routes)
-                .ThenInclude(r => r.RouteDetail)
+                    .ThenInclude(r => r.RouteDetail)
                 .Where(d => d.DelegationStatusId == delegationStatusId);  
             return delegations;
         }

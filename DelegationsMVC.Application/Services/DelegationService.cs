@@ -159,5 +159,12 @@ namespace DelegationsMVC.Application.Services
             var route = _mapper.Map<Route>(routeVm);
             _delegationRepo.UpdateRoute(route);
         }
+
+        public DelegationDetailVm GetDelegationDetails(int id)
+        {
+            var del = _delegationRepo.GetDelegationById(id);
+            var model = _mapper.Map<DelegationDetailVm>(del);
+            return model;
+        }
     }
 }

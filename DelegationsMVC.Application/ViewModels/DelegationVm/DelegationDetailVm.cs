@@ -15,6 +15,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         public string EmployeeName { get; set; }
         public string Destination { get; set; }
         public string DelegationStatus { get; set; }
+        public DateTime CreatedDateTime { get; set; }
         public DateTime? AccoutantApprovedDate { get; set; }
         public DateTime? ChiefApprovedDate { get; set; }
         public DateTime? PaidDateDate { get; set; }
@@ -26,7 +27,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
             profile.CreateMap<Delegation, DelegationDetailVm>()
                 .ForMember(s => s.EmployeeName, opt => opt.MapFrom(d => d.Employee.FirstName + " " + d.Employee.LastName))
                 .ForMember(s => s.Destination, opt => opt.MapFrom(d => d.Destination.Name))
-                .ForMember(s => s.DelegationStatus, opt => opt.MapFrom(d => d.DelegationStatus.Name))
+                .ForMember(s => s.DelegationStatus, opt => opt.MapFrom(d => d.DelegationStatus.Name));
         }
     }
 }

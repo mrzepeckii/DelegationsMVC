@@ -85,7 +85,8 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult ViewDelegation(int id)
         {
-            var del = _delegService.GetDelegationById(id);
+            
+            var del = _delegService.GetDelegationDetails(id);
             if(del == null)
             {
                 return RedirectToAction("Index");
