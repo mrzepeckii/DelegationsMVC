@@ -82,6 +82,15 @@ namespace DelegationsMVC.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            var defaultCulture = new CultureInfo("pl-PL");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(defaultCulture),
+                SupportedCultures = new List<CultureInfo> { defaultCulture },
+                SupportedUICultures = new List<CultureInfo> { defaultCulture }
+            };
+
+            app.UseRequestLocalization(localizationOptions);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
