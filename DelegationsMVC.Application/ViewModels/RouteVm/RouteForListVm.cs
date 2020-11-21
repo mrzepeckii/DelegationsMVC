@@ -17,6 +17,7 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
         public string RouteType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public decimal MileageAllowence { get; set; }
 
         public void Mapping(Profile profile)
         {

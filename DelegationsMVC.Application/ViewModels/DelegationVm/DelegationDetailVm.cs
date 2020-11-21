@@ -15,12 +15,14 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         public string EmployeeName { get; set; }
         public string Destination { get; set; }
         public string DelegationStatus { get; set; }
+        public decimal SubsistenceAllowence { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime? AccoutantApprovedDate { get; set; }
         public DateTime? ChiefApprovedDate { get; set; }
         public DateTime? PaidDateDate { get; set; }
         public virtual List<RouteForListVm> Routes { get; set; }
         public virtual List<CostForListVm> Costs { get; set; }
+        
 
         public void Mapping(Profile profile)
         {

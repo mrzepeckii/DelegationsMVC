@@ -17,5 +17,6 @@ namespace DelegationsMVC.Domain.Interfaces
         IQueryable<EngineType> GetEngineTypes();
         Vehicle GetVehicleById(int id);
         void UpdateVehicle(Vehicle veh);
+        decimal GetMilleageAllowenceByVehicle(int? id);
     }
 }

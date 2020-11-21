@@ -88,5 +88,20 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(veh).Property("EngineTypeId").IsModified = true;
             _context.SaveChanges();
         }
+
+        public decimal GetMilleageAllowenceByVehicle(int? id)
+        {
+            var vehicle = _context.Vehicles
+                .Include(v => v.EngineType)
+                    .ThenInclude(et => et.MileageAllowence)
+                .FirstOrDefault(v => v.Id == id);
+
+            if (vehicle == null)
+            {
+                return 0;
+            }
+            var allowence = vehicle.EngineType.MileageAllowence.RatePerKm;
+            return allowence;
+        }
     }
 }
