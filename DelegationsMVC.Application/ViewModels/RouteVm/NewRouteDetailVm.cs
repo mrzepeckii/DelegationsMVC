@@ -23,8 +23,8 @@ namespace DelegationsMVC.Application.ViewModels.RouteVm
 
         public NewRouteDetailVm()
         {
-            StartDate = DateTime.Now;
-            EndDate = DateTime.Now;
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
         }
 
         public void Mapping(Profile profile)

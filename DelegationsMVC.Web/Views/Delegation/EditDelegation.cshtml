@@ -31,7 +31,7 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
-                    <input asp-for="Costs[0].Amount"  class="form-control" />
+                    <input asp-for="Costs[0].Amount" class="form-control" />
                     <span asp-validation-for="Costs[0].Amount" class="text-danger"></span>
                     <input type="hidden" asp-for="Costs[0].CostTypeId" value="1" />
                     <input type="hidden" asp-for="Costs[0].CostId" />
@@ -42,10 +42,11 @@
                     <span asp-validation-for="Costs[1].Amount" class="text-danger"></span>
                     <input type="hidden" asp-for="Costs[1].CostTypeId" value="2" />
                     <input type="hidden" asp-for="Costs[1].CostId" />
-                </div>                
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
+                
             </div>
         </form>
     </div>
@@ -114,15 +115,6 @@
 
 @section Scripts {
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-
     <script type="text/javascript">
 
         $(document).ready(function() {
@@ -136,6 +128,7 @@
             $divRoute.load(url);
              $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
         }
+
 
         function ClearRoute() {
             $('#Route').empty();
@@ -153,18 +146,6 @@
                 $('#VehicleSelector').val("0");
             }
         }
-
-        $(function () {
-            $('#dateTimePickerSD').datetimepicker({
-                locale: 'pl'
-            });
-        });
-
-        $(function () {
-            $('#dateTimePickerED').datetimepicker({
-                locale: 'pl'
-            });
-        });
 
         function EditRoute(routeId, delId, transportId) {
             ClearRoute();

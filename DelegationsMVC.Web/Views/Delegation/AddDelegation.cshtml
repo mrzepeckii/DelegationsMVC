@@ -88,12 +88,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Routes[0].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                            <div class="input-group date" id="dateTimePickerR0SD" data-target-input="nearest">
-                                <input asp-for="Routes[0].RouteDetail.StartDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#dateTimePickerR0SD" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                            <input asp-for="Routes[0].RouteDetail.StartDate" type="datetime-local" class="form-control" />
                             <span asp-validation-for="Routes[0].RouteDetail.StartDate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -105,12 +100,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label asp-for="Routes[0].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                            <div class="input-group date" id="dateTimePickerR0ED" data-target-input="nearest">
-                                <input asp-for="Routes[0].RouteDetail.EndDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#dateTimePickerR0ED" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                            <input asp-for="Routes[0].RouteDetail.EndDate" type="datetime-local" class="form-control" />
                             <span asp-validation-for="Routes[0].RouteDetail.EndDate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -160,12 +150,7 @@
 
                         <div class="form-group">
                             <label asp-for="Routes[1].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                            <div class="input-group date" id="dateTimePickerR1SD" data-target-input="nearest">
-                                <input asp-for="Routes[1].RouteDetail.StartDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#dateTimePickerR1SD" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                            <input asp-for="Routes[1].RouteDetail.StartDate" type="datetime-local" class="form-control" />
                             <span asp-validation-for="Routes[1].RouteDetail.StartDate" class="text-danger"></span>
                         </div>
 
@@ -179,12 +164,7 @@
 
                         <div class="form-group">
                             <label asp-for="Routes[1].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                            <div class="input-group date" id="dateTimePickerR1ED" data-target-input="nearest">
-                                <input asp-for="Routes[1].RouteDetail.EndDate" type='text' class="form-control" />
-                                <div class="input-group-append" data-target="#dateTimePickerR1ED" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                            <input asp-for="Routes[1].RouteDetail.EndDate" type="datetime-local" class="form-control" />
                             <span asp-validation-for="Routes[1].RouteDetail.EndDate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -237,12 +217,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label asp-for="Routes[2].RouteDetail.StartDate" class="control-label">Data wyjazdu</label>
-                                <div class="input-group date" id="dateTimePickerR2SD" data-target-input="nearest">
-                                    <input asp-for="Routes[2].RouteDetail.StartDate" type='text' class="form-control" />
-                                    <div class="input-group-append" data-target="#dateTimePickerR2SD" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
+                                <input asp-for="Routes[2].RouteDetail.StartDate" type="datetime-local" class="form-control" />
                                 <span asp-validation-for="Routes[2].RouteDetail.StartDate" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -254,12 +229,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label asp-for="Routes[2].RouteDetail.EndDate" class="control-label">Data przyjazdu</label>
-                                <div class="input-group date" id="dateTimePickerR2ED" data-target-input="nearest">
-                                    <input asp-for="Routes[2].RouteDetail.EndDate" type='text' class="form-control" />
-                                    <div class="input-group-append" data-target="#dateTimePickerR2ED" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
+                                <input asp-for="Routes[2].RouteDetail.EndDate" type="datetime-local" class="form-control" />
                                 <span asp-validation-for="Routes[2].RouteDetail.EndDate" class="text-danger"></span>
                             </div>
                             <div class="form-group form-row">
@@ -294,28 +264,12 @@
 
 @section Scripts {
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-
     <script type="text/javascript">
 
         $(document).ready(function () {
             $('#AdditionalRouteCheckBox').prop('checked', true);
             @if (Model.Routes != null)
             {
-                @*for (int i = 0; i < 3; i++)
-                {
-                    if(Model.Routes[i].TypeOfTransportId != 1)
-                    {
-                        @: $("#VehicleR"+i).hide();
-                    }
-                }*@
                 if(Model.Routes[0].TypeOfTransportId != 1 )
                 {
                     @:  $("#VehicleR0").hide();
@@ -358,38 +312,6 @@
                 $("#" + vehicleSelector).prop('selectedIndex', 0);
             }
         }
-
-        $(function () {
-            $('#dateTimePickerR0SD').datetimepicker({
-                locale: 'ru'
-            });
-        });
-        $(function () {
-            $('#dateTimePickerR0ED').datetimepicker({
-                locale: 'pl'
-            });
-        });
-         $(function () {
-            $('#dateTimePickerR1SD').datetimepicker({
-                locale: 'pl'
-            });
-         });
-        $(function () {
-            $('#dateTimePickerR1ED').datetimepicker({
-                locale: 'pl'
-            });
-        });
-        $(function () {
-            $('#dateTimePickerR2SD').datetimepicker({
-                locale: 'pl'
-            });
-        });
-        $(function () {
-            $('#dateTimePickerR2ED').datetimepicker({
-                locale: 'pl'
-            });
-        });
-
 
     </script>
 
