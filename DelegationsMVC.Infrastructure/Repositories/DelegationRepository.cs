@@ -39,6 +39,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
             } 
         }
 
+        public IQueryable<Delegation> GetAllDelegations()
+        {
+            var delegations = _context.Delegations;
+            return delegations;
+        }
+
         public void UpdateDelegation(Delegation del)
         {
             _context.Attach(del);
@@ -222,5 +228,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var allowence = del.Destination.Country.SubsistanceAllowence.RatePerDay;
             return allowence;
         }
+
+        
     }
 }

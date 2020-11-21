@@ -27,12 +27,8 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddEmployee()
         {
-            var model = new NewEmployeeVm()
-            {
-                EmployeeTypes = _empService.GetEmployeeTypes().ToList(),
-                ContactDetailTypes = _empService.GetConactDetailTypes().ToList(),
-                EngineTypes = _empService.GetEngineTypes().ToList()
-            };
+            var model = new NewEmployeeVm();
+            _empService.SetParametersToVm(model);
             return View(model);
         }
 
@@ -41,9 +37,7 @@ namespace DelegationsMVC.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
-                model.EngineTypes = _empService.GetEngineTypes().ToList();
-                model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
+                _empService.SetParametersToVm(model);
                 return View(model);
             }
             model.Vehicles = _empService.CheckVehiclesList(model.Vehicles);
@@ -64,9 +58,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult EditEmployee(int id)
         {
             var emp = _empService.GetEmployeeForEdit(id);
-            emp.EngineTypes = _empService.GetEngineTypes().ToList();
-            emp.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
-            emp.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
+            _empService.SetParametersToVm(emp);
             return View(emp);
         }
 
@@ -75,9 +67,7 @@ namespace DelegationsMVC.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                empVm.EngineTypes = _empService.GetEngineTypes().ToList();
-                empVm.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
-                empVm.EmployeeTypes = _empService.GetEmployeeTypes().ToList();
+                _empService.SetParametersToVm(empVm);
                 return View(empVm.Id);
             }
             _empService.UpdateEmployee(empVm);
@@ -100,18 +90,6 @@ namespace DelegationsMVC.Web.Controllers
             return PartialView("AddNewVehicleForEmployee", model);
         }
 
-        //[HttpGet]
-        //  public IActionResult AddNewVehicleForEmployee(int empId)
-        //  {
-        //      var model = new NewVehicleVm
-        //      {
-        //          EmployeeId = empId,
-        //          EngineTypes = _empService.GetEngineTypes().ToList()
-        //      };
-
-        //      return View(model);
-        //  }
-
         [HttpPost]
         public IActionResult AddNewVehicleForEmployee(NewVehicleVm vehVm)
         {
@@ -130,14 +108,6 @@ namespace DelegationsMVC.Web.Controllers
             veh.EngineTypes = _empService.GetEngineTypes().ToList();
             return PartialView("EditVehicleForEmployee", veh);
         }
-
-        //[HttpGet]
-        //public IActionResult EditVehicleForEmployee(int id)
-        //{
-        //    var veh = _empService.GetVehicleForEdit(id);
-        //    veh.EngineTypes = _empService.GetEngineTypes().ToList();
-        //    return View(veh);
-        //}
 
         [HttpPost]
         public IActionResult EditVehicleForEmployee(NewVehicleVm vehVm)
@@ -164,16 +134,6 @@ namespace DelegationsMVC.Web.Controllers
             return PartialView("AddNewContactForEmployee", model);
         }
 
-        //[HttpGet]
-        //public IActionResult AddNewContactForEmployee(int id)
-        //{
-        //    var model = new NewContactDetailsVm {
-        //        EmployeeId = id,
-        //        ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
-        //    };
-        //    return View(model);
-        //}
-
         [HttpPost]
         public IActionResult AddNewContactForEmployee(NewContactDetailsVm conVm)
         {
@@ -187,14 +147,6 @@ namespace DelegationsMVC.Web.Controllers
             model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
             return PartialView("EditContactForEmployee", model);
         }
-
-        //[HttpGet]
-        //public IActionResult EditContactForEmployee(int id)
-        //{
-        //    var contact = _empService.GetContactForEdit(id);
-        //    contact.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
-        //    return View(contact);
-        //}
 
         [HttpPost]
         public IActionResult EditContactForEmployee(NewContactDetailsVm con)

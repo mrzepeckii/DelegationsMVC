@@ -51,8 +51,13 @@ namespace DelegationsMVC.Application.Services
             return delegationsVm;
         }
 
-        public void DeleteDelegation(Delegation del)
+        public void CancelDelegation(int delId)
         {
+            var del = _delegationRepo.GetDelegationById(delId);
+            if(del == null)
+            {
+                return;
+            }
             del.DelegationStatusId = 6;
             _delegationRepo.UpdateDelegation(del);
         }
@@ -168,6 +173,45 @@ namespace DelegationsMVC.Application.Services
             return model;
         }
 
+        public bool ChangeStatusOfDelegation(int delId, int delStatus)
+        {
+            var del = _delegationRepo.GetDelegationById(delId);
+            if (del == null)
+            {
+                return false;
+            }
+            del.DelegationStatusId = delStatus;
+            if (delStatus == 2)
+            {
+                del.ChiefApprovedDate = DateTime.Now;
+            }
+            else if (delStatus == 3)
+            {
+                del.AccoutantApprovedDate = DateTime.Now;
+            }
+            else
+            {
+                if (del.AccoutantApprovedDate == null)
+                {
+                    return false;
+                }
+                del.PaidDateDate = DateTime.Now;
+            }
+            _delegationRepo.UpdateDelegation(del);
+            return true;
+        }
+
+        public ListDelegationForListVm GetAllDelegationsForList()
+        {
+            var delegations = _delegationRepo.GetAllDelegations().ProjectTo<DelegationForListVm>(_mapper.ConfigurationProvider).ToList();
+            var delegationsVm = new ListDelegationForListVm()
+            {
+                Delegations = delegations,
+                Count = delegations.Count
+            };
+            return delegationsVm;
+        }
+
         private void CalculateAndSetAllowences(DelegationDetailVm delVm)
         {
             CalculateMileageAllowence(delVm.Routes);
@@ -235,5 +279,7 @@ namespace DelegationsMVC.Application.Services
             var allowence = _delegationRepo.GetSubsistanceAllowenceByDel(delVm.Id);
             delVm.SubsistenceAllowence = (decimal)CalculateDaysInDelegation(delVm) * allowence;
         }
+
+       
     }
 }

@@ -13,13 +13,14 @@ namespace DelegationsMVC.Application.Interfaces
     {
         int AddDelegation(NewDelegationVm delVm);
         ListDelegationForListVm GetAllDelegationsForListByStatus(int statusId);
-        void DeleteDelegation(Delegation del);
+        void CancelDelegation(int delId);
         void UpdateDelegation(NewDelegationVm delVm);
         IQueryable<DestinationTypeVm> GetAllDestinations();
         void DeleteDelegationPermanently(int delId);
         Delegation GetDelegationById(int delId);
         int AddRoute(NewRouteVm model);
         IQueryable<RouteTypeVm> GetRouteTypes();
+        ListDelegationForListVm GetAllDelegationsForList();
         IQueryable<TransportTypeVm> GetTransportTypes();
         List<NewRouteVm> CheckRoutes(NewDelegationVm delVm);
         NewRouteVm SetParametersToVm(NewRouteVm routeVm);
@@ -29,5 +30,6 @@ namespace DelegationsMVC.Application.Interfaces
         NewRouteVm GetRouteForEdit(int id);
         void UpdateRoute(NewRouteVm routeVm);
         DelegationDetailVm GetDelegationDetails(int id);
+        bool ChangeStatusOfDelegation(int delId, int delStatus);
     }
 }

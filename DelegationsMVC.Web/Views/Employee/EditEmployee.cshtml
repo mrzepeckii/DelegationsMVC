@@ -75,9 +75,8 @@
                             @Html.DisplayFor(modelitem => item.EngineType)
                         </td>
                         <td>
-                            @Html.ActionLink("Usuń", "DeleteVehicle", new { idVeh = item.Id, idEmp = Model.Id })
-                            |
-                            <a href="javascript:EditVeh(@item.Id)">Edytuj</a>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteVehicle", "Employee",new { idVeh = item.Id, idEmp = Model.Id })">Usuń</a>
+                            <a class="btn btn-info btn-sm" href="javascript:EditVeh(@item.Id)">Edytuj</a>
                         </td>
                     </tr>
                 }
@@ -123,9 +122,9 @@
                                     @Html.DisplayFor(modelitem => item.ContactDetailType)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Usuń", "DeleteContact", new { idCon = item.Id, idEmp = Model.Id })
-                                    |
-                                    <a href="javascript:EditContact(@item.Id)">Edytuj</a>
+                                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteContact", "Employee", new { idCon = item.Id, idEmp = Model.Id })">Usuń</a>
+                                    <a class="btn btn-info btn-sm" href="javascript:EditContact(@item.Id)">Edytuj</a>
+
                                 </td>
                             </tr>
                         }

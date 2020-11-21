@@ -21,7 +21,8 @@ namespace DelegationsMVC.Web.Controllers
         }
         public IActionResult Index()
         {
-            var delegations = _delegService.GetAllDelegationsForListByStatus(1);
+            //var delegations = _delegService.GetAllDelegationsForListByStatus(1);
+            var delegations = _delegService.GetAllDelegationsForList();
             return View(delegations);
         }
 
@@ -82,6 +83,12 @@ namespace DelegationsMVC.Web.Controllers
 
         }
 
+        public IActionResult DeleteDelegation(int id)
+        {
+            _delegService.CancelDelegation(id);
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public IActionResult ViewDelegation(int id)
         {
@@ -93,22 +100,6 @@ namespace DelegationsMVC.Web.Controllers
             }
             return View(del);
         }
-        //[HttpGet]
-        //public IActionResult AddNewRouteForDelegation(int id)
-        //{
-        //    var del = _delegService.GetDelegationById(id);
-        //    if(del == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    var model = new NewRouteVm()
-        //    {
-        //        DelegationId = id,
-        //        RouteDetail = new NewRouteDetailVm()
-        //    };
-        //    model = _delegService.SetParametersToVm(model);
-        //    return View(model);
-        //}
 
         public IActionResult NewRoute(int id)
         {
@@ -166,6 +157,16 @@ namespace DelegationsMVC.Web.Controllers
             }
             _delegService.UpdateRoute(routeVm);
             return RedirectToAction("EditDelegation", new { id = routeVm.DelegationId });
+        }
+
+        public IActionResult AcceptOrPaidDelegation(int delId, int delStatus)
+        {
+            var isChanged =_delegService.ChangeStatusOfDelegation(delId, delStatus);
+            if (!isChanged)
+            {
+                return RedirectToAction("ViewDelegation", new { id = delId });
+            }
+            return RedirectToAction("Index");
         }
     }
 }

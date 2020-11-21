@@ -30,5 +30,6 @@ namespace DelegationsMVC.Domain.Interfaces
         Route GetRouteById(int id);
         void UpdateRoute(Route route);
         decimal GetSubsistanceAllowenceByDel(int delId);
+        IQueryable<Delegation> GetAllDelegations();
     }
 }

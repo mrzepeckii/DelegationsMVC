@@ -34,10 +34,12 @@
             <th style="text-align :center">
                 Księgowość
             </th>
-            <th></th>
-            @*<th style="text-align :center">
-                Podpis
-            </th>*@
+            <th style="text-align :center">
+                Szczegóły
+            </th>
+            <th style="text-align :center">
+                Akceptacje
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -67,9 +69,12 @@
                 </td>
                 <td style="text-anchor:middle; text-align :center">
                     <a class="btn btn-info btn-sm" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">Szczegóły</a>
-                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">Usuń</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">Anuluj</a>
                 </td>
-                @*<td></td>*@
+                <td style="text-anchor:middle; text-align :center">
+                    <a class="btn btn-success btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">Potwierdź</a>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">Opłać</a>
+                </td>
             </tr>
         }
     </tbody>
@@ -91,6 +96,8 @@
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -135,19 +142,9 @@
                         }
                     },
                 ],
-                select: true,
                 "columnDefs": [
-                    { "orderable": false, "targets": 7 }
-                ],
-                "columns": [
-                    { "width": "10%" },
-                    null,
-                    null,
-                    null,
-                    { "width": "10%" },
-                    null,
-                    null,
-                    { "width": "15%" }
+                    { "orderable": false, "targets": 7 },
+                    { "orderable": false, "targets": 8 }
                 ]
             });
         });

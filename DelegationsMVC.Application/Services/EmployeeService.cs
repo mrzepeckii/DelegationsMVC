@@ -171,7 +171,7 @@ namespace DelegationsMVC.Application.Services
             return contacts;
         }
 
-        public NewEmployeeVm SetTypesToVm(NewEmployeeVm model)
+        public NewEmployeeVm SetParametersToVm(NewEmployeeVm model)
         {
             model.EmployeeTypes = GetEmployeeTypes().ToList();
             model.EngineTypes = GetEngineTypes().ToList();
