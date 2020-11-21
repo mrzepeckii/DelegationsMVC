@@ -164,11 +164,19 @@ namespace DelegationsMVC.Application.Services
         {
             var del = _delegationRepo.GetDelegationById(id);
             var model = _mapper.Map<DelegationDetailVm>(del);
-            CalculateMileageAllowence(model.Routes);
-            CalculateSubsistenceAllowence(model);
-            model.MileageAllowence = model.Routes.Sum(r => r.MileageAllowence);
+            CalculateAndSetAllowences(model);
             return model;
         }
+
+        private void CalculateAndSetAllowences(DelegationDetailVm delVm)
+        {
+            CalculateMileageAllowence(delVm.Routes);
+            CalculateSubsistenceAllowence(delVm);
+            delVm.MileageAllowence = delVm.Routes.Sum(r => r.MileageAllowence);
+            delVm.SummaryAllowence = delVm.MileageAllowence + delVm.SubsistenceAllowence
+                + delVm.Costs.Sum(c => c.Amount);
+        }
+
         private void CalculateMileageAllowence(List<RouteForListVm> routes)
         {
             if (routes == null)
