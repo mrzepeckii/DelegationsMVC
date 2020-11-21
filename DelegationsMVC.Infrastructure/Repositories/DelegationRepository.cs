@@ -207,5 +207,20 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(route.RouteDetail).Property("VehicleId").IsModified = true;
             _context.SaveChanges();
         }
+
+        public decimal GetSubsistanceAllowenceByDel(int delId)
+        {
+            var del = _context.Delegations
+                .Include(d => d.Destination)
+                    .ThenInclude(d => d.Country)
+                        .ThenInclude(c => c.SubsistanceAllowence)
+                .FirstOrDefault(d => d.Id == delId);
+            if(del == null)
+            {
+                return 0;
+            }
+            var allowence = del.Destination.Country.SubsistanceAllowence.RatePerDay;
+            return allowence;
+        }
     }
 }

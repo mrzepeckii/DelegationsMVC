@@ -103,5 +103,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var allowence = vehicle.EngineType.MileageAllowence.RatePerKm;
             return allowence;
         }
+
+        
     }
 }

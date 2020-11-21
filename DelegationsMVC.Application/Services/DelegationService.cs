@@ -165,6 +165,8 @@ namespace DelegationsMVC.Application.Services
             var del = _delegationRepo.GetDelegationById(id);
             var model = _mapper.Map<DelegationDetailVm>(del);
             CalculateMileageAllowence(model.Routes);
+            CalculateSubsistenceAllowence(model);
+            model.MileageAllowence = model.Routes.Sum(r => r.MileageAllowence);
             return model;
         }
         private void CalculateMileageAllowence(List<RouteForListVm> routes)
@@ -188,6 +190,42 @@ namespace DelegationsMVC.Application.Services
             return mileageAllowenceForRoute;
         }
 
-       
+        private double CalculateDaysInDelegation(DelegationDetailVm delVm)
+        {
+            double days;
+            //calucalte how many days or hours employee was in delegation
+            TimeSpan timeInDelegation = delVm.Routes.OrderByDescending(r => r.EndDate).First().EndDate
+                - delVm.Routes.OrderBy(r => r.StartDate).First().StartDate;
+
+            days = timeInDelegation.TotalDays;
+            //if deicmal part is bigger or equal than 0,33 (8h) and lower than 0.5 (12h)
+            if (days - Math.Truncate(days) >= 0.33 && days - Math.Truncate(days) < 0.5)
+            {
+                //get int of day and add half of day
+                days = timeInDelegation.Days + 0.5;
+            }
+            else if (days - Math.Truncate(days) >= 0.5)
+            {
+                //get int of day and add day
+                days = timeInDelegation.Days + 1;
+            }
+            else
+            {
+                days = timeInDelegation.Days;
+            }
+            delVm.DaysInDelegation = (Int32)days;
+            return days;
+        }
+
+        private void CalculateSubsistenceAllowence(DelegationDetailVm delVm)
+        {
+            var del = _delegationRepo.GetDelegationById(delVm.Id);
+            if(del == null)
+            {
+                return;
+            }
+            var allowence = _delegationRepo.GetSubsistanceAllowenceByDel(delVm.Id);
+            delVm.SubsistenceAllowence = (decimal)CalculateDaysInDelegation(delVm) * allowence;
+        }
     }
 }

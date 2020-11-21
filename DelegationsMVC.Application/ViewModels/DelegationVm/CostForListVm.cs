@@ -12,7 +12,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         public int Id { get; set; }
         public decimal Amount { get; set; }
         public string CostType { get; set; }
-
+        public int CostTypeId { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Cost, CostForListVm>()

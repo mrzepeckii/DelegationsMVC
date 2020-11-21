@@ -29,5 +29,6 @@ namespace DelegationsMVC.Domain.Interfaces
         void DeleteRoute(int idRoute);
         Route GetRouteById(int id);
         void UpdateRoute(Route route);
+        decimal GetSubsistanceAllowenceByDel(int delId);
     }
 }
