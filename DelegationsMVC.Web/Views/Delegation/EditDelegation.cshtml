@@ -103,14 +103,17 @@
         </tbody>
     </table>
 </div>
-<input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
-<button id="DeleteForm" type="button" class="btn btn-dark" onclick="ClearRoute()">Usuń formularz</button>
+<div class="form-row">
+    <input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
+    <button id="DeleteForm" type="button" class="btn btn-dark" onclick="ClearRoute()">Usuń formularz</button>
+</div>
+
 <div id="Route">
 
 </div>
-
-<div>
-    <a asp-action="Index">Powrót do listy delegacji</a>
+<br/>
+<div class="form-row">
+    <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
 </div>
 
 @section Scripts {

@@ -10,7 +10,7 @@
         <a asp-action="Create">Create New</a>
     </p>*@
 <br />
-<table class="table table-bordered" id="table">
+<table class="table table-bordered table-striped" id="table">
     <thead class="thead-dark">
         <tr>
             <th style="text-align :center">
@@ -35,9 +35,9 @@
                 Księgowość
             </th>
             <th></th>
-            <th style="text-align :center">
+            @*<th style="text-align :center">
                 Podpis
-            </th>
+            </th>*@
         </tr>
     </thead>
     <tbody>
@@ -69,7 +69,7 @@
                     <a class="btn btn-info btn-sm" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">Szczegóły</a>
                     <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">Usuń</a>
                 </td>
-                <td></td>
+                @*<td></td>*@
             </tr>
         }
     </tbody>
@@ -125,20 +125,19 @@
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 5, 6, 8]
+                            columns: [0, 1, 2, 3, 5, 6]
                         }
                     },
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 5, 6, 8]
+                            columns: [0, 1, 2, 3, 5, 6]
                         }
                     },
                 ],
                 select: true,
                 "columnDefs": [
-                    { "orderable": false, "targets": 7 },
-                    { "visible": false, "targets": 8 }
+                    { "orderable": false, "targets": 7 }
                 ],
                 "columns": [
                     { "width": "10%" },
@@ -148,8 +147,7 @@
                     { "width": "10%" },
                     null,
                     null,
-                    { "width": "15%" },
-                    null
+                    { "width": "15%" }
                 ]
             });
         });

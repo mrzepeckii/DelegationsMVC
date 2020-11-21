@@ -4,12 +4,20 @@
     ViewData["Title"] = "ViewDelegation";
 }
 
-<h1>ViewDelegation</h1>
 
+
+<div class="form-row">
+    <h1>Podgląd delegacji</h1>
+</div>
+<br/>
 <div>
-    <h4>DelegationDetailVm</h4>
-    <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            Numer delegacji:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DelegationNo)
+        </dd>
         <dt class="col-sm-2">
             Imię i nazwisko:
         </dt>
@@ -111,37 +119,37 @@
         Ilość dni w delegacji:
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.DaysInDelegation)
+        @Html.DisplayFor(model => model.DaysInDelegation)  PLN
     </dd>
     <dt class="col-sm-2">
         Noclegi:
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 1).Amount)
+        @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 1).Amount)  PLN
     </dd>
     <dt class="col-sm-2">
         Dieta:
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.SubsistenceAllowence)
+        @Html.DisplayFor(model => model.SubsistenceAllowence)  PLN
     </dd>
     <dt class="col-sm-2">
         Zwot z podróży:
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.MileageAllowence)
+        @Html.DisplayFor(model => model.MileageAllowence)  PLN
     </dd>
     <dt class="col-sm-2">
         Dodatkowe koszty:
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 2).Amount)
+        @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 2).Amount)  PLN
     </dd>
     <dt class="col-sm-2">
         Podsumowanie:
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.SummaryAllowence)
+        @Html.DisplayFor(model => model.SummaryAllowence)  PLN
     </dd>
 </dl>
 <dl class="row">
@@ -166,5 +174,5 @@
 </dl>
 <div>
    @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
 </div>
