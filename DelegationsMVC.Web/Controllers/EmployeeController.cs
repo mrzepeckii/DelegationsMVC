@@ -6,15 +6,18 @@ using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 
 namespace DelegationsMVC.Web.Controllers
 {
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _empService;
-        public EmployeeController(IEmployeeService empService)
+        private readonly ILogger<EmployeeController> _logger;
+        public EmployeeController(IEmployeeService empService, ILogger<EmployeeController> logger)
         {
             _empService = empService;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -43,6 +46,7 @@ namespace DelegationsMVC.Web.Controllers
             model.Vehicles = _empService.CheckVehiclesList(model.Vehicles);
             model.ContactDetails = _empService.CheckContactsList(model.ContactDetails);
             var id = _empService.AddEmployee(model);
+            _logger.LogInformation("New employee has been added - " + id);
             return RedirectToAction("Index");
 
         }
@@ -51,6 +55,11 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult ViewEmployee(int id)
         {
             var emp = _empService.GetEmployeeDetails(id);
+            if(emp == null)
+            {
+                _logger.LogInformation("Can't show employee details - employee dosen't exist");
+                return RedirectToAction("Index");
+            }
             return View(emp);
         }
 
@@ -58,6 +67,11 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult EditEmployee(int id)
         {
             var emp = _empService.GetEmployeeForEdit(id);
+            if(emp == null)
+            {
+                _logger.LogInformation("Can't edit employee - employee dosen't exist");
+                return RedirectToAction("Index");
+            }
             _empService.SetParametersToVm(emp);
             return View(emp);
         }
@@ -76,6 +90,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult Delete(int id)
         {
             _empService.DeleteEmployee(id);
+            _logger.LogInformation("Employee " + id +" has been deleted");
             return RedirectToAction("Index");
         }
 
@@ -105,6 +120,11 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult EditVehicle(int id)
         {
             var veh = _empService.GetVehicleForEdit(id);
+            if(veh == null)
+            {
+                _logger.LogInformation("Can't edit vehicle - vehicle dosen't exist");
+                return RedirectToAction("EditEmployee", new { id = veh.EmployeeId });
+            }
             veh.EngineTypes = _empService.GetEngineTypes().ToList();
             return PartialView("EditVehicleForEmployee", veh);
         }
@@ -144,6 +164,11 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult EditContact(int id)
         {
             var model = _empService.GetContactForEdit(id);
+            if(model == null)
+            {
+                _logger.LogInformation("Can't edit contact - contact dosen't exist");
+                return RedirectToAction("EditEmployee", new { id = model.EmployeeId });
+            }
             model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
             return PartialView("EditContactForEmployee", model);
         }

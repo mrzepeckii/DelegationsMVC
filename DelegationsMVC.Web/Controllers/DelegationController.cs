@@ -6,6 +6,7 @@ using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.DelegationVm;
 using DelegationsMVC.Application.ViewModels.RouteVm;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace DelegationsMVC.Web.Controllers
 {
@@ -13,11 +14,13 @@ namespace DelegationsMVC.Web.Controllers
     {
         private readonly IDelegationService _delegService;
         private readonly IEmployeeService _empService;
+        private readonly ILogger<DelegationController> _logger;
 
-        public DelegationController(IDelegationService delegService, IEmployeeService empService)
+        public DelegationController(IDelegationService delegService, IEmployeeService empService, ILogger<DelegationController> logger)
         {
             _delegService = delegService;
             _empService = empService;
+            _logger = logger;
         }
         public IActionResult Index()
         {
@@ -32,6 +35,7 @@ namespace DelegationsMVC.Web.Controllers
             var emp = _empService.GetEmployeeById(id);
             if(emp == null)
             {
+                _logger.LogInformation("Can't add delegation - employee dosen't exist");
                 return RedirectToAction("Index");
             }
             var model = new NewDelegationVm()
@@ -64,6 +68,7 @@ namespace DelegationsMVC.Web.Controllers
             var del = _delegService.GetDelegationForEdit(id);
             if(del == null)
             {
+                _logger.LogInformation("Can't edit delegation - delegation dosen't exist");
                 return RedirectToAction("Index");
             }
             _delegService.SetParametersToVm(del);
@@ -86,6 +91,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult DeleteDelegation(int id)
         {
             _delegService.CancelDelegation(id);
+            _logger.LogInformation("Delegation" + id + " - has been deleted");
             return RedirectToAction("Index");
         }
 
@@ -96,6 +102,7 @@ namespace DelegationsMVC.Web.Controllers
             var del = _delegService.GetDelegationDetails(id);
             if(del == null)
             {
+                _logger.LogInformation("Can't show delegation - delegation dosen't exist");
                 return RedirectToAction("Index");
             }
             return View(del);
@@ -106,6 +113,7 @@ namespace DelegationsMVC.Web.Controllers
             var del = _delegService.GetDelegationById(id);
             if (del == null)
             {
+                _logger.LogInformation("Can't add new route to the delegation - delegation dosen't exist");
                 return RedirectToAction("Index");
             }
 
@@ -141,6 +149,7 @@ namespace DelegationsMVC.Web.Controllers
             var model = _delegService.GetRouteForEdit(idRoute);
             if(model == null)
             {
+                _logger.LogInformation("Can't edit route - route dosen't exist");
                 return RedirectToAction("EditDelegation", new { id = idDel });
             }
             _delegService.SetParametersToVm(model);
@@ -164,6 +173,7 @@ namespace DelegationsMVC.Web.Controllers
             var isChanged =_delegService.ChangeStatusOfDelegation(delId, delStatus);
             if (!isChanged)
             {
+                _logger.LogInformation("Can't change status to Oplacona - accountant acceptance is required or delegation dosen't exists");
                 return RedirectToAction("ViewDelegation", new { id = delId });
             }
             return RedirectToAction("Index");
