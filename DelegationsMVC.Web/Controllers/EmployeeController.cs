@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
@@ -30,7 +31,10 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddEmployee()
         {
-            var model = new NewEmployeeVm();
+            var model = new NewEmployeeVm()
+            {
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
+            };
             _empService.SetParametersToVm(model);
             return View(model);
         }

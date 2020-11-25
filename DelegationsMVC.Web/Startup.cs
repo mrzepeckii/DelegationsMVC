@@ -52,6 +52,16 @@ namespace DelegationsMVC.Web
                  });
             services.AddRazorPages();
 
+            services.Configure<IdentityOptions>(opt =>
+            {
+                opt.Password.RequireDigit = true;
+                opt.Password.RequireLowercase = true;
+                opt.Password.RequiredLength = 8;
+
+                opt.SignIn.RequireConfirmedEmail = false;
+                opt.User.RequireUniqueEmail = true;
+            });
+
             services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();
             services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();
             services.AddTransient<IValidator<NewContactDetailsVm>, NewContactDetailsValidation>();

@@ -31,5 +31,6 @@ namespace DelegationsMVC.Application.Interfaces
         List<NewContactDetailsVm> CheckContactsList(List<NewContactDetailsVm> newContacts);
         Employee GetEmployeeById(int id);
         NewEmployeeVm SetParametersToVm(NewEmployeeVm model);
+        Employee GetEmployeeByUserId(string id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.DelegationVm;
@@ -29,10 +30,11 @@ namespace DelegationsMVC.Web.Controllers
             return View(delegations);
         }
 
-        [HttpGet]
-        public IActionResult AddDelegation(int id)
+        //[HttpGet]
+        public IActionResult AddDelegation()
         {
-            var emp = _empService.GetEmployeeById(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var emp = _empService.GetEmployeeByUserId(userId);
             if(emp == null)
             {
                 _logger.LogInformation("Can't add delegation - employee dosen't exist");

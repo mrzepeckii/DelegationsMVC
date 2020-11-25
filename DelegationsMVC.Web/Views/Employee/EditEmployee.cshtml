@@ -15,7 +15,8 @@
                 <h4>Dane osobowe/pracownicze</h4>
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="Id"  />
+            <input type="hidden" asp-for="UserId"  />
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label asp-for="FirstName" class="control-label">Imię</label>

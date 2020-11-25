@@ -178,5 +178,11 @@ namespace DelegationsMVC.Application.Services
             model.ContactDetailTypes = GetConactDetailTypes().ToList();
             return model;
         }
+
+        public Employee GetEmployeeByUserId(string id)
+        {
+            var emp = _employeeRepo.GetEmployeeByName(id);
+            return emp;
+        }
     }
 }

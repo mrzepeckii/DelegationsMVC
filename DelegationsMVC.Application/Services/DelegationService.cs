@@ -32,7 +32,6 @@ namespace DelegationsMVC.Application.Services
         public int AddDelegation(NewDelegationVm delVm)
         {
             var deleg = _mapper.Map<Delegation>(delVm);
-            deleg.EmployeeId = 10;
             deleg.CreateById = 1;
             deleg.CreatedDateTime = DateTime.Now;
             deleg.DelegationStatusId = 1;

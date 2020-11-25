@@ -121,5 +121,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(con).Property("ContactDetailTypeId").IsModified = true;
             _context.SaveChanges();
         }
+
+        public Employee GetEmployeeByName(string id)
+        {
+            var emp = _context.Employees.FirstOrDefault(e => e.UserId == id);
+            return emp;
+        }
     }
 }
