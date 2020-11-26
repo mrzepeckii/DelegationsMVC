@@ -28,7 +28,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Employe****/
-        [HttpGet]
+       // [HttpGet]
         public IActionResult AddEmployee()
         {
             var model = new NewEmployeeVm()
@@ -67,17 +67,19 @@ namespace DelegationsMVC.Web.Controllers
             return View(emp);
         }
 
-        [HttpGet]
-        public IActionResult EditEmployee(int id)
+       // [HttpGet]
+        public IActionResult EditEmployee()
         {
-            var emp = _empService.GetEmployeeForEdit(id);
-            if(emp == null)
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var emp = _empService.GetEmployeeByUserId(userId);
+            var empVm = _empService.GetEmployeeForEdit(emp.Id);
+            if(empVm == null)
             {
                 _logger.LogInformation("Can't edit employee - employee dosen't exist");
                 return RedirectToAction("Index");
             }
-            _empService.SetParametersToVm(emp);
-            return View(emp);
+            _empService.SetParametersToVm(empVm);
+            return View(empVm);
         }
 
         [HttpPost]

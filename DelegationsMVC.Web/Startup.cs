@@ -62,6 +62,13 @@ namespace DelegationsMVC.Web
                 opt.User.RequireUniqueEmail = true;
             });
 
+            services.AddAuthentication().AddGoogle(opt =>
+           {
+               IConfigurationSection googleAuthenSection = Configuration.GetSection("Authentication:Google");
+               opt.ClientId = googleAuthenSection["ClientId"];
+               opt.ClientSecret = googleAuthenSection["Secret"];
+           });
+
             services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();
             services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();
             services.AddTransient<IValidator<NewContactDetailsVm>, NewContactDetailsValidation>();

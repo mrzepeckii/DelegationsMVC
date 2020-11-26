@@ -38,7 +38,7 @@ namespace DelegationsMVC.Web.Controllers
             if(emp == null)
             {
                 _logger.LogInformation("Can't add delegation - employee dosen't exist");
-                return RedirectToAction("Index");
+                return RedirectToAction("AddEmployee", "Employee");
             }
             var model = new NewDelegationVm()
             {
@@ -67,10 +67,12 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult EditDelegation(int id)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var emp = _empService.GetEmployeeByUserId(userId);
             var del = _delegService.GetDelegationForEdit(id);
-            if(del == null)
+            if(del == null || del.EmployeeId != emp.Id)
             {
-                _logger.LogInformation("Can't edit delegation - delegation dosen't exist");
+                _logger.LogInformation("Can't edit delegation - delegation dosen't exist or user have no rights to edit this delegation");
                 return RedirectToAction("Index");
             }
             _delegService.SetParametersToVm(del);
@@ -100,7 +102,6 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         public IActionResult ViewDelegation(int id)
         {
-            
             var del = _delegService.GetDelegationDetails(id);
             if(del == null)
             {
