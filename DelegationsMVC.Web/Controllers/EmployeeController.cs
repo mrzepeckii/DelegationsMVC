@@ -55,16 +55,18 @@ namespace DelegationsMVC.Web.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult ViewEmployee(int id)
+        //[HttpGet]
+        public IActionResult ViewEmployee()
         {
-            var emp = _empService.GetEmployeeDetails(id);
-            if(emp == null)
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var emp = _empService.GetEmployeeByUserId(userId);
+            var empVm = _empService.GetEmployeeDetails(emp.Id);
+            if(empVm == null)
             {
                 _logger.LogInformation("Can't show employee details - employee dosen't exist");
                 return RedirectToAction("Index");
             }
-            return View(emp);
+            return View(empVm);
         }
 
        // [HttpGet]
