@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
+using DelegationsMVC.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,6 +24,7 @@ namespace DelegationsMVC.Web.Controllers
             _logger = logger;
         }
 
+        [Authorize( Roles = "Accounant, Chief, Admin")]
         public IActionResult Index()
         {
             var employees = _empService.GetAllEmployeeForList();
@@ -30,7 +32,8 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Employe****/
-       // [HttpGet]
+        // [HttpGet]
+        [Route("Employee/AddProfile")]
         public IActionResult AddEmployee()
         {
             var model = new NewEmployeeVm()
@@ -57,7 +60,21 @@ namespace DelegationsMVC.Web.Controllers
 
         }
 
-        //[HttpGet]
+        [HttpGet]
+        [Authorize(Roles = "Accounant, Chief, Admin")]
+        [Route("Employee/Profile/{id}")]
+        public IActionResult ViewEmployee(int id)
+        {
+            var empVm = _empService.GetEmployeeDetails(id);
+            if (empVm == null)
+            {
+                _logger.LogInformation("Can't show employee details - employee dosen't exist");
+                return RedirectToAction("Index");
+            }
+            return View(empVm);
+        }
+
+        [Route ("Employee/Profile")]
         public IActionResult ViewEmployee()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -71,12 +88,12 @@ namespace DelegationsMVC.Web.Controllers
             return View(empVm);
         }
 
-       // [HttpGet]
+        // [HttpGet]
+        [Route("Employee/EditProfile")]
         public IActionResult EditEmployee()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var emp = _empService.GetEmployeeByUserId(userId);
-            var empVm = _empService.GetEmployeeForEdit(emp.Id);
+            var empVm = _empService.GetEmployeeForEdit(userId);
             if(empVm == null)
             {
                 _logger.LogInformation("Can't edit employee - employee dosen't exist");
@@ -97,6 +114,8 @@ namespace DelegationsMVC.Web.Controllers
             _empService.UpdateEmployee(empVm);
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             _empService.DeleteEmployee(id);
@@ -105,6 +124,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Vehicle****/
+
         public IActionResult NewVehicle(int id)
         {
             var model = new NewVehicleVm
@@ -127,6 +147,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
 
+        [ServiceFilter(typeof(CheckEmpPermission))]
         public IActionResult EditVehicle(int id)
         {
             var veh = _empService.GetVehicleForEdit(id);
@@ -146,6 +167,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
         }
 
+        [ServiceFilter(typeof(CheckEmpPermission))]
         public IActionResult DeleteVehicle(int idVeh, int idEmp)
         {
             _empService.DeleteVehicle(idVeh);
@@ -177,6 +199,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditEmployee", new { id = conVm.EmployeeId });
         }
 
+        [ServiceFilter(typeof(CheckEmpPermission))]
         public IActionResult EditContact(int id)
         {
             var model = _empService.GetContactForEdit(id);
@@ -197,6 +220,7 @@ namespace DelegationsMVC.Web.Controllers
 
         }
 
+        [ServiceFilter(typeof(CheckEmpPermission))]
         public IActionResult DeleteContact(int idCon, int idEmp)
         {
             _empService.DeleteContact(idCon);

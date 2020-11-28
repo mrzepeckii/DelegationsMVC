@@ -98,9 +98,10 @@ namespace DelegationsMVC.Application.Services
             _vehicleRepo.DeleteVehicle(id);
         }
 
-        public NewEmployeeVm GetEmployeeForEdit(int id)
+        public NewEmployeeVm GetEmployeeForEdit(string id)
         {
-            var emp = _employeeRepo.GetEmployeeById(id);
+            var user = _employeeRepo.GetEmployeeByName(id);
+            var emp = _employeeRepo.GetEmployeeById(user.Id);
             var empVm = _mapper.Map<NewEmployeeVm>(emp);
             return empVm;
         }

@@ -18,7 +18,7 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<EngineTypeVm> GetEngineTypes();
         void DeleteVehicle(int id);
         void DeleteContact(int id);
-        NewEmployeeVm GetEmployeeForEdit(int id);
+        NewEmployeeVm GetEmployeeForEdit(string id);
         void UpdateEmployee(NewEmployeeVm empVm);
         int AddVehicle(NewVehicleVm vehVm);
         NewVehicleVm GetVehicleForEdit(int id);

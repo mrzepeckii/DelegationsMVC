@@ -21,6 +21,7 @@ using DelegationsMVC.Application.ViewModels.RouteVm;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Logging;
+using DelegationsMVC.Web.Filters;
 
 namespace DelegationsMVC.Web
 {
@@ -39,7 +40,7 @@ namespace DelegationsMVC.Web
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Context>();
             services.AddApplication();
             services.AddInfrastructure();
@@ -76,6 +77,8 @@ namespace DelegationsMVC.Web
             services.AddTransient<IValidator<NewRouteVm>, NewRouteValidation>();
             services.AddTransient<IValidator<NewRouteDetailVm>, NewRouteDetailValidation>();
             services.AddTransient<IValidator<NewCostVm>, NewCostValidation>();
+
+            services.AddScoped<CheckEmpPermission>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,7 +112,7 @@ namespace DelegationsMVC.Web
                 SupportedCultures = new List<CultureInfo> { defaultCulture },
                 SupportedUICultures = new List<CultureInfo> { defaultCulture }
             };
-
+            
             app.UseRequestLocalization(localizationOptions);
             app.UseEndpoints(endpoints =>
             {

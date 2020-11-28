@@ -124,7 +124,11 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Employee GetEmployeeByName(string id)
         {
-            var emp = _context.Employees.FirstOrDefault(e => e.UserId == id);
+            var emp = _context.Employees
+                 .Include(e => e.EmployeeType)
+                .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
+                .Include(e => e.Vehicles).ThenInclude(e => e.EngineType)
+                .FirstOrDefault(e => e.UserId == id);
             return emp;
         }
     }
