@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.DelegationVm;
 using DelegationsMVC.Application.ViewModels.RouteVm;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace DelegationsMVC.Web.Controllers
 {
+    [Authorize]
     public class DelegationController : Controller
     {
         private readonly IDelegationService _delegService;

@@ -5,12 +5,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.EmployeeVm;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace DelegationsMVC.Web.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _empService;
@@ -154,6 +156,12 @@ namespace DelegationsMVC.Web.Controllers
 
         public IActionResult NewContact(int id)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var emp = _empService.GetEmployeeByUserId(userId);
+            if (emp.Id != id)
+            {
+                return RedirectToAction("Index");
+            }
             var model = new NewContactDetailsVm
             {
                 EmployeeId = id,
