@@ -1,4 +1,6 @@
 ﻿@model DelegationsMVC.Application.ViewModels.EmployeeVm.EmployeeDetailVm
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
 
 @{
     ViewData["Title"] = "ViewEmployee";
@@ -111,6 +113,13 @@
         </div>
     </div>
     <div>
-        <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
+        @if (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Accountant"))
+        {
+            <a class="btn btn-info" asp-action="Index">Powrót do listy pracowników</a>
+        }
+        @if (Model.UserId == userManager.GetUserId(User))
+        {
+            <a class="btn btn-info" asp-action="EditEmployee">Edytuj</a>
+        }
     </div>
-</div>
+    </div>

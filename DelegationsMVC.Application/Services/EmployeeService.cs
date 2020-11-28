@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 namespace DelegationsMVC.Application.Services
 {
@@ -16,6 +17,7 @@ namespace DelegationsMVC.Application.Services
         private readonly IEmployeeRepository _employeeRepo;
         private readonly IVehicleRepository _vehicleRepo;
         private readonly IMapper _mapper;
+
         public EmployeeService(IEmployeeRepository employeeRepo, IVehicleRepository vehicleRepo, IMapper mapper)
         {
             _employeeRepo = employeeRepo;
@@ -48,19 +50,27 @@ namespace DelegationsMVC.Application.Services
             return employeesVm;
         }
 
+        public EmployeeDetailVm GetEmployeeDetails(string userId)
+        {
+            var emp = _employeeRepo.GetEmployeeByUserId(userId);
+            var empVm = GetEmployeeDetails(emp.Id);
+            return empVm;
+        }
+
         public EmployeeDetailVm GetEmployeeDetails(int employeeId)
         {
             var employee = _employeeRepo.GetEmployeeById(employeeId);
             var employeeVm = _mapper.Map<EmployeeDetailVm>(employee);
             if(employeeVm != null)
             {
-                var emails = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 1);
-                var phoneNumbers = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 2);
-                var vehicles = _vehicleRepo.GetVehiclesByEmployee(employeeId);
+                employeeVm.Emails = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 1)
+                    .AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
 
-                employeeVm.Emails = emails.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
-                employeeVm.PhoneNumbers = phoneNumbers.AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
-                employeeVm.Vehicles = vehicles.AsQueryable().ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+                employeeVm.PhoneNumbers = employee.ContactDetails.Where(cd => cd.ContactDetailTypeId == 2)
+                .AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
+
+                employeeVm.Vehicles = _vehicleRepo.GetVehiclesByEmployee(employeeId)
+                    .AsQueryable().ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
             }
             return employeeVm;
         }
@@ -100,7 +110,7 @@ namespace DelegationsMVC.Application.Services
 
         public NewEmployeeVm GetEmployeeForEdit(string id)
         {
-            var user = _employeeRepo.GetEmployeeByName(id);
+            var user = _employeeRepo.GetEmployeeByUserId(id);
             var emp = _employeeRepo.GetEmployeeById(user.Id);
             var empVm = _mapper.Map<NewEmployeeVm>(emp);
             return empVm;
@@ -194,7 +204,7 @@ namespace DelegationsMVC.Application.Services
 
         public Employee GetEmployeeByUserId(string id)
         {
-            var emp = _employeeRepo.GetEmployeeByName(id);
+            var emp = _employeeRepo.GetEmployeeByUserId(id);
             return emp;
         }
     }

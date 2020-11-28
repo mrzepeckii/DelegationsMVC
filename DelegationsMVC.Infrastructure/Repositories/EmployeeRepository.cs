@@ -64,6 +64,16 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return employee;
         }
 
+        public Employee GetEmployeeByUserId(string id)
+        {
+            var emp = _context.Employees
+                 .Include(e => e.EmployeeType)
+                .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
+                .Include(e => e.Vehicles).ThenInclude(e => e.EngineType)
+                .FirstOrDefault(e => e.UserId == id);
+            return emp;
+        }
+
         public IQueryable<Employee> GetEmployeesByType(int typeId)
         {
             var employees = _context.EmployeeTypes.FirstOrDefault(et => et.Id == typeId).Employees.AsQueryable();
@@ -122,14 +132,5 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public Employee GetEmployeeByName(string id)
-        {
-            var emp = _context.Employees
-                 .Include(e => e.EmployeeType)
-                .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
-                .Include(e => e.Vehicles).ThenInclude(e => e.EngineType)
-                .FirstOrDefault(e => e.UserId == id);
-            return emp;
-        }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
 
 namespace DelegationsMVC.Web.Controllers
 {
@@ -18,13 +19,15 @@ namespace DelegationsMVC.Web.Controllers
     {
         private readonly IEmployeeService _empService;
         private readonly ILogger<EmployeeController> _logger;
+
         public EmployeeController(IEmployeeService empService, ILogger<EmployeeController> logger)
         {
             _empService = empService;
             _logger = logger;
         }
 
-        [Authorize( Roles = "Accounant, Chief, Admin")]
+        [Authorize( Roles = "Accountant, Chief, Admin")]
+        [Route("Employee/All")]
         public IActionResult Index()
         {
             var employees = _empService.GetAllEmployeeForList();
@@ -32,6 +35,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Employe****/
+
         [Route("Employee/AddProfile")]
         public IActionResult AddEmployee()
         {
@@ -44,6 +48,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
+        [Route("Employee/AddProfile")]
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
             if (!ModelState.IsValid)
@@ -55,12 +60,11 @@ namespace DelegationsMVC.Web.Controllers
             model.ContactDetails = _empService.CheckContactsList(model.ContactDetails);
             var id = _empService.AddEmployee(model);
             _logger.LogInformation("New employee has been added - " + id);
-            return RedirectToAction("Index");
-
+            return RedirectToAction("ViewEmployee");
         }
 
         [HttpGet]
-        [Authorize(Roles = "Accounant, Chief, Admin")]
+        [Authorize(Roles = "Accountant, Chief, Admin")]
         [Route("Employee/Profile/{id}")]
         public IActionResult ViewEmployee(int id)
         {
@@ -77,8 +81,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult ViewEmployee()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var emp = _empService.GetEmployeeByUserId(userId);
-            var empVm = _empService.GetEmployeeDetails(emp.Id);
+            var empVm = _empService.GetEmployeeDetails(userId);
             if(empVm == null)
             {
                 _logger.LogInformation("Can't show employee details - employee dosen't exist");
@@ -87,7 +90,6 @@ namespace DelegationsMVC.Web.Controllers
             return View(empVm);
         }
 
-        // [HttpGet]
         [Route("Employee/EditProfile")]
         public IActionResult EditEmployee()
         {
@@ -103,6 +105,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
+        [Route("Employee/EditProfile")]
         public IActionResult EditEmployee(NewEmployeeVm empVm)
         {
             if (!ModelState.IsValid)
@@ -111,7 +114,7 @@ namespace DelegationsMVC.Web.Controllers
                 return View(empVm.Id);
             }
             _empService.UpdateEmployee(empVm);
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewEmployee");
         }
 
         [Authorize(Roles = "Admin")]

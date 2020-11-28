@@ -21,6 +21,6 @@ namespace DelegationsMVC.Domain.Interfaces
         void UpdateEmployee(Employee emp);
         ContactDetail GetContactDetailById(int id);
         void UpdateContact(ContactDetail con);
-        Employee GetEmployeeByName(string id);
+        Employee GetEmployeeByUserId(string id);
     }
 }

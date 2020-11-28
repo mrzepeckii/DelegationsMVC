@@ -9,6 +9,7 @@ using DelegationsMVC.Application.ViewModels.RouteVm;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
 
 namespace DelegationsMVC.Web.Controllers
 {
@@ -25,6 +26,7 @@ namespace DelegationsMVC.Web.Controllers
             _empService = empService;
             _logger = logger;
         }
+
         public IActionResult Index()
         {
             //var delegations = _delegService.GetAllDelegationsForListByStatus(1);

@@ -12,6 +12,7 @@ namespace DelegationsMVC.Application.Interfaces
         ListEmployeeForListVm GetAllEmployeeForList();
         int AddEmployee(NewEmployeeVm employee);
         EmployeeDetailVm GetEmployeeDetails(int employeeId);
+        EmployeeDetailVm GetEmployeeDetails(string userId);
         IQueryable<EmployeeTypeVm> GetEmployeeTypes();
         void DeleteEmployee(int id);
         IQueryable<ContactDetailTypeVm> GetConactDetailTypes();
