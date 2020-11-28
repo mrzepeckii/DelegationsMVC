@@ -32,7 +32,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         /****Employe****/
-        // [HttpGet]
         [Route("Employee/AddProfile")]
         public IActionResult AddEmployee()
         {
@@ -125,11 +124,12 @@ namespace DelegationsMVC.Web.Controllers
 
         /****Vehicle****/
 
-        public IActionResult NewVehicle(int id)
+        public IActionResult NewVehicle()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var model = new NewVehicleVm
             {
-                EmployeeId = id,
+                EmployeeId = _empService.GetEmployeeByUserId(userId).Id,
                 EngineTypes = _empService.GetEngineTypes().ToList()
             };
             return PartialView("AddNewVehicleForEmployee", model);
@@ -141,20 +141,20 @@ namespace DelegationsMVC.Web.Controllers
             if (!ModelState.IsValid)
             {
                 vehVm.EngineTypes = _empService.GetEngineTypes().ToList();
-                return RedirectToAction("NewVehicle", new { id = vehVm.EmployeeId });
+                return RedirectToAction("NewVehicle");
             }
             var id = _empService.AddVehicle(vehVm);
-            return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+            return RedirectToAction("EditEmployee");
         }
 
-        [ServiceFilter(typeof(CheckEmpPermission))]
+        [ServiceFilter(typeof(CheckVehiclePermission))]
         public IActionResult EditVehicle(int id)
         {
             var veh = _empService.GetVehicleForEdit(id);
             if(veh == null)
             {
                 _logger.LogInformation("Can't edit vehicle - vehicle dosen't exist");
-                return RedirectToAction("EditEmployee", new { id = veh.EmployeeId });
+                return RedirectToAction("EditEmployee");
             }
             veh.EngineTypes = _empService.GetEngineTypes().ToList();
             return PartialView("EditVehicleForEmployee", veh);
@@ -164,30 +164,25 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult EditVehicleForEmployee(NewVehicleVm vehVm)
         {
             _empService.UpdateVehicle(vehVm);
-            return RedirectToAction("EditEmployee", new { id = vehVm.EmployeeId });
+            return RedirectToAction("EditEmployee");
         }
 
-        [ServiceFilter(typeof(CheckEmpPermission))]
-        public IActionResult DeleteVehicle(int idVeh, int idEmp)
+        [ServiceFilter(typeof(CheckVehiclePermission))]
+        public IActionResult DeleteVehicle(int id)
         {
-            _empService.DeleteVehicle(idVeh);
-            return RedirectToAction("EditEmployee", new { id = idEmp });
+            _empService.DeleteVehicle(id);
+            return RedirectToAction("EditEmployee");
         }
 
         /****Contact****/
 
-        public IActionResult NewContact(int id)
+        public IActionResult NewContact()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var emp = _empService.GetEmployeeByUserId(userId);
-            if (emp.Id != id)
-            {
-                return RedirectToAction("Index");
-            }
             var model = new NewContactDetailsVm
             {
-                EmployeeId = id,
-                ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
+                EmployeeId = _empService.GetEmployeeByUserId(userId).Id,
+            ContactDetailTypes = _empService.GetConactDetailTypes().ToList()
             };
             return PartialView("AddNewContactForEmployee", model);
         }
@@ -196,17 +191,17 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult AddNewContactForEmployee(NewContactDetailsVm conVm)
         {
             var id = _empService.AddContact(conVm);
-            return RedirectToAction("EditEmployee", new { id = conVm.EmployeeId });
+            return RedirectToAction("EditEmployee");
         }
 
-        [ServiceFilter(typeof(CheckEmpPermission))]
+        [ServiceFilter(typeof(CheckContactPermission))]
         public IActionResult EditContact(int id)
         {
             var model = _empService.GetContactForEdit(id);
             if(model == null)
             {
                 _logger.LogInformation("Can't edit contact - contact dosen't exist");
-                return RedirectToAction("EditEmployee", new { id = model.EmployeeId });
+                return RedirectToAction("EditEmployee");
             }
             model.ContactDetailTypes = _empService.GetConactDetailTypes().ToList();
             return PartialView("EditContactForEmployee", model);
@@ -216,15 +211,15 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult EditContactForEmployee(NewContactDetailsVm con)
         {
             _empService.UpdateContact(con);
-            return RedirectToAction("EditEmployee", new { id = con.EmployeeId });
+            return RedirectToAction("EditEmployee");
 
         }
 
-        [ServiceFilter(typeof(CheckEmpPermission))]
-        public IActionResult DeleteContact(int idCon, int idEmp)
+        [ServiceFilter(typeof(CheckContactPermission))]
+        public IActionResult DeleteContact(int id)
         {
-            _empService.DeleteContact(idCon);
-            return RedirectToAction("EditEmployee", new { id = idEmp });
+            _empService.DeleteContact(id);
+            return RedirectToAction("EditEmployee");
         }
     }
 }

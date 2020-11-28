@@ -119,6 +119,12 @@ namespace DelegationsMVC.Application.Services
             return id;
         }
 
+        public Vehicle GetVehicleById(int id)
+        {
+            var veh = _vehicleRepo.GetVehicleById(id);
+            return veh;
+        }
+
         public NewVehicleVm GetVehicleForEdit(int id)
         {
             var veh = _vehicleRepo.GetVehicleById(id);
@@ -137,6 +143,12 @@ namespace DelegationsMVC.Application.Services
             var con = _mapper.Map<ContactDetail>(conVm);
             var id = _employeeRepo.AddContactDetail(con);
             return id;
+        }
+
+        public ContactDetail GetContactDetailById(int id)
+        {
+            var con = _employeeRepo.GetContactDetailById(id);
+            return con;
         }
 
         public NewContactDetailsVm GetContactForEdit(int id)

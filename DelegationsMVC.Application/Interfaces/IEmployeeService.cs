@@ -32,5 +32,7 @@ namespace DelegationsMVC.Application.Interfaces
         Employee GetEmployeeById(int id);
         NewEmployeeVm SetParametersToVm(NewEmployeeVm model);
         Employee GetEmployeeByUserId(string id);
+        ContactDetail GetContactDetailById(int id);
+        Vehicle GetVehicleById(int id);
     }
 }

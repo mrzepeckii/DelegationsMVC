@@ -78,7 +78,8 @@ namespace DelegationsMVC.Web
             services.AddTransient<IValidator<NewRouteDetailVm>, NewRouteDetailValidation>();
             services.AddTransient<IValidator<NewCostVm>, NewCostValidation>();
 
-            services.AddScoped<CheckEmpPermission>();
+            services.AddScoped<CheckContactPermission>();
+            services.AddScoped<CheckVehiclePermission>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

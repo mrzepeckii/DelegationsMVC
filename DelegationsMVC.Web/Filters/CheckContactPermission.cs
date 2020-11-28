@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 namespace DelegationsMVC.Web.Filters
 {
-    public class CheckEmpPermission : Attribute, IAuthorizationFilter
+    public class CheckContactPermission : Attribute, IAuthorizationFilter
     {
         private  IEmployeeService _empService;
-        public CheckEmpPermission(IEmployeeService empService)
+        public CheckContactPermission(IEmployeeService empService)
         {
             _empService = empService;
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var x = context.HttpContext.Request;
             bool isAuthorized = CheckUserPermission(context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                 context.HttpContext.Request.RouteValues["id"].ToString());
 
@@ -30,9 +29,11 @@ namespace DelegationsMVC.Web.Filters
         }
 
         private bool CheckUserPermission(string userId, string stringValues)
-        {            
-            var id = _empService.GetEmployeeByUserId(userId).Id;
-            return id.ToString() == stringValues;
+        {
+            var id = _empService.GetContactDetailById(Int32.Parse(stringValues)).EmployeeId;
+            var emp = _empService.GetEmployeeById(id);
+            var empUser = _empService.GetEmployeeByUserId(userId);
+            return emp == empUser;
         }
     }
 }
