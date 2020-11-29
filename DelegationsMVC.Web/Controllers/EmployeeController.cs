@@ -36,9 +36,14 @@ namespace DelegationsMVC.Web.Controllers
 
         /****Employe****/
 
-        [Route("Employee/AddProfile")]
+        [Route("Employee/New")]
         public IActionResult AddEmployee()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if ( _empService.CheckIfEmployeeExist(userId) )
+            {
+                return RedirectToAction("ViewEmployee");
+            }
             var model = new NewEmployeeVm()
             {
                 UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value
@@ -48,7 +53,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Employee/AddProfile")]
+        [Route("Employee/New")]
         public IActionResult AddEmployee(NewEmployeeVm model)
         {
             if (!ModelState.IsValid)

@@ -35,5 +35,6 @@ namespace DelegationsMVC.Application.Interfaces
         Employee GetEmployeeByUserId(string id);
         ContactDetail GetContactDetailById(int id);
         Vehicle GetVehicleById(int id);
+        bool CheckIfEmployeeExist(string id);
     }
 }

@@ -53,7 +53,7 @@ namespace DelegationsMVC.Application.Services
         public void CancelDelegation(int delId)
         {
             var del = _delegationRepo.GetDelegationById(delId);
-            if(del == null)
+            if (del == null || del.DelegationStatusId != 1)
             {
                 return;
             }
@@ -68,6 +68,10 @@ namespace DelegationsMVC.Application.Services
 
         public void UpdateDelegation(NewDelegationVm delVm)
         {
+            if (delVm.DelegationStatusId != 1)
+            {
+                return;
+            }
             var del = _mapper.Map<Delegation>(delVm);
             _delegationRepo.UpdateDelegation(del);
         }
@@ -86,6 +90,10 @@ namespace DelegationsMVC.Application.Services
 
         public int AddRoute(NewRouteVm model)
         {
+            if (!IsDelegationEditable(model.DelegationId))
+            {
+                return 0;
+            }
             var route = _mapper.Map<Route>(model);
             var id = _delegationRepo.AddRoute(route);
             return id;
@@ -148,6 +156,11 @@ namespace DelegationsMVC.Application.Services
 
         public void DeleteRoute(int idRoute)
         {
+            var route = _delegationRepo.GetRouteById(idRoute);
+            if (!IsDelegationEditable(route.DelegationId))
+            {
+                return;
+            }
             _delegationRepo.DeleteRoute(idRoute);
         }
 
@@ -160,6 +173,10 @@ namespace DelegationsMVC.Application.Services
 
         public void UpdateRoute(NewRouteVm routeVm)
         {
+            if (IsDelegationEditable(routeVm.DelegationId))
+            {
+                return;
+            }
             var route = _mapper.Map<Route>(routeVm);
             _delegationRepo.UpdateRoute(route);
         }
@@ -211,6 +228,11 @@ namespace DelegationsMVC.Application.Services
             return delegationsVm;
         }
 
+        public Route GetRouteById(int id)
+        {
+            var route = _delegationRepo.GetRouteById(id);
+            return route;
+        }
         private void CalculateAndSetAllowences(DelegationDetailVm delVm)
         {
             CalculateMileageAllowence(delVm.Routes);
@@ -279,6 +301,10 @@ namespace DelegationsMVC.Application.Services
             delVm.SubsistenceAllowence = (decimal)CalculateDaysInDelegation(delVm) * allowence;
         }
 
-       
+       private bool IsDelegationEditable(int id)
+        {
+            var del = _delegationRepo.GetDelegationById(id);
+            return del.DelegationStatusId == 1;
+        }
     }
 }

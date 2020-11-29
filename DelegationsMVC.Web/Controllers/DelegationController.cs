@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
+using DelegationsMVC.Web.Filters;
 
 namespace DelegationsMVC.Web.Controllers
 {
@@ -27,6 +28,7 @@ namespace DelegationsMVC.Web.Controllers
             _logger = logger;
         }
 
+        [Route("Delegation/All")]
         public IActionResult Index()
         {
             //var delegations = _delegService.GetAllDelegationsForListByStatus(1);
@@ -35,24 +37,25 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         //[HttpGet]
+        [Route("Delegation/New")]
         public IActionResult AddDelegation()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var emp = _empService.GetEmployeeByUserId(userId);
-            if(emp == null)
+            if( _empService.CheckIfEmployeeExist(userId) )
             {
                 _logger.LogInformation("Can't add delegation - employee dosen't exist");
                 return RedirectToAction("AddEmployee", "Employee");
             }
             var model = new NewDelegationVm()
             {
-                EmployeeId = emp.Id,
+                EmployeeId = _empService.GetEmployeeByUserId(userId).Id
             };
             model = _delegService.SetParametersToVm(model);
             return View(model);
         }
 
         [HttpPost]
+        [Route("Delegation/New")]
         public IActionResult AddDelegation(NewDelegationVm delVm)
         {
             if (!ModelState.IsValid)
@@ -69,14 +72,14 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(CheckDelegationPermission))]
+        [Route("Delegation/Edit/{id}")]
         public IActionResult EditDelegation(int id)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var emp = _empService.GetEmployeeByUserId(userId);
             var del = _delegService.GetDelegationForEdit(id);
-            if(del == null || del.EmployeeId != emp.Id)
+            if(del == null)
             {
-                _logger.LogInformation("Can't edit delegation - delegation dosen't exist or user have no rights to edit this delegation");
+                _logger.LogInformation("Can't edit delegation - delegation dosen't exist");
                 return RedirectToAction("Index");
             }
             _delegService.SetParametersToVm(del);
@@ -84,6 +87,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
+        [Route("Delegation/Edit/{id}")]
         public IActionResult EditDelegation(NewDelegationVm del)
         {
             if (!ModelState.IsValid)
@@ -96,14 +100,16 @@ namespace DelegationsMVC.Web.Controllers
 
         }
 
+        [ServiceFilter(typeof(CheckDelegationPermission))]
         public IActionResult DeleteDelegation(int id)
         {
             _delegService.CancelDelegation(id);
-            _logger.LogInformation("Delegation" + id + " - has been deleted");
+            _logger.LogInformation("Delegation " + id + " - has been deleted");
             return RedirectToAction("Index");
         }
 
         [HttpGet]
+        [Route("Delegation/View/{id}")]
         public IActionResult ViewDelegation(int id)
         {
             var del = _delegService.GetDelegationDetails(id);
@@ -115,6 +121,8 @@ namespace DelegationsMVC.Web.Controllers
             return View(del);
         }
 
+
+        [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult NewRoute(int id)
         {
             var del = _delegService.GetDelegationById(id);
@@ -145,12 +153,14 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditDelegation", new { id = routeVm.DelegationId });
         }
 
+        [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult DeleteRoute(int idRoute, int idDel)
         {
             _delegService.DeleteRoute(idRoute);
             return RedirectToAction("EditDelegation", new { id = idDel });
         }
 
+        [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult EditRoute(int idRoute, int idDel)
         {
             var model = _delegService.GetRouteForEdit(idRoute);
@@ -175,6 +185,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditDelegation", new { id = routeVm.DelegationId });
         }
 
+        [Authorize(Roles = "Chief, Accountant, Admin")]
         public IActionResult AcceptOrPaidDelegation(int delId, int delStatus)
         {
             var isChanged =_delegService.ChangeStatusOfDelegation(delId, delStatus);

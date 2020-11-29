@@ -207,5 +207,10 @@ namespace DelegationsMVC.Application.Services
             var emp = _employeeRepo.GetEmployeeByUserId(id);
             return emp;
         }
+
+        public bool CheckIfEmployeeExist(string id)
+        {
+            return _employeeRepo.GetEmployeeByUserId(id) == null;
+        }
     }
 }

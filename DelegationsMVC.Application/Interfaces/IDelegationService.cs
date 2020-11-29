@@ -31,5 +31,6 @@ namespace DelegationsMVC.Application.Interfaces
         void UpdateRoute(NewRouteVm routeVm);
         DelegationDetailVm GetDelegationDetails(int id);
         bool ChangeStatusOfDelegation(int delId, int delStatus);
+        Route GetRouteById(int id);
     }
 }
