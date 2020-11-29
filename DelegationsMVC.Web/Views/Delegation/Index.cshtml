@@ -72,8 +72,15 @@
                     <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">Anuluj</a>
                 </td>
                 <td style="text-anchor:middle; text-align :center">
-                    <a class="btn btn-success btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">Potwierdź</a>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">Opłać</a>
+                    @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-success btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">Potwierdź</a>
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">Opłać</a>
+                    }
+                    @if (User.IsInRole("Chief"))
+                    {
+                        <a class="btn btn-success btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">Potwierdź</a>
+                    }
                 </td>
             </tr>
         }

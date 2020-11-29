@@ -1,5 +1,6 @@
 ﻿@model DelegationsMVC.Application.ViewModels.DelegationVm.DelegationDetailVm
-
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
 @{
     ViewData["Title"] = "ViewDelegation";
 }
@@ -9,7 +10,7 @@
 <div class="form-row">
     <h1>Podgląd delegacji</h1>
 </div>
-<br/>
+<br />
 <div>
     <dl class="row">
         <dt class="col-sm-2">
@@ -84,32 +85,32 @@
         <tbody>
             @foreach (var route in Model.Routes)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => route.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.StartPoint)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.EndPoint)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.TypeOfTransport)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.RouteType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.Kilometers)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => route.MileageAllowence)
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.StartPoint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.EndPoint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.TypeOfTransport)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.RouteType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.Kilometers)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => route.MileageAllowence)
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -173,6 +174,14 @@
     </dd>
 </dl>
 <div>
-   @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-    <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
+    @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Accountant"))
+    {
+        <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
+    }
+    @if (Model.UserId == userManager.GetUserId(User))
+    {
+        <a class="btn btn-info" asp-action="EditDelegation" asp-route-id="@Model.Id">Edytuj</a>
+    }
 </div>

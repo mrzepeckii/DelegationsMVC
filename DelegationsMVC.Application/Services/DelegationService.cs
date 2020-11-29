@@ -192,7 +192,7 @@ namespace DelegationsMVC.Application.Services
         public bool ChangeStatusOfDelegation(int delId, int delStatus)
         {
             var del = _delegationRepo.GetDelegationById(delId);
-            if (del == null)
+            if (del == null || del.DelegationStatusId == delStatus)
             {
                 return false;
             }
@@ -220,6 +220,17 @@ namespace DelegationsMVC.Application.Services
         public ListDelegationForListVm GetAllDelegationsForList()
         {
             var delegations = _delegationRepo.GetAllDelegations().ProjectTo<DelegationForListVm>(_mapper.ConfigurationProvider).ToList();
+            var delegationsVm = new ListDelegationForListVm()
+            {
+                Delegations = delegations,
+                Count = delegations.Count
+            };
+            return delegationsVm;
+        }
+
+        public ListDelegationForListVm GetDelegationsByEmployee(int id)
+        {
+            var delegations = _delegationRepo.GetDelegationsByEmployee(id).ProjectTo<DelegationForListVm>(_mapper.ConfigurationProvider).ToList();
             var delegationsVm = new ListDelegationForListVm()
             {
                 Delegations = delegations,

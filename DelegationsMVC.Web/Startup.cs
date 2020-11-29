@@ -80,6 +80,8 @@ namespace DelegationsMVC.Web
 
             services.AddScoped<CheckContactPermission>();
             services.AddScoped<CheckVehiclePermission>();
+            services.AddScoped<CheckDelegationPermission>();
+            services.AddScoped<CheckRoutePermission>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

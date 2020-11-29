@@ -32,5 +32,6 @@ namespace DelegationsMVC.Application.Interfaces
         DelegationDetailVm GetDelegationDetails(int id);
         bool ChangeStatusOfDelegation(int delId, int delStatus);
         Route GetRouteById(int id);
+        ListDelegationForListVm GetDelegationsByEmployee(int id);
     }
 }

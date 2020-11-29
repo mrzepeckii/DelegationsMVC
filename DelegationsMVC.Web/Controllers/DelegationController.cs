@@ -36,6 +36,14 @@ namespace DelegationsMVC.Web.Controllers
             return View(delegations);
         }
 
+        [Route("Delegation/All/{id}")]
+        [Authorize(Roles = "Chief, Accountant, Admin")]
+        public IActionResult Index(int id)
+        {
+            var delegations = _delegService.GetDelegationsByEmployee(id);
+            return View(delegations);
+        }
+
         //[HttpGet]
         [Route("Delegation/New")]
         public IActionResult AddDelegation()
@@ -96,7 +104,7 @@ namespace DelegationsMVC.Web.Controllers
                 return View(del);
             }
             _delegService.UpdateDelegation(del);
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewDelegation", new { id = del.Id });
 
         }
 
@@ -191,7 +199,7 @@ namespace DelegationsMVC.Web.Controllers
             var isChanged =_delegService.ChangeStatusOfDelegation(delId, delStatus);
             if (!isChanged)
             {
-                _logger.LogInformation("Can't change status to Oplacona - accountant acceptance is required or delegation dosen't exists");
+                _logger.LogInformation("Can't change status to Oplacona - accountant acceptance is required/delegation dosen't exists/has demanded status");
                 return RedirectToAction("ViewDelegation", new { id = delId });
             }
             return RedirectToAction("Index");
