@@ -1,0 +1,4 @@
+2020-12-03T21:38:40.1941179+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-12-03T21:38:40.2042797+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-12-03T21:38:40.2058407+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)
+2020-12-03T21:38:52.9507158+01:00 80000054-0002-fc00-b63f-84710c7967bb [INF] User logged in. (fdce0db4)
