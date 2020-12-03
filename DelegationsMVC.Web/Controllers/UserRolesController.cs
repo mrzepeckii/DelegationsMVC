@@ -17,11 +17,13 @@ namespace DelegationsMVC.Web.Controllers
         {
             _userService = userService;
         }
+
         [Route("Users/All")]
         public IActionResult Index()
         {
-            _userService.GetAllUsers();
-            return View();
+            var model = _userService.GetAllUsers();
+            var model2 = _userService.GetUserDetails("7bdb4634-203c-4872-8ae5-6b86f8cadbfb");
+            return View(model);
         }
     }
 }

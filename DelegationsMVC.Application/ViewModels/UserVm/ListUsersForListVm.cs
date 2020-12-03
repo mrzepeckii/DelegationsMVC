@@ -4,7 +4,9 @@ using System.Text;
 
 namespace DelegationsMVC.Application.ViewModels.UserVm
 {
-    class ListUsersForListVm
+    public class ListUsersForListVm
     {
+        public List<UserForListVm> Users { get; set; }
+        public int Count { get; set; }
     }
 }

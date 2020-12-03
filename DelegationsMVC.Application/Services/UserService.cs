@@ -3,10 +3,12 @@ using AutoMapper.QueryableExtensions;
 using DelegationsMVC.Application.Interfaces;
 using DelegationsMVC.Application.ViewModels.UserVm;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DelegationsMVC.Application.Services
 {
@@ -22,10 +24,48 @@ namespace DelegationsMVC.Application.Services
             _mapper = mapper;
         }
 
-        public List<UserDetailVm> GetAllUsers()
+        public void RemoveRoleFromUser(string id, string role)
         {
-            var users = _userManager.Users.ProjectTo<UserDetailVm>(_mapper.ConfigurationProvider).ToList();
-            return users;
+            var user = _userManager.FindByIdAsync(id).Result;
+            _userManager.RemoveFromRoleAsync(user, role);
+        }
+
+        public void AddRoleToUser(string idUser, string role)
+        {
+            var user = _userManager.FindByIdAsync(idUser).Result;
+            _userManager.AddToRoleAsync(user, role);
+        }
+
+        public IQueryable<string> GetRolesByUser(string id)
+        {
+            var user =  _userManager.FindByIdAsync(id).Result;
+            var roles = _userManager.GetRolesAsync(user).Result.AsQueryable();
+            return roles;
+        }
+
+        public IQueryable<RoleVm> GetAllRoles()
+        {
+            var rolesVm = _roleManager.Roles?.ProjectTo<RoleVm>(_mapper.ConfigurationProvider);
+            return rolesVm;
+        }
+
+        public ListUsersForListVm GetAllUsers()
+        {
+            var users = _userManager.Users.ProjectTo<UserForListVm>(_mapper.ConfigurationProvider).ToList();
+            var usersVm = new ListUsersForListVm()
+            {
+                Users = users,
+                Count = users.Count
+            };
+            return usersVm;
+        }
+
+        public UserDetailVm GetUserDetails(string id)
+        {
+            var user = _userManager.FindByIdAsync(id).Result;
+            var userVm = _mapper.Map<UserDetailVm>(user);
+            userVm.Roles = GetRolesByUser(user.Id).ToList();
+            return userVm;
         }
     }
 }
