@@ -76,3 +76,6 @@ System.InvalidOperationException: The view 'Index' was not found. The following 
 2020-12-03T23:10:06.2513100+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2020-12-03T23:10:06.2597171+01:00  [INF] Hosting environment: "Development" (c3307c92)
 2020-12-03T23:10:06.2612149+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)
+2020-12-03T23:21:20.7243906+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-12-03T23:21:20.7329292+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-12-03T23:21:20.7347049+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)
