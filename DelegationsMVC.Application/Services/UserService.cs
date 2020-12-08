@@ -34,15 +34,16 @@ namespace DelegationsMVC.Application.Services
             _userManager.RemoveFromRoleAsync(user, role);
         }
 
-        public void AddRolesToUser(string idUser, IEnumerable<string> role)
+        public async Task<IdentityResult> AddRolesToUser(string idUser, IEnumerable<string> role)
         {
+            IdentityResult result;
             var user = _userManager.FindByIdAsync(idUser).Result;
             if(user == null)
             {
-                return;
+                return null;
             }
-            _userManager.AddToRoleAsync(user, "Chief");
-            _userManager.AddToRolesAsync(user, role);
+            result = await _userManager.AddToRolesAsync(user, role);
+            return result;
         }
 
         public IQueryable<string> GetRolesByUser(string id)

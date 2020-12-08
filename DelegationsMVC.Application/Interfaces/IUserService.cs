@@ -1,4 +1,5 @@
 ﻿using DelegationsMVC.Application.ViewModels.UserVm;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<RoleVm> GetAllRoles();
         IQueryable<string> GetRolesByUser(string id);
         UserDetailVm GetUserDetails(string id);
-        void AddRolesToUser(string idUser, IEnumerable<string> role);
+        //void AddRolesToUser(string idUser, IEnumerable<string> role);
+        Task<IdentityResult> AddRolesToUser(string idUser, IEnumerable<string> role);
         void RemoveRoleFromUser(string id, string role);
     }
 }
