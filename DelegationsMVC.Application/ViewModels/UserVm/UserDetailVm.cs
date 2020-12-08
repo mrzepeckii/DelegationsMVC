@@ -13,7 +13,8 @@ namespace DelegationsMVC.Application.ViewModels.UserVm
         public string UserName { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
-        public List<string> Roles { get; set; }
+        public List<string> UserRoles { get; set; }
+        public List<RoleVm> Roles { get; set; }
 
         public void Mapping(Profile profile)
         {

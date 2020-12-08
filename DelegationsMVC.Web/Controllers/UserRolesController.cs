@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DelegationsMVC.Application.Interfaces;
+using DelegationsMVC.Application.ViewModels.UserVm;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +23,21 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult Index()
         {
             var model = _userService.GetAllUsers();
-            var model2 = _userService.GetUserDetails("7bdb4634-203c-4872-8ae5-6b86f8cadbfb");
             return View(model);
+        }
+
+        //[HttpGet]
+        public IActionResult AddRolesToUser(string id)
+        {
+            var userVm = _userService.GetUserDetails(id);
+            return PartialView("AddRolesToUser", userVm);
+        }
+
+        [HttpPost]
+        public IActionResult AddRolesToUser(UserDetailVm user)
+        {
+            _userService.AddRolesToUser(user.Id, user.UserRoles);
+            return RedirectToAction("Index");
         }
     }
 }

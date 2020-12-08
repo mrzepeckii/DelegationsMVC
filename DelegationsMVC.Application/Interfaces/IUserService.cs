@@ -13,7 +13,7 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<RoleVm> GetAllRoles();
         IQueryable<string> GetRolesByUser(string id);
         UserDetailVm GetUserDetails(string id);
-        void AddRoleToUser(string idUser, string idRole);
+        void AddRolesToUser(string idUser, IEnumerable<string> role);
         void RemoveRoleFromUser(string id, string role);
     }
 }

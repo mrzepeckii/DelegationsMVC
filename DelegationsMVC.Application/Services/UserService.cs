@@ -27,13 +27,22 @@ namespace DelegationsMVC.Application.Services
         public void RemoveRoleFromUser(string id, string role)
         {
             var user = _userManager.FindByIdAsync(id).Result;
+            if(user == null)
+            {
+                return;
+            }
             _userManager.RemoveFromRoleAsync(user, role);
         }
 
-        public void AddRoleToUser(string idUser, string role)
+        public void AddRolesToUser(string idUser, IEnumerable<string> role)
         {
             var user = _userManager.FindByIdAsync(idUser).Result;
-            _userManager.AddToRoleAsync(user, role);
+            if(user == null)
+            {
+                return;
+            }
+            _userManager.AddToRoleAsync(user, "Chief");
+            _userManager.AddToRolesAsync(user, role);
         }
 
         public IQueryable<string> GetRolesByUser(string id)
@@ -64,7 +73,8 @@ namespace DelegationsMVC.Application.Services
         {
             var user = _userManager.FindByIdAsync(id).Result;
             var userVm = _mapper.Map<UserDetailVm>(user);
-            userVm.Roles = GetRolesByUser(user.Id).ToList();
+            userVm.UserRoles = GetRolesByUser(user.Id).ToList();
+            userVm.Roles = GetAllRoles().ToList();
             return userVm;
         }
     }
