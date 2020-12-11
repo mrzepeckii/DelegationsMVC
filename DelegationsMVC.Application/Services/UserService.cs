@@ -42,6 +42,7 @@ namespace DelegationsMVC.Application.Services
             {
                 return null;
             }
+            role = RemoveDuplicateRoles(user, role);
             result = await _userManager.AddToRolesAsync(user, role);
             return result;
         }
@@ -77,6 +78,14 @@ namespace DelegationsMVC.Application.Services
             userVm.UserRoles = GetRolesByUser(user.Id).ToList();
             userVm.Roles = GetAllRoles().ToList();
             return userVm;
+        }
+
+        private List<string> RemoveDuplicateRoles(IdentityUser user, IEnumerable<string> roles)
+        {
+
+            var userRoles = _userManager.GetRolesAsync(user).Result.ToList();
+            var rolesToAdd = roles.Where(r => !userRoles.Contains(r)).ToList();
+            return rolesToAdd;
         }
     }
 }
