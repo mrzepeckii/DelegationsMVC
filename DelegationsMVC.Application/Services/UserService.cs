@@ -34,17 +34,22 @@ namespace DelegationsMVC.Application.Services
             _userManager.RemoveFromRoleAsync(user, role);
         }
 
-        public async Task<IdentityResult> AddRolesToUser(string idUser, IEnumerable<string> role)
+        public async Task<IdentityResult> ChangeUserRoles(string idUser, IEnumerable<string> role)
         {
-            IdentityResult result;
             var user = _userManager.FindByIdAsync(idUser).Result;
             if(user == null)
             {
                 return null;
             }
-            role = RemoveDuplicateRoles(user, role);
-            result = await _userManager.AddToRolesAsync(user, role);
-            return result;
+            var userRoles = _userManager.GetRolesAsync(user).Result;
+            if(role.ToList().Count > userRoles.Count)
+            {
+                return await AddRolesToUser(user, role);
+            }
+            else
+            {
+                return await RemoveRolesFromUser(user, role);
+            }
         }
 
         public IQueryable<string> GetRolesByUser(string id)
@@ -80,9 +85,24 @@ namespace DelegationsMVC.Application.Services
             return userVm;
         }
 
+        private async Task<IdentityResult> RemoveRolesFromUser(IdentityUser user, IEnumerable<string> roles)
+        {
+            var actuallUserRoles = _userManager.GetRolesAsync(user).Result;
+            await _userManager.RemoveFromRolesAsync(user, actuallUserRoles);
+            return await AddRolesToUser(user, roles);
+            
+        }
+
+        private async Task<IdentityResult> AddRolesToUser(IdentityUser user, IEnumerable<string> roles)
+        {
+            IdentityResult result;
+            roles = RemoveDuplicateRoles(user, roles);
+            result = await _userManager.AddToRolesAsync(user, roles);
+            return result;
+        }
+
         private List<string> RemoveDuplicateRoles(IdentityUser user, IEnumerable<string> roles)
         {
-
             var userRoles = _userManager.GetRolesAsync(user).Result.ToList();
             var rolesToAdd = roles.Where(r => !userRoles.Contains(r)).ToList();
             return rolesToAdd;

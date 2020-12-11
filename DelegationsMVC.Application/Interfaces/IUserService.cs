@@ -15,7 +15,7 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<string> GetRolesByUser(string id);
         UserDetailVm GetUserDetails(string id);
         //void AddRolesToUser(string idUser, IEnumerable<string> role);
-        Task<IdentityResult> AddRolesToUser(string idUser, IEnumerable<string> role);
+        Task<IdentityResult> ChangeUserRoles(string idUser, IEnumerable<string> role);
         void RemoveRoleFromUser(string id, string role);
     }
 }

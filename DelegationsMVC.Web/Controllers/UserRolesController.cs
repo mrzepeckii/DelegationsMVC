@@ -26,7 +26,6 @@ namespace DelegationsMVC.Web.Controllers
             return View(model);
         }
 
-        //[HttpGet]
         public IActionResult AddRolesToUser(string id)
         {
             var userVm = _userService.GetUserDetails(id);
@@ -36,7 +35,7 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRolesToUser(UserDetailVm user)
         {
-            await _userService.AddRolesToUser(user.Id, user.UserRoles);
+            await _userService.ChangeUserRoles(user.Id, user.UserRoles);
             return RedirectToAction("Index");
         }
     }

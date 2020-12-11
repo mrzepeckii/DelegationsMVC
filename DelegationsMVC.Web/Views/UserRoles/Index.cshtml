@@ -26,9 +26,7 @@
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @*<button id="DeleteForm" type="button" class="btn btn-info" onclick="SetRoles(@item.Id)">Nadaj prawa</button>*@
-                    <a class="btn btn-info btn-sm" href="javascript:SetRoles('@item.Id')">Nadaj prawa</a>
+                    <a class="btn btn-info btn-sm" href="javascript:SetRoles('@item.Id')">Edytuj prawa</a>
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
@@ -36,6 +34,8 @@
         }
     </tbody>
 </table>
+<button id="DeleteRoles" style="display:none" type="button" class="btn btn-danger" onclick="ClearRoles()">Zakończ</button>
+<br />
 <div id="Roles">
 
 </div>
@@ -72,13 +72,17 @@
             });
         });
 
-         function SetRoles(id) {
+        function ClearRoles() {
+            $('#Roles').empty();
+            $('#DeleteRoles').hide();
+        }
+
+        function SetRoles(id) { 
             var $divRoles = $('#Roles');
              $divRoles.empty();
-             alert('hehe');
              var url = '@Url.Action("AddRolesToUser","UserRoles")?id=' + id;
             $divRoles.load(url);
-            // $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
+            $('#DeleteRoles').show();
         }
     </script>
 }
