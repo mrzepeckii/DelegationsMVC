@@ -4,26 +4,26 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" class="form-control" />
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <h4>Dane</h4>
             <br/>
             <dl class="row">
-                <dt class="col">
+                <dt class="col-sm-4">
                     @Html.DisplayName("Nazwa użytkownika:")
                 </dt>
-                <dd class="col">
+                <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.UserName)
                 </dd>
-                <dt class="col">
+                <dt class="col-sm-4">
                     @Html.DisplayName("Email:")
                 </dt>
-                <dd class="col">
+                <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.Email)
                 </dd>
-                <dt class="col">
+                <dt class="col-sm-4">
                     @Html.DisplayName("Czy email potwierdzony:")
                 </dt>
-                <dd class="col">
+                <dd class="col-sm-8">
                     @if (Model.EmailConfirmed == true)
                     {
                         <div>Tak</div>
@@ -35,7 +35,7 @@
                 </dd>
             </dl>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <h4>Nadane prawa</h4>
             <br/>
             @foreach (var item in Model.Roles)

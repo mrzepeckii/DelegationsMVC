@@ -34,7 +34,7 @@ namespace DelegationsMVC.Application.Services
             _userManager.RemoveFromRoleAsync(user, role);
         }
 
-        public async Task<IdentityResult> ChangeUserRoles(string idUser, IEnumerable<string> role)
+        public async Task<IdentityResult> ChangeUserRolesAsync(string idUser, IEnumerable<string> role)
         {
             var user = _userManager.FindByIdAsync(idUser).Result;
             if(user == null)
@@ -44,11 +44,11 @@ namespace DelegationsMVC.Application.Services
             var userRoles = _userManager.GetRolesAsync(user).Result;
             if(role.ToList().Count > userRoles.Count)
             {
-                return await AddRolesToUser(user, role);
+                return await AddRolesToUserAsync(user, role);
             }
             else
             {
-                return await RemoveRolesFromUser(user, role);
+                return await RemoveRolesFromUserAsync(user, role);
             }
         }
 
@@ -85,15 +85,25 @@ namespace DelegationsMVC.Application.Services
             return userVm;
         }
 
-        private async Task<IdentityResult> RemoveRolesFromUser(IdentityUser user, IEnumerable<string> roles)
+        public async Task<IdentityResult> DeleteUserAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if(user == null)
+            {
+                return await Task.FromResult<IdentityResult>(null);
+            }
+            return await _userManager.DeleteAsync(user);
+        }
+
+        private async Task<IdentityResult> RemoveRolesFromUserAsync(IdentityUser user, IEnumerable<string> roles)
         {
             var actuallUserRoles = _userManager.GetRolesAsync(user).Result;
             await _userManager.RemoveFromRolesAsync(user, actuallUserRoles);
-            return await AddRolesToUser(user, roles);
+            return await AddRolesToUserAsync(user, roles);
             
         }
 
-        private async Task<IdentityResult> AddRolesToUser(IdentityUser user, IEnumerable<string> roles)
+        private async Task<IdentityResult> AddRolesToUserAsync(IdentityUser user, IEnumerable<string> roles)
         {
             IdentityResult result;
             roles = RemoveDuplicateRoles(user, roles);

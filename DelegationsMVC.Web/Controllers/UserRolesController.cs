@@ -35,7 +35,13 @@ namespace DelegationsMVC.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRolesToUser(UserDetailVm user)
         {
-            await _userService.ChangeUserRoles(user.Id, user.UserRoles);
+            await _userService.ChangeUserRolesAsync(user.Id, user.UserRoles);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            await _userService.DeleteUserAsync(id);
             return RedirectToAction("Index");
         }
     }
