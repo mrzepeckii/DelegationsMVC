@@ -27,7 +27,8 @@
                 </td>
                 <td style="text-align:center">
                     <a class="btn btn-info btn-sm" href="javascript:SetRoles('@item.Id')">Edytuj prawa</a>
-                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteUser", "UserRoles", new { id = item.Id })">Usuń użytkownika</a>
+                    <a class="btn btn-danger btn-sm" href="javascript:DeleteUser('@item.Id','@item.UserName')">Usuń użytkownika</a>
+                    @* <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteUser", "UserRoles", new { id = item.Id })">Usuń użytkownika</a>*@
                 </td>
             </tr>
         }
@@ -77,7 +78,20 @@
             $('#DeleteRoles').hide();
         }
 
-        function SetRoles(id) { 
+        function DeleteUser(id, name) {
+            if (confirm('Czy na pewno chcesz usunąć użytkownika ' + name + '?')) {
+                $.ajax({
+                url: '@Url.Action("DeleteUser", "UserRoles")',
+                type: 'POST',
+                data: { id: id },
+                success: function(result) {
+                    location.reload();
+                }
+                });
+            }
+        }
+
+        function SetRoles(id) {
             var $divRoles = $('#Roles');
              $divRoles.empty();
              var url = '@Url.Action("AddRolesToUser","UserRoles")?id=' + id;
