@@ -10,10 +10,12 @@ namespace DelegationsMVC.Domain.Interfaces
     {
         int AddDestination(Destination destinationToAdd);
         void DeleteDestination(int destinationToRemoveId);
+        IQueryable<Destination> GetDestinations();
         Destination GetDestinationById(int id);
         IQueryable<Destination> GetDestinationsByCountry(int countryId);
         IQueryable<Project> GetProjectsByDestination(int destinationId);
         IQueryable<Project> GetProjectsByStatus(int statusId);
         IQueryable<Country> GetAllCountries();
+        IQueryable<Country> GetProjectsCountries();
     }
 }

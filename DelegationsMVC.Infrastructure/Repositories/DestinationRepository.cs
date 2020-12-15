@@ -49,6 +49,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return destinations;
         }
 
+        public IQueryable<Destination> GetDestinations()
+        {
+            var destinations = _context.Destinations;
+            return destinations;
+        }
+
         /*Operations related to the project object      
          * project can't exist without destination object 
          * *******************************************/
@@ -69,6 +75,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public IQueryable<Country> GetAllCountries()
         {
             var countries = _context.Countries;
+            return countries;
+        }
+
+        public IQueryable<Country> GetProjectsCountries()
+        {
+            var countries = _context.Destinations.Select(d => d.Country).Distinct();
             return countries;
         }
     }
