@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DelegationsMVC.Application\DelegationsMVC.Application.csproj" />
+    <ProjectReference Include="..\DelegationsMVC.Infrastructure\DelegationsMVC.Infrastructure.csproj" />
+  </ItemGroup>
+
 
 </Project>
