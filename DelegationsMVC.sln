@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegationsMVC.Web", "DelegationsMVC.Web\DelegationsMVC.Web.csproj", "{417D0D7D-2603-41B5-B7A0-1FA8715890EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegationsMVC.Web", "DelegationsMVC.Web\DelegationsMVC.Web.csproj", "{417D0D7D-2603-41B5-B7A0-1FA8715890EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{5767DD99-327C-4AFD-B239-D638DD7C1DB1}"
 EndProject
@@ -15,13 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0614AE0E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{5B6E94FA-6CCE-49B8-BE13-B7927CA8C8B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegationsMVC.Application", "DelegationsMVC.Application\DelegationsMVC.Application.csproj", "{E52EFDA4-96A8-425D-B882-B80A03745DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegationsMVC.Application", "DelegationsMVC.Application\DelegationsMVC.Application.csproj", "{E52EFDA4-96A8-425D-B882-B80A03745DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegationsMVC.Domain", "DelegationsMVC.Domain\DelegationsMVC.Domain.csproj", "{283BC583-AAC8-4581-B8D8-482270938789}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegationsMVC.Domain", "DelegationsMVC.Domain\DelegationsMVC.Domain.csproj", "{283BC583-AAC8-4581-B8D8-482270938789}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegationsMVC.Infrastructure", "DelegationsMVC.Infrastructure\DelegationsMVC.Infrastructure.csproj", "{2CBC1611-6F8C-41D7-A8C8-70049D36A246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegationsMVC.Infrastructure", "DelegationsMVC.Infrastructure\DelegationsMVC.Infrastructure.csproj", "{2CBC1611-6F8C-41D7-A8C8-70049D36A246}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegationsMVC.Tests", "DelegationsMVC.Tests\DelegationsMVC.Tests.csproj", "{B06A2A08-A202-4418-9D48-4F87E7CF6CC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DelegationsMVC.Tests", "DelegationsMVC.Tests\DelegationsMVC.Tests.csproj", "{B06A2A08-A202-4418-9D48-4F87E7CF6CC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{ADAAA480-4AA8-4FC2-9011-D5363CD2CC90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegationApi", "DelegationApi\DelegationApi.csproj", "{34B6675C-2729-49C9-98D8-E530BC8DD537}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{B06A2A08-A202-4418-9D48-4F87E7CF6CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B06A2A08-A202-4418-9D48-4F87E7CF6CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B06A2A08-A202-4418-9D48-4F87E7CF6CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B6675C-2729-49C9-98D8-E530BC8DD537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B6675C-2729-49C9-98D8-E530BC8DD537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B6675C-2729-49C9-98D8-E530BC8DD537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B6675C-2729-49C9-98D8-E530BC8DD537}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{283BC583-AAC8-4581-B8D8-482270938789} = {1392659C-3077-49D4-90E3-68D56DEB2B8E}
 		{2CBC1611-6F8C-41D7-A8C8-70049D36A246} = {C2C83325-167C-4A01-82C5-6D9BF772A8B4}
 		{B06A2A08-A202-4418-9D48-4F87E7CF6CC6} = {0614AE0E-2F5C-4715-96BC-FDC854BE4116}
+		{34B6675C-2729-49C9-98D8-E530BC8DD537} = {ADAAA480-4AA8-4FC2-9011-D5363CD2CC90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22646467-BD23-4C22-A00E-2591A42F7387}

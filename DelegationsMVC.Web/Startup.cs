@@ -70,14 +70,6 @@ namespace DelegationsMVC.Web
                opt.ClientSecret = googleAuthenSection["Secret"];
            });
 
-            services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();
-            services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();
-            services.AddTransient<IValidator<NewContactDetailsVm>, NewContactDetailsValidation>();
-            services.AddTransient<IValidator<NewDelegationVm>, NewDelegationValidation>();
-            services.AddTransient<IValidator<NewRouteVm>, NewRouteValidation>();
-            services.AddTransient<IValidator<NewRouteDetailVm>, NewRouteDetailValidation>();
-            services.AddTransient<IValidator<NewCostVm>, NewCostValidation>();
-
             services.AddScoped<CheckContactPermission>();
             services.AddScoped<CheckVehiclePermission>();
             services.AddScoped<CheckDelegationPermission>();
