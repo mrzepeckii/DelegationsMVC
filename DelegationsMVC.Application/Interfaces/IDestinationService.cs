@@ -8,7 +8,9 @@ namespace DelegationsMVC.Application.Interfaces
 {
     public interface IDestinationService
     {
-        public ListDestinationForListVm GetAllClients();
-        public IQueryable<CountryVm> GetProjectsCountries();
+        ListDestinationForListVm GetAllClients();
+        IQueryable<CountryVm> GetProjectsCountries();
+        ListProjectForList GetCurrentProjects();
+        ListProjectForList GetClosedProjects();
     }
 }

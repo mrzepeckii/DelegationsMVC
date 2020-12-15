@@ -20,6 +20,7 @@ namespace DelegationsMVC.Application
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IDelegationService, DelegationService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IDestinationService, DestinationService>();
 
             services.AddTransient<IValidator<NewVehicleVm>, NewVehicleValidation>();
             services.AddTransient<IValidator<NewEmployeeVm>, NewEmployeeValidation>();

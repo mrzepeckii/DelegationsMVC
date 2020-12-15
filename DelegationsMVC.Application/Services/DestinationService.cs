@@ -25,7 +25,7 @@ namespace DelegationsMVC.Application.Services
         public ListDestinationForListVm GetAllClients()
         {
             var clients = _destRepo.GetDestinations().ProjectTo<DestinationForListVm>(_mapper.ConfigurationProvider).ToList();
-            ListDestinationForListVm clientsVm = new ListDestinationForListVm()
+            var clientsVm = new ListDestinationForListVm()
             {
                 Destinations = clients,
                 Count = clients.Count
@@ -39,6 +39,26 @@ namespace DelegationsMVC.Application.Services
             return countries;
         }
 
-        
+        public ListProjectForList GetCurrentProjects()
+        {
+            var projects = _destRepo.GetProjectsByStatus(1).ProjectTo<ProjectForListVm>(_mapper.ConfigurationProvider).ToList();
+            var projectsVm = new ListProjectForList()
+            {
+                Projects = projects,
+                Count = projects.Count
+            };
+            return projectsVm;
+        }
+
+        public ListProjectForList GetClosedProjects()
+        {
+            var projects = _destRepo.GetProjectsByStatus(2).ProjectTo<ProjectForListVm>(_mapper.ConfigurationProvider).ToList();
+            var projectsVm = new ListProjectForList()
+            {
+                Projects = projects,
+                Count = projects.Count
+            };
+            return projectsVm;
+        }        
     }
 }
