@@ -1,5 +1,6 @@
 ﻿using DelegationsMVC.Domain.Interfaces;
 using DelegationsMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,21 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return destinationToAdd.Id;
         }
 
+        public void UpdateDesintation(Destination dest)
+        {
+            _context.Attach(dest);
+            _context.Entry(dest).Property("Name").IsModified = true;
+            _context.Entry(dest).Property("ModifiedById").IsModified = true;
+            _context.Entry(dest).Property("ModifiedDateTime").IsModified = true;
+            _context.Entry(dest).Property("CountryId").IsModified = true;
+            _context.SaveChanges();
+        }
+
         public void DeleteDestination(int destinationToRemoveId)
         {
             var destination = _context.Destinations.Find(destinationToRemoveId);
-            var projects = _context.Projects.Where(p => p.Destination == destination);
             if(destination != null)
             {
-                _context.Projects.RemoveRange(projects);
                 _context.Destinations.Remove(destination);
                 _context.SaveChanges();
             }
@@ -39,7 +48,9 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Destination GetDestinationById(int id)
         {
-            var destination = _context.Destinations.FirstOrDefault(d => d.Id == id);
+            var destination = _context.Destinations
+                .Include(d => d.Country)
+                .FirstOrDefault(d => d.Id == id);
             return destination;
         }
 
@@ -58,6 +69,35 @@ namespace DelegationsMVC.Infrastructure.Repositories
         /*Operations related to the project object      
          * project can't exist without destination object 
          * *******************************************/
+        public int AddProject(Project project)
+        {
+            _context.Projects.Add(project);
+            _context.SaveChanges();
+            return project.Id; 
+        }
+
+        public void UpdateProject(Project project)
+        {
+            _context.Attach(project);
+            _context.Entry(project).Property("Name").IsModified = true;
+            _context.Entry(project).Property("Number").IsModified = true;
+            _context.Entry(project).Property("ProjectStatusId").IsModified = true;
+            _context.Entry(project).Property("DestinationId").IsModified = true;
+            _context.Entry(project).Property("ModifiedById").IsModified = true;
+            _context.Entry(project).Property("ModifiedDateTime").IsModified = true;
+            _context.SaveChanges();
+        }
+
+        public void DeleteProject(int projectId)
+        {
+            var project = _context.Projects.FirstOrDefault(p => p.Id == projectId);
+            if(project != null)
+            {
+                _context.Projects.Remove(project);
+                _context.SaveChanges();
+            }
+        }
+
         public IQueryable<Project> GetProjectsByDestination(int destinationId)
         {
             var projects = _context.Destinations.FirstOrDefault(d => d.Id == destinationId).Projects.AsQueryable();
@@ -68,6 +108,19 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             var projects = _context.ProjectStatuses.FirstOrDefault(ps => ps.Id == statusId).Projects.AsQueryable();
             return projects;
+        }
+
+        public Project GetProjectById(int id)
+        {
+            var project = _context.Projects
+                .Include(p => p.Destination)
+                .FirstOrDefault(p => p.Id == id);
+            return project;
+        }
+        public IQueryable<ProjectStatus> GetProjectStatuses()
+        {
+            var statuses = _context.ProjectStatuses;
+            return statuses;
         }
 
         /*Operations related to the coutnry object 
