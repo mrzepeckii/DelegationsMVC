@@ -49,6 +49,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public Destination GetDestinationById(int id)
         {
             var destination = _context.Destinations
+                .Include(d => d.Projects)
                 .Include(d => d.Country)
                 .FirstOrDefault(d => d.Id == id);
             return destination;
@@ -123,6 +124,12 @@ namespace DelegationsMVC.Infrastructure.Repositories
             return statuses;
         }
 
+        public IQueryable<Project> GetProjects()
+        {
+            var projects = _context.Projects;
+            return projects;
+        }
+
         /*Operations related to the coutnry object 
          * *******************************************/
         public IQueryable<Country> GetAllCountries()
@@ -136,5 +143,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             var countries = _context.Destinations.Select(d => d.Country).Distinct();
             return countries;
         }
+
+       
     }
 }

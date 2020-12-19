@@ -23,5 +23,6 @@ namespace DelegationsMVC.Domain.Interfaces
         IQueryable<ProjectStatus> GetProjectStatuses();
         IQueryable<Country> GetAllCountries();
         IQueryable<Country> GetProjectsCountries();
+        IQueryable<Project> GetProjects();
     }
 }

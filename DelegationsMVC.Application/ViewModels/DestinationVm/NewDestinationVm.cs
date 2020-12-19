@@ -12,6 +12,7 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
         public int Id { get; set; }
         public string Name { get; set; }
         public int CountryId { get; set; }
+        public List<CountryVm> Countries {get; set;}
 
         public void Mapping(Profile profile)
         {

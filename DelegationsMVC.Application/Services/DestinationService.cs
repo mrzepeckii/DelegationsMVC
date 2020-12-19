@@ -30,7 +30,7 @@ namespace DelegationsMVC.Application.Services
             return id;
         }
 
-        public void RemoveDestination(int id)
+        public void DeleteDestination(int id)
         {
             _destRepo.DeleteDestination(id);
         }
@@ -48,7 +48,7 @@ namespace DelegationsMVC.Application.Services
             return id;
         }
 
-        public void RemoveProject(int id)
+        public void DeleteProject(int id)
         {
             _destRepo.DeleteProject(id);
         }
@@ -107,6 +107,71 @@ namespace DelegationsMVC.Application.Services
                 Count = projects.Count
             };
             return projectsVm;
-        }    
+        }
+
+        public IQueryable<CountryVm> GetCountries()
+        {
+            var countries = _destRepo.GetAllCountries().ProjectTo<CountryVm>(_mapper.ConfigurationProvider);
+            return countries;
+        }
+
+        public NewDestinationVm GetDestinationForEdit(int id)
+        {
+            var dest = _destRepo.GetDestinationById(id);
+            var destVm = _mapper.Map<NewDestinationVm>(dest);
+            if(destVm != null)
+            {
+                destVm.Countries = GetCountries().ToList();
+            }
+            return destVm;
+        }
+
+        public NewProjectVm GetProjectForEdit(int id)
+        {
+            var proj = _destRepo.GetProjectById(id);
+            var projVm = _mapper.Map<NewProjectVm>(proj);
+            if(projVm != null)
+            {
+                projVm.Destinations = GetAllClients();
+            }
+            return projVm;
+        }
+
+        public Destination GetDestinationById(int id)
+        {
+            var dest = _destRepo.GetDestinationById(id);
+            return dest;
+        }
+
+        public Project GetProjectById(int id)
+        {
+            var proj = _destRepo.GetProjectById(id);
+            return proj;
+        }
+
+        public DestinationDetailVm GetDestinationDetail(int id)
+        {
+            var dest = _destRepo.GetDestinationById(id);
+            var destVm = _mapper.Map<DestinationDetailVm>(dest);
+            var projects =  dest.Projects.AsQueryable().ProjectTo<ProjectForListVm>(_mapper.ConfigurationProvider).ToList();
+            var projectsVm = new ListProjectForList()
+            {
+                Projects = projects,
+                Count = projects.Count
+            };
+            destVm.Projects = projectsVm;
+            return destVm;
+        }
+
+        public ListProjectForList GetAllProjects()
+        {
+            var projects = _destRepo.GetProjects().ProjectTo<ProjectForListVm>(_mapper.ConfigurationProvider).ToList();
+            var projectsVm = new ListProjectForList()
+            {
+                Projects = projects,
+                Count = projects.Count
+            };
+            return projectsVm;
+        }
     }
 }
