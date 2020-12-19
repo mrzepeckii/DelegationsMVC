@@ -36,12 +36,12 @@ namespace DelegationsMVC.Application.Services
 
         public async Task<IdentityResult> ChangeUserRolesAsync(string idUser, IEnumerable<string> role)
         {
-            var user = _userManager.FindByIdAsync(idUser).Result;
+            var user = await _userManager.FindByIdAsync(idUser);
             if(user == null)
             {
                 return null;
             }
-            var userRoles = _userManager.GetRolesAsync(user).Result;
+            var userRoles = await _userManager.GetRolesAsync(user);
             if(role.ToList().Count > userRoles.Count)
             {
                 return await AddRolesToUserAsync(user, role);
@@ -97,7 +97,7 @@ namespace DelegationsMVC.Application.Services
 
         private async Task<IdentityResult> RemoveRolesFromUserAsync(IdentityUser user, IEnumerable<string> roles)
         {
-            var actuallUserRoles = _userManager.GetRolesAsync(user).Result;
+            var actuallUserRoles = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRolesAsync(user, actuallUserRoles);
             return await AddRolesToUserAsync(user, roles);
             
