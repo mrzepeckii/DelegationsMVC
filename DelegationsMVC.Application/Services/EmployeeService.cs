@@ -27,8 +27,6 @@ namespace DelegationsMVC.Application.Services
         public int AddEmployee(NewEmployeeVm employee)
         {
             var emp = _mapper.Map<Employee>(employee);
-            emp.CreateById = 1;
-            emp.CreatedDateTime = DateTime.Now;
             var id = _employeeRepo.AddEmployee(emp);
             return id;
         }
