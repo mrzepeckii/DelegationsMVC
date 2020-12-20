@@ -29,7 +29,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Destinations/New")]
         public IActionResult AddDestination()
         {
             var model = new NewDestinationVm()
@@ -40,7 +39,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Destinations/New")]
         public IActionResult AddDestination(NewDestinationVm destVm)
         {
             if (!ModelState.IsValid)
@@ -54,7 +52,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Destinations/Edit/{id}")]
         public IActionResult EditDestination(int id)
         {
             var model = _destService.GetDestinationForEdit(id);
@@ -67,7 +64,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Destinations/Edit/{id}")]
         public IActionResult EditDestination(NewDestinationVm destVm)
         {
             if (!ModelState.IsValid)
@@ -79,8 +75,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [Route("Destinations/Delete/{id}")]
+        [HttpPost]
         public IActionResult DeleteDestination(int id)
         {
             _destService.DeleteDestination(id);
@@ -109,7 +104,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Destinations/Projects/New")]
         public IActionResult AddProject()
         {
             var model = new NewProjectVm()
@@ -120,7 +114,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Destinations/Projects/New")]
         public IActionResult AddProject(NewProjectVm projVm)
         {
             if (!ModelState.IsValid)
@@ -133,7 +126,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Destinations/Projects/Edit/{id}")]
         public IActionResult EditProject(int id)
         {
             var model = _destService.GetProjectForEdit(id);
@@ -146,7 +138,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpPost]
-        [Route("Destinations/Projects/Edit/{id}")]
         public IActionResult EditProject(NewProjectVm projVm)
         {
             if (!ModelState.IsValid)
@@ -159,7 +150,6 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Destinations/Projects/Delete/{id}")]
         public IActionResult DeleteProject(int id)
         {
             _destService.DeleteProject(id);

@@ -37,13 +37,19 @@
                 </td>
                 <td style="text-anchor:middle; text-align :center">
                     <a class="btn btn-info btn-sm" href="@Url.Action("ViewDestination", "Destination", new { id = item.Id })">Szczegóły</a>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("EditDestination", "Destination", new { id = item.Id })">Edytuj</a>
-                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDestination", "Destination", new { id = item.Id })">Anuluj</a>
+                    <a class="btn btn-warning btn-sm" href="javascript:EditDest('@item.Id')">Edytuj</a>
+                    <a class="btn btn-danger btn-sm" href="javascript:DeleteDest('@item.Id','@item.Name')">Usuń</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<input id="AddDest" type="button" class="btn btn-success" onclick="AddDest()" value="Dodaj klienta" />
+<br />
+<br />
+<div id="Dest">
+
+</div>
 
 @section Scripts{
 
@@ -91,5 +97,39 @@
                 ]
             });
         });
+
+        function EditDest(id) {
+            var $divDest = $('#Dest');
+            $divDest.empty();
+            var url = '@Url.Action("EditDestination", "Destination")/' + id;
+            $divDest.load(url);
+            $('#AddDest').attr("onclick", "ClearDest()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
+        }
+
+        function ClearDest() {
+            $('#Dest').empty();
+            $('#AddDest').attr("onclick", "AddDest()").attr("value", "Dodaj klienta").attr("class", "btn btn-success");
+           }
+
+          function AddDest() {
+            var $divDest = $('#Dest');
+            $divDest.empty();
+            var url = '@Url.Action("AddDestination","Destination")';
+            $divDest.load(url);
+              $('#AddDest').attr("onclick", "ClearDest()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
+        }
+
+         function DeleteDest(id, name) {
+            if (confirm('Czy na pewno chcesz usunąć klienta ' + name + '?')) {
+                $.ajax({
+                url: '@Url.Action("DeleteDestination", "Destination")',
+                type: 'POST',
+                data: { id: id },
+                success: function(result) {
+                    location.reload();
+                }
+                });
+            }
+        }
     </script>
 }

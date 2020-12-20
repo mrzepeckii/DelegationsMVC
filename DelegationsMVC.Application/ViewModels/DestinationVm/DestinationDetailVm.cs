@@ -17,7 +17,8 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Destination, DestinationDetailVm>()
-                .ForMember(d => d.Country, opt => opt.MapFrom(s => s.Country.Name));
+                .ForMember(d => d.Country, opt => opt.MapFrom(s => s.Country.Name))
+                .ForMember(d => d.Projects, opt => opt.Ignore());
         }
     }
 }

@@ -9,6 +9,7 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
 {
     public class ProjectForListVm : IMapFrom<Project>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Number { get; set; }
         public string Client { get; set; }

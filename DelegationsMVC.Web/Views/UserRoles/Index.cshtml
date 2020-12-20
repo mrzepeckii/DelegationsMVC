@@ -4,11 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Users</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table table-bordered table-striped" id="table">
     <thead class=" thead-dark">
         <tr>
@@ -28,7 +25,6 @@
                 <td style="text-align:center">
                     <a class="btn btn-info btn-sm" href="javascript:SetRoles('@item.Id')">Edytuj prawa</a>
                     <a class="btn btn-danger btn-sm" href="javascript:DeleteUser('@item.Id','@item.UserName')">Usuń użytkownika</a>
-                    @* <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteUser", "UserRoles", new { id = item.Id })">Usuń użytkownika</a>*@
                 </td>
             </tr>
         }

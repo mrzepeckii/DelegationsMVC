@@ -1,35 +1,148 @@
-﻿@model IEnumerable<DelegationsMVC.Application.ViewModels.DestinationVm.ListProjectForList>
+﻿@model DelegationsMVC.Application.ViewModels.DestinationVm.ListProjectForList
 
 @{
     ViewData["Title"] = "Projects";
 }
 
-<h1>Projects</h1>
+<h1>Projekty</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+
+<table class="table table-bordered table-striped" id="table">
+    <thead class="thead-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Count)
+            <th style="text-align :center">
+                Nazwa
+            </th>
+            <th style="text-align :center">
+                Numer
+            </th>
+            <th style="text-align :center">
+                Klient
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Projects)
+        {
+            <tr>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Client)
+                </td>
+                <td style="text-anchor:middle; text-align :center">
+                    <a class="btn btn-warning btn-sm" href="javascript:EditProject('@item.Id')">Edytuj</a>
+                    <a class="btn btn-danger btn-sm" href="javascript:CloseProject('@item.Id','@item.Name')">Zamknij</a>
+                    <a class="btn btn-danger btn-sm" href="javascript:DeleteProject('@item.Id','@item.Name')">Usuń</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<input id="AddProj" type="button" class="btn btn-success" onclick="AddProj()" value="Dodaj projekt" />
+<br />
+<br />
+<div id="Proj">
+
+</div>
+
+@section Scripts{
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "pagingType": "full_numbers",
+                "language": {
+                    "lengthMenu": "Pokaż _MENU_ projektów na stronie",
+                    "zeroRecords": "Brak pasujących projektów",
+                    "info": "Strona _PAGE_ z _PAGES_",
+                    "infoEmpty": "Brak projektów w bazie",
+                    "infoFiltered": "(przeszukano z _MAX_ liczby rekordów)",
+                    "search": "Wyszukaj: ",
+                    "select": {
+                        "rows": " (%d wybranych)"
+                    },
+                    "paginate": {
+                        "first": "Pierwsza",
+                        "last": "Ostatnia",
+                        "next": "Następna",
+                        "previous": "Poprzednia"
+                    },
+
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": 3 }
+                ]
+            });
+        });
+
+        function EditProj(id) {
+            var $divProj = $('#Proj');
+            $divProj.empty();
+            var url = '@Url.Action("EditProject", "Destination")/' + id;
+            $divProj.load(url);
+            $('#AddProj').attr("onclick", "ClearProj()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
+        }
+
+        function ClearProj() {
+            $('#Proj').empty();
+            $('#AddProj').attr("onclick", "AddProj()").attr("value", "Dodaj projekt").attr("class", "btn btn-success");
+           }
+
+          function AddProj() {
+              var $divProj = $('#Proj');
+              $divProj.empty();
+            var url = '@Url.Action("AddProject","Destination")';
+              $divProj.load(url);
+              $('#AddProj').attr("onclick", "ClearProj()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
+        }
+
+         function DeleteProj(id, name) {
+            if (confirm('Czy na pewno chcesz usunąć projekt ' + name + '?')) {
+                $.ajax({
+                url: '@Url.Action("DeleteProject", "Destination")',
+                type: 'POST',
+                data: { id: id },
+                success: function(result) {
+                    location.reload();
+                }
+                });
+            }
+        }
+
+         function CloseProj(id, name) {
+            if (confirm('Czy na pewno chcesz zamknąć projekt ' + name + '?')) {
+                $.ajax({
+                url: '@Url.Action("CloseProject", "Destination")',
+                type: 'POST',
+                data: { id: id },
+                success: function(result) {
+                    location.reload();
+                }
+                });
+            }
+        }
+    </script>
+}

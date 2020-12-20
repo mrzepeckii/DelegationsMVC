@@ -1,35 +1,27 @@
 ﻿@model DelegationsMVC.Application.ViewModels.DestinationVm.NewDestinationVm
 
-<h4>NewDestinationVm</h4>
-<hr />
+<h4>Edytuj klienta</h4>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditDestination">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" class="form-control" />
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Nazwa</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
-                <input asp-for="CountryId" class="form-control" />
+                <label asp-for="CountryId" class="control-label">Kraj</label>
+                <select asp-for="CountryId" asp-items="@(new SelectList(Model.Countries,"Id", "Name"))" class="custom-select"></select>
                 <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
