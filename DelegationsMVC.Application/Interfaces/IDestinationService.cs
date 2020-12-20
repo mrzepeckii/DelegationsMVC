@@ -29,5 +29,7 @@ namespace DelegationsMVC.Application.Interfaces
         IQueryable<DestinationTypeVm> GetDestinations();
         IQueryable<CountryVm> GetCountries();
         IQueryable<ProjectStatusVm> GetProjectStatuses();
+        bool CheckIfDestinationExist(int id);
+        bool CheckIfProjectExist(int id);
     }
 }

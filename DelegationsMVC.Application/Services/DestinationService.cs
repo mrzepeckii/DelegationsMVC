@@ -186,5 +186,25 @@ namespace DelegationsMVC.Application.Services
             var statuses = _destRepo.GetProjectStatuses().ProjectTo<ProjectStatusVm>(_mapper.ConfigurationProvider);
             return statuses;
         }
+
+        public bool CheckIfDestinationExist(int id)
+        {
+            var dest = _destRepo.GetDestinationById(id);
+            if(dest == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckIfProjectExist(int id)
+        {
+            var proj = _destRepo.GetProjectById(id);
+            if(proj == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

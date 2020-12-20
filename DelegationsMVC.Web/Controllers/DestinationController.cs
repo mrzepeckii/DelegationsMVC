@@ -21,7 +21,7 @@ namespace DelegationsMVC.Web.Controllers
             _logger = logger;
         }
 
-        [Route("Destinations/All")]
+        [Route("Destination/All")]
         public IActionResult Index()
         {
             var model = _destService.GetAllClients();
@@ -84,7 +84,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Destinations/View/{id}")]
+        [Route("Destination/View/{id}")]
         public IActionResult ViewDestination(int id)
         {
             var model = _destService.GetDestinationDetail(id);
@@ -96,7 +96,7 @@ namespace DelegationsMVC.Web.Controllers
             return View(model);
         }
 
-        [Route("Destinations/Projects/All")]
+        [Route("Destination/Project/All")]
         public IActionResult Projects()
         {
             var model = _destService.GetAllProjects();
@@ -153,6 +153,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult DeleteProject(int id)
         {
             _destService.DeleteProject(id);
+            _logger.LogInformation("Projects " + id + " has been deleted");
             return RedirectToAction("Projects");
         }
 
@@ -160,6 +161,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult CloseProject(int id)
         {
             _destService.CloseProject(id);
+            _logger.LogInformation("Project " + id + " has been closed");
             return RedirectToAction("Projects");
         }
     }

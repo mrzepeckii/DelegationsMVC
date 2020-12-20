@@ -83,7 +83,7 @@
                 }
             </tbody>
         </table>
-        <input id="AddVehicle" type="button" class="btn btn-dark" value="Dodaj pojazd" onclick="AddVeh()" />
+        <input id="AddVehicle" type="button" class="btn btn-success" value="Dodaj pojazd" onclick="AddVeh()" />
         <div id="VehicleEdit">
 
         </div>
@@ -131,7 +131,7 @@
                         }
                     </tbody>
                 </table>
-                <input id="AddContact" type="button" class="btn btn-dark" value="Dodaj kontakt" onclick="AddContact()" />
+                <input id="AddContact" type="button" class="btn btn-success" value="Dodaj kontakt" onclick="AddContact()" />
                 <div id="Contact">
 
                 </div>
@@ -149,19 +149,20 @@
             $divVeh.empty();
             var url = '@Url.Action("NewVehicle","Employee")';
             $divVeh.load(url);
-            $('#AddVehicle').attr("onclick", "ClearVeh()").attr("value", "Usuń formularz");
+            $('#AddVehicle').attr("onclick", "ClearVeh()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
         }
 
         function ClearVeh() {
             $('#Vehicle').empty();
-            $('#AddVehicle').attr("onclick", "AddVeh()").attr("value", "Dodaj pojazd");
+            $('#AddVehicle').attr("onclick", "AddVeh()").attr("value", "Dodaj pojazd").attr("class", "btn btn-success");
         }
 
         function EditVeh(vehId) {
-            ClearVeh();
             var $divVeh = $('#Vehicle');
+            $divVeh.empty();
             var url = '@Url.Action("EditVehicle","Employee")/' + vehId;
             $divVeh.load(url);
+            $('#AddVehicle').attr("onclick", "ClearVeh()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
         }
 
         function AddContact() {
@@ -169,19 +170,20 @@
             $divCon.empty();
             var url = '@Url.Action("NewContact","Employee", new { id = Model.Id } )';
             $divCon.load(url);
-            $('#AddContact').attr("onclick", "ClearContact()").attr("value", "Usuń formularz");
+            $('#AddContact').attr("onclick", "ClearContact()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
         }
 
         function ClearContact() {
             $('#Contact').empty();
-            $('#AddContact').attr("onclick", "AddContact()").attr("value", "Dodaj kontakt");
+            $('#AddContact').attr("onclick", "AddContact()").attr("value", "Dodaj kontakt").attr("class", "btn btn-success");
         }
 
         function EditContact(conId) {
-            ClearContact();
             var $divCon = $('#Contact');
+            $divCon.empty();
             var url = '@Url.Action("EditContact","Employee")/' + conId;
             $divCon.load(url);
+            $('#AddContact').attr("onclick", "ClearContact()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

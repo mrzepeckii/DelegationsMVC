@@ -15,6 +15,7 @@ namespace DelegationApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LoginController : ControllerBase
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -27,7 +28,7 @@ namespace DelegationApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(UserModel userModel)
+        public IActionResult Login([FromBody]UserModel userModel)
         {
             IActionResult result = Unauthorized();
             var success = AuthentiacteUser(userModel);

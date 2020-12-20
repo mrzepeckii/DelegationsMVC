@@ -101,13 +101,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Project> GetProjectsByDestination(int destinationId)
         {
-            var projects = _context.Destinations.FirstOrDefault(d => d.Id == destinationId).Projects.AsQueryable();
+            var projects = _context.Projects.Where(p => p.DestinationId == destinationId);
             return projects;
         }
 
         public IQueryable<Project> GetProjectsByStatus(int statusId)
         {
-            var projects = _context.ProjectStatuses.FirstOrDefault(ps => ps.Id == statusId).Projects.AsQueryable();
+            var projects = _context.Projects.Where(p => p.ProjectStatusId == statusId);
             return projects;
         }
 
