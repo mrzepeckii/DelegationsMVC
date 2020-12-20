@@ -139,6 +139,7 @@ namespace DelegationsMVC.Application.Services
             if(projVm != null)
             {
                 projVm.Destinations = GetDestinations().ToList();
+                projVm.Statuses = GetProjectStatuses().ToList();
             }
             return projVm;
         }
@@ -178,6 +179,12 @@ namespace DelegationsMVC.Application.Services
                 Count = projects.Count
             };
             return projectsVm;
+        }
+
+        public IQueryable<ProjectStatusVm> GetProjectStatuses()
+        {
+            var statuses = _destRepo.GetProjectStatuses().ProjectTo<ProjectStatusVm>(_mapper.ConfigurationProvider);
+            return statuses;
         }
     }
 }

@@ -149,10 +149,17 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("Projects");
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult DeleteProject(int id)
         {
             _destService.DeleteProject(id);
+            return RedirectToAction("Projects");
+        }
+
+        [HttpPost]
+        public IActionResult CloseProject(int id)
+        {
+            _destService.CloseProject(id);
             return RedirectToAction("Projects");
         }
     }

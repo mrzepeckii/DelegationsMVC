@@ -114,6 +114,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public Project GetProjectById(int id)
         {
             var project = _context.Projects
+                .Include(p => p.ProjectStatus)
                 .Include(p => p.Destination)
                 .FirstOrDefault(p => p.Id == id);
             return project;

@@ -19,28 +19,34 @@
             <th style="text-align :center">
                 Klient
             </th>
+            <th style="text-align :center">
+                Status
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Projects)
         {
-            <tr>
-                <td style="text-align :center">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td style="text-align :center">
-                    @Html.DisplayFor(modelItem => item.Number)
-                </td>
-                <td style="text-align :center">
-                    @Html.DisplayFor(modelItem => item.Client)
-                </td>
-                <td style="text-anchor:middle; text-align :center">
-                    <a class="btn btn-warning btn-sm" href="javascript:EditProject('@item.Id')">Edytuj</a>
-                    <a class="btn btn-danger btn-sm" href="javascript:CloseProject('@item.Id','@item.Name')">Zamknij</a>
-                    <a class="btn btn-danger btn-sm" href="javascript:DeleteProject('@item.Id','@item.Name')">Usuń</a>
-                </td>
-            </tr>
+        <tr>
+            <td style="text-align :center">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="text-align :center">
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td style="text-align :center">
+                @Html.DisplayFor(modelItem => item.Client)
+            </td>
+            <td style="text-align :center">
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td style="text-anchor:middle; text-align :center">
+                <a class="btn btn-warning btn-sm" href="javascript:EditProj('@item.Id')">Edytuj</a>
+                <a class="btn btn-info btn-sm" href="javascript:CloseProj('@item.Id','@item.Name')">Zamknij</a>
+                <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@item.Id','@item.Name')">Usuń</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

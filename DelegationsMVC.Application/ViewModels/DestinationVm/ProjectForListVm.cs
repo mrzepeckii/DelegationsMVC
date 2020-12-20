@@ -13,11 +13,13 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
         public string Name { get; set; }
         public string Number { get; set; }
         public string Client { get; set; }
+        public string Status { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Project, ProjectForListVm>()
-                .ForMember(s => s.Client, opt => opt.MapFrom(d => d.Destination.Name));
+                .ForMember(s => s.Client, opt => opt.MapFrom(d => d.Destination.Name))
+                .ForMember(s => s.Status, opt => opt.MapFrom(d => d.ProjectStatus.Name));
         }
     }
 }
