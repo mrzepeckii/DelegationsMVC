@@ -26,7 +26,7 @@ namespace DelegationsMVC.Application.Interfaces
         ListProjectForList GetAllProjects();
         ListProjectForList GetCurrentProjects();
         ListProjectForList GetClosedProjects();
-
+        IQueryable<DestinationTypeVm> GetDestinations();
         IQueryable<CountryVm> GetCountries();
     }
 }

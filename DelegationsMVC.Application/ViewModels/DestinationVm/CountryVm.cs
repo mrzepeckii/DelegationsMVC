@@ -9,6 +9,7 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
 {
     public class CountryVm : IMapFrom<Country>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public void Mapping(Profile profile)

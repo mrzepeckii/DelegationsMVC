@@ -14,7 +14,7 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
         public string Number { get; set; }
         public int ProjectStatusId { get; set; }
         public int DestinationId { get; set; }
-        public ListDestinationForListVm Destinations { get; set; }
+        public List<DestinationTypeVm> Destinations { get; set; }
 
         public void Mapping(Profile profile)
         {

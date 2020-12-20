@@ -1,0 +1,95 @@
+﻿@model DelegationsMVC.Application.ViewModels.DestinationVm.ListDestinationForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Klienci</h1>
+
+<br />
+<table class="table table-bordered table-striped" id="table">
+    <thead class="thead-dark">
+        <tr>
+            <th style="text-align :center">
+                Nazwa
+            </th>
+            <th style="text-align :center">
+                Kraj
+            </th>
+            <th style="text-align :center">
+                Współpraca od
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Destinations)
+        {
+            <tr>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.CooperationSince)
+                </td>
+                <td style="text-anchor:middle; text-align :center">
+                    <a class="btn btn-info btn-sm" href="@Url.Action("ViewDestination", "Destination", new { id = item.Id })">Szczegóły</a>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("EditDestination", "Destination", new { id = item.Id })">Edytuj</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDestination", "Destination", new { id = item.Id })">Anuluj</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "pagingType": "full_numbers",
+                "language": {
+                    "lengthMenu": "Pokaż _MENU_ klientów na stronie",
+                    "zeroRecords": "Brak pasujących klientów",
+                    "info": "Strona _PAGE_ z _PAGES_",
+                    "infoEmpty": "Brak klientów w bazie",
+                    "infoFiltered": "(przeszukano z _MAX_ liczby rekordów)",
+                    "search": "Wyszukaj: ",
+                    "select": {
+                        "rows": " (%d wybranych)"
+                    },
+                    "paginate": {
+                        "first": "Pierwsza",
+                        "last": "Ostatnia",
+                        "next": "Następna",
+                        "previous": "Poprzednia"
+                    },
+
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": 3 }
+                ]
+            });
+        });
+    </script>
+}

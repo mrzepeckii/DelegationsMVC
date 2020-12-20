@@ -20,6 +20,7 @@ namespace DelegationsMVC.Web.Controllers
             _destService = destService;
             _logger = logger;
         }
+
         [Route("Destinations/All")]
         public IActionResult Index()
         {
@@ -35,7 +36,7 @@ namespace DelegationsMVC.Web.Controllers
             {
                 Countries = _destService.GetCountries().ToList()
             };
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -45,7 +46,7 @@ namespace DelegationsMVC.Web.Controllers
             if (!ModelState.IsValid)
             {
                 destVm.Countries = _destService.GetCountries().ToList();
-                return View(destVm);
+                return PartialView(destVm);
             }
             var id = _destService.AddDestination(destVm);
             _logger.LogInformation("New destination has been added - " + id);
@@ -72,7 +73,7 @@ namespace DelegationsMVC.Web.Controllers
             if (!ModelState.IsValid)
             {
                 destVm.Countries = _destService.GetCountries().ToList();
-                return View(destVm);
+                return PartialView(destVm);
             }
             _destService.UpdateDesination(destVm);
             return RedirectToAction("Index");
@@ -111,13 +112,23 @@ namespace DelegationsMVC.Web.Controllers
         [Route("Destinations/Projects/New")]
         public IActionResult AddProject()
         {
-            return View();
+            var model = new NewProjectVm()
+            {
+                Destinations = _destService.GetDestinations().ToList()
+            };
+            return PartialView(model);
         }
 
         [HttpPost]
         [Route("Destinations/Projects/New")]
         public IActionResult AddProject(NewProjectVm projVm)
         {
+            if (!ModelState.IsValid)
+            {
+                projVm.Destinations = _destService.GetDestinations().ToList();
+                return PartialView(projVm);
+            }
+            _destService.AddProject(projVm);
             return RedirectToAction("Projects");
         }
 
@@ -125,13 +136,25 @@ namespace DelegationsMVC.Web.Controllers
         [Route("Destinations/Projects/Edit/{id}")]
         public IActionResult EditProject(int id)
         {
-            return View();
+            var model = _destService.GetProjectForEdit(id);
+            if (model == null)
+            {
+                _logger.LogInformation("Can't edit project - dosen't exist");
+                return RedirectToAction("Projects");
+            }
+            return PartialView(model);
         }
 
         [HttpPost]
         [Route("Destinations/Projects/Edit/{id}")]
         public IActionResult EditProject(NewProjectVm projVm)
         {
+            if (!ModelState.IsValid)
+            {
+                projVm.Destinations = _destService.GetDestinations().ToList();
+                return PartialView(projVm);
+            }
+            _destService.UpdateProject(projVm);
             return RedirectToAction("Projects");
         }
 
@@ -139,6 +162,7 @@ namespace DelegationsMVC.Web.Controllers
         [Route("Destinations/Projects/Delete/{id}")]
         public IActionResult DeleteProject(int id)
         {
+            _destService.DeleteProject(id);
             return RedirectToAction("Projects");
         }
     }

@@ -81,6 +81,12 @@ namespace DelegationsMVC.Application.Services
             return clientsVm;
         }
 
+        public IQueryable<DestinationTypeVm> GetDestinations()
+        {
+            var dests = _destRepo.GetDestinations().ProjectTo<DestinationTypeVm>(_mapper.ConfigurationProvider);
+            return dests;
+        }
+
         public IQueryable<CountryVm> GetProjectsCountries()
         {
             var countries = _destRepo.GetProjectsCountries().ProjectTo<CountryVm>(_mapper.ConfigurationProvider);
@@ -132,7 +138,7 @@ namespace DelegationsMVC.Application.Services
             var projVm = _mapper.Map<NewProjectVm>(proj);
             if(projVm != null)
             {
-                projVm.Destinations = GetAllClients();
+                projVm.Destinations = GetDestinations().ToList();
             }
             return projVm;
         }
