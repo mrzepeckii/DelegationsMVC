@@ -87,7 +87,7 @@ namespace DelegationsMVC.Application.Services
 
         public int AddRoute(NewRouteVm model)
         {
-            if (!IsDelegationEditable(model.DelegationId))
+            if (!IsDelegationEditableById(model.DelegationId))
             {
                 return 0;
             }
@@ -154,7 +154,7 @@ namespace DelegationsMVC.Application.Services
         public void DeleteRoute(int idRoute)
         {
             var route = _delegationRepo.GetRouteById(idRoute);
-            if (!IsDelegationEditable(route.DelegationId))
+            if (!IsDelegationEditableById(route.DelegationId))
             {
                 return;
             }
@@ -170,7 +170,7 @@ namespace DelegationsMVC.Application.Services
 
         public void UpdateRoute(NewRouteVm routeVm)
         {
-            if (IsDelegationEditable(routeVm.DelegationId))
+            if (!IsDelegationEditableById(routeVm.DelegationId))
             {
                 return;
             }
@@ -309,7 +309,7 @@ namespace DelegationsMVC.Application.Services
             delVm.SubsistenceAllowence = (decimal)CalculateDaysInDelegation(delVm) * allowence;
         }
 
-       private bool IsDelegationEditable(int id)
+       public bool IsDelegationEditableById(int id)
         {
             var del = _delegationRepo.GetDelegationById(id);
             return del.DelegationStatusId == 1;

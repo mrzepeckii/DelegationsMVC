@@ -180,7 +180,7 @@
     {
         <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
     }
-    @if (Model.UserId == userManager.GetUserId(User))
+    @if (Model.UserId == userManager.GetUserId(User) && Model.DelegationStatus == "Utworzona")
     {
         <a class="btn btn-info" asp-action="EditDelegation" asp-route-id="@Model.Id">Edytuj</a>
     }

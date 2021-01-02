@@ -31,7 +31,6 @@ namespace DelegationsMVC.Web.Controllers
         [Route("Delegation/All")]
         public IActionResult Index()
         {
-            //var delegations = _delegService.GetAllDelegationsForListByStatus(1);
             var delegations = _delegService.GetAllDelegationsForList();
             return View(delegations);
         }
@@ -44,7 +43,6 @@ namespace DelegationsMVC.Web.Controllers
             return View(delegations);
         }
 
-        //[HttpGet]
         [Route("Delegation/New")]
         public IActionResult AddDelegation()
         {
@@ -82,9 +80,14 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         [ServiceFilter(typeof(CheckDelegationPermission))]
         [Route("Delegation/Edit/{id}")]
-        public IActionResult EditDelegation(int id)
+        public IActionResult EditDelegation(int idDel)
         {
-            var del = _delegService.GetDelegationForEdit(id);
+            var isEditable = _delegService.IsDelegationEditableById(idDel);
+            if (!isEditable)
+            {
+                return RedirectToAction("ViewDelegation", new { id = idDel });
+            }
+            var del = _delegService.GetDelegationForEdit(idDel);
             if(del == null)
             {
                 _logger.LogInformation("Can't edit delegation - delegation dosen't exist");
@@ -129,14 +132,14 @@ namespace DelegationsMVC.Web.Controllers
             return View(del);
         }
 
-
         [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult NewRoute(int id)
         {
+            var isEditable = _delegService.IsDelegationEditableById(id);
             var del = _delegService.GetDelegationById(id);
-            if (del == null)
+            if (del == null && !isEditable)
             {
-                _logger.LogInformation("Can't add new route to the delegation - delegation dosen't exist");
+                _logger.LogInformation("Can't add new route to the delegation - delegation dosen't exist or is closed");
                 return RedirectToAction("Index");
             }
 
@@ -164,6 +167,11 @@ namespace DelegationsMVC.Web.Controllers
         [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult DeleteRoute(int idRoute, int idDel)
         {
+            var isEditable = _delegService.IsDelegationEditableById(idDel);
+            if (!isEditable)
+            {
+                return RedirectToAction("ViewDelegation", new { id = idDel }); ;
+            }
             _delegService.DeleteRoute(idRoute);
             return RedirectToAction("EditDelegation", new { id = idDel });
         }
@@ -171,6 +179,11 @@ namespace DelegationsMVC.Web.Controllers
         [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult EditRoute(int idRoute, int idDel)
         {
+            var isEditable = _delegService.IsDelegationEditableById(idDel);
+            if (!isEditable)
+            {
+                return RedirectToAction("ViewDelegation", new { id = idDel });
+            }
             var model = _delegService.GetRouteForEdit(idRoute);
             if(model == null)
             {
