@@ -40,7 +40,7 @@ namespace DelegationsMVC.Web.Controllers
         public IActionResult AddEmployee()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            if ( _empService.CheckIfEmployeeExist(userId) )
+            if (!_empService.CheckIfEmployeeExist(userId))
             {
                 return RedirectToAction("ViewEmployee");
             }

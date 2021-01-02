@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DelegationsMVC.Infrastructure
@@ -52,6 +53,24 @@ namespace DelegationsMVC.Infrastructure
             builder.Entity<SubsistanceAllowence>()
                 .Property(p => p.RatePerDay)
                 .HasColumnType("decimal(18,4)");
+        }
+
+        public override int SaveChanges()
+        {
+            var entries = ChangeTracker
+            .Entries()
+            .Where(e => e.Entity is AuditableModel && (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+               ((AuditableModel)entityEntry.Entity).ModifiedDateTime = DateTime.Now;
+
+                if (entityEntry.State == EntityState.Added)
+                {
+                   ((AuditableModel)entityEntry.Entity).CreatedDateTime = DateTime.Now;
+                }
+            }
+            return base.SaveChanges();
         }
     }
 }

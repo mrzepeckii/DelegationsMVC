@@ -30,7 +30,6 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             _context.Attach(dest);
             _context.Entry(dest).Property("Name").IsModified = true;
-            _context.Entry(dest).Property("ModifiedById").IsModified = true;
             _context.Entry(dest).Property("ModifiedDateTime").IsModified = true;
             _context.Entry(dest).Property("CountryId").IsModified = true;
             _context.SaveChanges();
@@ -84,7 +83,6 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(project).Property("Number").IsModified = true;
             _context.Entry(project).Property("ProjectStatusId").IsModified = true;
             _context.Entry(project).Property("DestinationId").IsModified = true;
-            _context.Entry(project).Property("ModifiedById").IsModified = true;
             _context.Entry(project).Property("ModifiedDateTime").IsModified = true;
             _context.SaveChanges();
         }

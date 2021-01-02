@@ -35,6 +35,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(emp).Reference("EmployeeType").IsModified = true;
             _context.Entry(emp).Collection("ContactDetails").IsModified = true;
             _context.Entry(emp).Collection("Vehicles").IsModified = true;
+            _context.Entry(emp).Collection("ModifiedDateTime").IsModified = true;
             _context.SaveChanges();
         }
 

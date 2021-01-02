@@ -29,11 +29,8 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public void DeleteDelegation(int delegationId)
         {
             var delegationToRemove = _context.Delegations.Find(delegationId);
-           // var listOfRoutes = _context.Routes.Where(r => r.Delegation == delegationToRemove);
             if(delegationToRemove != null)
             {
-              //  _context.Costs.RemoveRange(delegationToRemove.Costs);
-              //  _context.Routes.RemoveRange(listOfRoutes);
                 _context.Delegations.Remove(delegationToRemove);
                 _context.SaveChanges();
             } 
@@ -56,6 +53,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Entry(del).Property("PaidDateDate").IsModified = true;
             _context.Entry(del).Collection("Routes").IsModified = true;
             _context.Entry(del).Collection("Costs").IsModified = true;
+            _context.Entry(del).Property("ModifiedDateTime").IsModified = true;
             foreach (var item in del.Costs)
             {
                 _context.Entry(item).Property("Amount").IsModified = true;
@@ -107,8 +105,6 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Delegation> GetDelegationsByStatus(int delegationStatusId)
         {
-            //var status = _context.DelegationStatuses.Include(d => d.Delegations).FirstOrDefault(ds => ds.Id == delegationStatusId);
-           // var delegations = status.Delegations.AsQueryable();
             var delegations = _context.Delegations
                 .Include(d => d.Routes)
                     .ThenInclude(r => r.RouteDetail)
@@ -177,13 +173,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Attach(route);
             _context.Entry(route).Property("TypeOfTransportId").IsModified = true;
             _context.Entry(route).Property("RouteTypeId").IsModified = true;
-            // _context.Entry(route).Reference("RouteDetail").IsModified = true;
             _context.Entry(route.RouteDetail).Property("StartPoint").IsModified = true;
             _context.Entry(route.RouteDetail).Property("EndPoint").IsModified = true;
             _context.Entry(route.RouteDetail).Property("StartDate").IsModified = true;
             _context.Entry(route.RouteDetail).Property("EndDate").IsModified = true;
             _context.Entry(route.RouteDetail).Property("Kilometers").IsModified = true;
             _context.Entry(route.RouteDetail).Property("VehicleId").IsModified = true;
+            _context.Entry(route).Property("ModifiedDateTime").IsModified = true;
             _context.SaveChanges();
         }
 

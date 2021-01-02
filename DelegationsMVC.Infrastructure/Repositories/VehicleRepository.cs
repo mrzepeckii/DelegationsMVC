@@ -86,6 +86,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
             _context.Attach(veh);
             _context.Entry(veh).Property("PlateNumbers").IsModified = true;
             _context.Entry(veh).Property("EngineTypeId").IsModified = true;
+            _context.Entry(veh).Property("ModifiedDateTime").IsModified = true;
             _context.SaveChanges();
         }
 
