@@ -74,6 +74,7 @@ namespace DelegationsMVC.Web
             services.AddScoped<CheckVehiclePermission>();
             services.AddScoped<CheckDelegationPermission>();
             services.AddScoped<CheckRoutePermission>();
+            services.AddScoped<CheckEmployeeDelegationPermission>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

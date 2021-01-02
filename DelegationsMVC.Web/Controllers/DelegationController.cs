@@ -29,6 +29,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [Route("Delegation/All")]
+        [Authorize(Roles = "Chief, Accountant, Admin")]
         public IActionResult Index()
         {
             var delegations = _delegService.GetAllDelegationsForList();
@@ -36,7 +37,7 @@ namespace DelegationsMVC.Web.Controllers
         }
 
         [Route("Delegation/All/{id}")]
-        [Authorize(Roles = "Chief, Accountant, Admin")]
+        [ServiceFilter(typeof(CheckEmployeeDelegationPermission))]
         public IActionResult Index(int id)
         {
             var delegations = _delegService.GetDelegationsByEmployee(id);
