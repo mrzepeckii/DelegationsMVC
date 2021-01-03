@@ -32,6 +32,7 @@ namespace DelegationsMVC.Web.Controllers
         [Authorize(Roles = "Chief, Accountant, Admin")]
         public IActionResult Index()
         {
+            
             var delegations = _delegService.GetAllDelegationsForList();
             return View(delegations);
         }

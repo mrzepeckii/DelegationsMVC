@@ -2,6 +2,7 @@
 using DelegationsMVC.Application.Mapping;
 using DelegationsMVC.Domain.Model;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace DelegationsMVC.Application.ViewModels.DelegationVm
