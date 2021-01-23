@@ -53,6 +53,59 @@ namespace DelegationsMVC.Infrastructure
             builder.Entity<SubsistanceAllowence>()
                 .Property(p => p.RatePerDay)
                 .HasColumnType("decimal(18,4)");
+
+            //add start data to database
+            builder.Entity<ContactDetailType>()
+                .HasData(new ContactDetailType { Id = 1, Name = "Numer telefonu" },
+                        new ContactDetailType { Id = 2, Name = "Email" });
+
+            builder.Entity<CostType>()
+                .HasData(new CostType { Id = 1, Name = "Noclegi" },
+                        new CostType { Id = 2, Name = "Dodatkowe wydatki" });
+
+            builder.Entity<DelegationStatus>()
+                .HasData(new DelegationStatus { Id = 1, Name = "Utworzona" },
+                        new DelegationStatus { Id = 2, Name = "Akceptacja - prezes" },
+                        new DelegationStatus { Id = 3, Name = "Akceptacja - księgowej" },
+                        new DelegationStatus { Id = 4, Name = "Opłacona" },
+                        new DelegationStatus { Id = 5, Name = "W edycji" },
+                        new DelegationStatus { Id = 6, Name = "Anulowana" });
+
+            builder.Entity<EmployeeType>()
+                .HasData(new EmployeeType { Id = 1, Name = "Prezes" },
+                        new EmployeeType { Id = 2, Name = "Księgowa" },
+                        new EmployeeType { Id = 3, Name = "Programista" },
+                        new EmployeeType { Id = 4, Name = "Projektant" });
+
+            builder.Entity<MileageAllowence>()
+                .HasData(new MileageAllowence { Id = 1, RatePerKm = 0.5214M },
+                        new MileageAllowence { Id = 2, RatePerKm = 0.8358M });
+
+            builder.Entity<EngineType>()
+                .HasData(new EngineType { Id = 1, Name = "Do 900 cm3", MileageAllowenceId = 1 },
+                        new EngineType { Id = 2, Name = "Pow 900 cm3", MileageAllowenceId = 2 });
+
+            builder.Entity<ProjectStatus>()
+                .HasData(new ProjectStatus { Id = 1, Name = "Otwarty" },
+                        new ProjectStatus { Id = 2, Name = "Zamknięty" });
+
+            builder.Entity<RouteType>()
+                .HasData(new ProjectStatus { Id = 1, Name = "Jazda po mieście" },
+                        new ProjectStatus { Id = 2, Name = "Międzymiastowa" });
+
+            builder.Entity<SubsistanceAllowence>()
+                .HasData(new SubsistanceAllowence { Id = 1, RatePerDay = 30M });
+
+            builder.Entity<TransportType>()
+                .HasData(new TransportType { Id = 1, Name = "Samochód osobowy" },
+                        new TransportType { Id = 2, Name = "Transport publiczny" },
+                        new TransportType { Id = 3, Name = "Taksówka" },
+                        new TransportType { Id = 4, Name = "Pasażer" });
+
+            builder.Entity<Country>()
+                .HasData(new Country { Id = 1, SubsistanceAllowenceId = 1 });
+
+
         }
 
         public override int SaveChanges()

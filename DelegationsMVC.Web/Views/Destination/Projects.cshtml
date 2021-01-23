@@ -43,8 +43,12 @@
                 </td>
                 <td style="text-anchor:middle; text-align :center">
                     <a class="btn btn-warning btn-sm" href="javascript:EditProj('@item.Id')">Edytuj</a>
-                    <a class="btn btn-info btn-sm" href="javascript:CloseProj('@item.Id','@item.Name')">Zamknij</a>
-                    <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@item.Id','@item.Name')">Usuń</a>
+                    @if (item.ProjectStatusId == 1)
+                    {
+                        <a class="btn btn-info btn-sm" href="javascript:CloseProj('@item.Id','@item.Name')">Zamknij</a>
+                        <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@item.Id','@item.Name')">Usuń</a>
+                    }
+
                 </td>
             </tr>
         }

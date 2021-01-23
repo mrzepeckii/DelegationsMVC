@@ -96,11 +96,6 @@ namespace DelegationsMVC.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             var defaultCulture = new CultureInfo("pl-PL");
             var localizationOptions = new RequestLocalizationOptions
             {
@@ -108,8 +103,15 @@ namespace DelegationsMVC.Web
                 SupportedCultures = new List<CultureInfo> { defaultCulture },
                 SupportedUICultures = new List<CultureInfo> { defaultCulture }
             };
-            
+
             app.UseRequestLocalization(localizationOptions);
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

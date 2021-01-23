@@ -14,6 +14,7 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
         public string Number { get; set; }
         public string Client { get; set; }
         public string Status { get; set; }
+        public int ProjectStatusId { get; set; }
 
         public void Mapping(Profile profile)
         {

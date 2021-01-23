@@ -82,14 +82,14 @@ namespace DelegationsMVC.Web.Controllers
         [HttpGet]
         [ServiceFilter(typeof(CheckDelegationPermission))]
         [Route("Delegation/Edit/{id}")]
-        public IActionResult EditDelegation(int idDel)
+        public IActionResult EditDelegation(int id)
         {
-            var isEditable = _delegService.IsDelegationEditableById(idDel);
+            var isEditable = _delegService.IsDelegationEditableById(id);
             if (!isEditable)
             {
-                return RedirectToAction("ViewDelegation", new { id = idDel });
+                return RedirectToAction("ViewDelegation", new { id });
             }
-            var del = _delegService.GetDelegationForEdit(idDel);
+            var del = _delegService.GetDelegationForEdit(id);
             if(del == null)
             {
                 _logger.LogInformation("Can't edit delegation - delegation dosen't exist");

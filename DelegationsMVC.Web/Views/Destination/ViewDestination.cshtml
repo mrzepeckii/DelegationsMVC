@@ -4,33 +4,132 @@
     ViewData["Title"] = "ViewDestination";
 }
 
-<h1>ViewDestination</h1>
-
+<div class="form-row">
+    <h1>Szczegóły klienta</h1>
+</div>
+<br />
 <div>
-    <h4>DestinationDetailVm</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+    <dl class="form-row">
+        <dt class="col-sm-2">
+            Nazwa:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Country)
+        <dt class="col-sm-2">
+            Kraj:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt class="col-sm-2">
+            Współpraca od:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CooperationSince)
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="form-row">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th style="text-anchor:middle; text-align :center">
+                    Nazwa
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Numer
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Status
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model.Projects.Projects)
+            {
+            <tr>
+                <td style="text-anchor:middle; text-align :center">
+                    @Html.DisplayFor(modelItem => project.Name)
+                </td>
+                <td style="text-anchor:middle; text-align :center">
+                    @Html.DisplayFor(modelItem => project.Number)
+                </td>
+                <td style="text-anchor:middle; text-align :center">
+                    @Html.DisplayFor(modelItem => project.Status)
+                </td>
+                <td style="text-anchor:middle; text-align :center">
+                    <a class="btn btn-warning btn-sm" href="javascript:EditProj('@project.Id')">Edytuj</a>
+                    @if (project.ProjectStatusId == 1)
+                    {
+                        <a class="btn btn-info btn-sm" href="javascript:CloseProj('@project.Id','@project.Name')">Zamknij</a>
+                        <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@project.Id','@project.Name')">Usuń</a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>
+<input id="AddProj" type="button" class="btn btn-success" onclick="AddProj()" value="Dodaj projekt" />
+<br />
+<br />
+<div  id="Proj">
+
+</div>
+<div class="form-row">
+    <a class="btn btn-info" asp-action="Index">Powrót do listy klientów</a>
+</div>
+
+<script type="text/javascript">
+
+            function EditProj(id) {
+            var $divProj = $('#Proj');
+            $divProj.empty();
+            var url = '@Url.Action("EditProject", "Destination")/' + id;
+            $divProj.load(url);
+            $('#AddProj').attr("onclick", "ClearProj()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
+        }
+
+        function ClearProj() {
+            $('#Proj').empty();
+            $('#AddProj').attr("onclick", "AddProj()").attr("value", "Dodaj projekt").attr("class", "btn btn-success");
+           }
+
+          function AddProj() {
+              var $divProj = $('#Proj');
+              $divProj.empty();
+            var url = '@Url.Action("AddProject","Destination")';
+              $divProj.load(url);
+              $('#AddProj').attr("onclick", "ClearProj()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
+        }
+
+         function DeleteProj(id, name) {
+            if (confirm('Czy na pewno chcesz usunąć projekt ' + name + '?')) {
+                $.ajax({
+                url: '@Url.Action("DeleteProject", "Destination")',
+                type: 'POST',
+                data: { id: id },
+                success: function(result) {
+                    location.reload();
+                }
+                });
+            }
+        }
+
+         function CloseProj(id, name) {
+            if (confirm('Czy na pewno chcesz zamknąć projekt ' + name + '?')) {
+                $.ajax({
+                url: '@Url.Action("CloseProject", "Destination")',
+                type: 'POST',
+                data: { id: id },
+                success: function(result) {
+                    location.reload();
+                }
+                });
+            }
+        }
+
+</script>

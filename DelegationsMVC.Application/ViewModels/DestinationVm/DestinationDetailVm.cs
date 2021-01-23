@@ -12,12 +12,14 @@ namespace DelegationsMVC.Application.ViewModels.DestinationVm
         public int Id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
+        public string CooperationSince { get; set; }
         public ListProjectForList Projects { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Destination, DestinationDetailVm>()
                 .ForMember(d => d.Country, opt => opt.MapFrom(s => s.Country.Name))
+                .ForMember(s => s.CooperationSince, opt => opt.MapFrom(d => d.CreatedDateTime.ToShortDateString()))
                 .ForMember(d => d.Projects, opt => opt.Ignore());
         }
     }

@@ -4,6 +4,7 @@ using DelegationsMVC.Domain.Model;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DelegationsMVC.Application.ViewModels.DelegationVm
@@ -11,6 +12,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
     public class NewCostVm : IMapFrom<Cost>
     {
         public int CostId { get; set; }
+
         public decimal Amount { get; set; }
         public int CostTypeId { get; set; }
         public int DelegationId { get; set; }
