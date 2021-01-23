@@ -28,25 +28,25 @@
     <tbody>
         @foreach (var item in Model.Projects)
         {
-        <tr>
-            <td style="text-align :center">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td style="text-align :center">
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td style="text-align :center">
-                @Html.DisplayFor(modelItem => item.Client)
-            </td>
-            <td style="text-align :center">
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td style="text-anchor:middle; text-align :center">
-                <a class="btn btn-warning btn-sm" href="javascript:EditProj('@item.Id')">Edytuj</a>
-                <a class="btn btn-info btn-sm" href="javascript:CloseProj('@item.Id','@item.Name')">Zamknij</a>
-                <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@item.Id','@item.Name')">Usuń</a>
-            </td>
-        </tr>
+            <tr>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Client)
+                </td>
+                <td style="text-align :center">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td style="text-anchor:middle; text-align :center">
+                    <a class="btn btn-warning btn-sm" href="javascript:EditProj('@item.Id')">Edytuj</a>
+                    <a class="btn btn-info btn-sm" href="javascript:CloseProj('@item.Id','@item.Name')">Zamknij</a>
+                    <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@item.Id','@item.Name')">Usuń</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -60,6 +60,7 @@
 @section Scripts{
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchbuilder/1.0.1/css/searchBuilder.dataTables.min.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -73,14 +74,79 @@
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/searchbuilder/1.0.1/js/dataTables.searchBuilder.min.js"></script>
 
 
 
     <script type="text/javascript">
         $(document).ready(function () {
             $('#table').DataTable({
+                searchBuilder: {
+                    columns: [0, 1, 2, 3]
+                },
+                dom: 'Qlfrtip',
                 "pagingType": "full_numbers",
                 "language": {
+                    searchBuilder: {
+                        add: 'Dodaj filtr',
+                        condition: 'Warunek',
+                        conditions: {
+                            date: {
+                                before: 'Przed',
+                                after: 'Po',
+                                equals: 'Dnia',
+                                not: 'Różna od',
+                                between: 'Pomiędzy',
+                                notBetween: 'Poza',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta'
+                            },
+                            moment: {
+                                before: 'Przed',
+                                after: 'Po',
+                                equals: 'Dnia',
+                                not: 'Różna od',
+                                between: 'Pomiędzy',
+                                notBetween: 'Poza',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta'
+                            },
+                            number: {
+                                equals: 'Równe',
+                                not: 'Różna od',
+                                gt: 'Większa od',
+                                gte: 'Większa lub równa od',
+                                lt: 'Mniejsza od',
+                                lte: 'Mniejsza lub równa od',
+                                between: 'Pomiędzy',
+                                notBetween: 'Poza',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta'
+                            },
+                            string: {
+                                contains: 'Zawiera',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta',
+                                equals: 'Równa',
+                                not: 'Różna od',
+                                endsWith: 'Kończy się na',
+                                startsWith: 'Zaczyna się od'
+                            },
+                        },
+                        clearAll: 'Wyczyść',
+                        deleteTitle: 'Usuń',
+                        data: 'Kolumna',
+                        leftTitle: 'Lewo',
+                        logicAnd: 'oraz',
+                        logicOr: 'lub',
+                        rightTitle: 'Prawo',
+                        title: {
+                            0: 'Filtry',
+                            _: 'Filtry (%d)'
+                        },
+                        value: 'Opcja',
+                        valueJoiner: 'do'
+                    },
                     "lengthMenu": "Pokaż _MENU_ projektów na stronie",
                     "zeroRecords": "Brak pasujących projektów",
                     "info": "Strona _PAGE_ z _PAGES_",

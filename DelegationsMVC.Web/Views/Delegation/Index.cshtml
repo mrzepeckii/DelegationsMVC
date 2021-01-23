@@ -125,6 +125,49 @@
                     searchBuilder: {
                         add: 'Dodaj filtr',
                         condition: 'Warunek',
+                        conditions: {
+                            date: {
+                                before: 'Przed',
+                                after: 'Po',
+                                equals: 'Dnia',
+                                not: 'Różna od',
+                                between: 'Pomiędzy',
+                                notBetween: 'Poza',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta'
+                            },
+                            moment: {
+                                before: 'Przed',
+                                after: 'Po',
+                                equals: 'Dnia',
+                                not: 'Różna od',
+                                between: 'Pomiędzy',
+                                notBetween: 'Poza',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta'
+                            },
+                            number: {
+                                equals: 'Równe',
+                                not: 'Różna od',
+                                gt: 'Większa od',
+                                gte: 'Większa lub równa od',
+                                lt: 'Mniejsza od',
+                                lte: 'Mniejsza lub równa od',
+                                between: 'Pomiędzy',
+                                notBetween: 'Poza',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta'
+                            },
+                            string: {
+                                contains: 'Zawiera',
+                                empty: 'Jest pusta',
+                                notEmpty: 'Nie jest pusta',
+                                equals: 'Równa',
+                                not: 'Różna od',
+                                endsWith: 'Kończy się na',
+                                startsWith: 'Zaczyna się od'
+                            },
+                        },
                         clearAll: 'Wyczyść',
                         deleteTitle: 'Usuń',
                         data: 'Kolumna',
@@ -137,7 +180,7 @@
                             _: 'Filtry (%d)'
                         },
                         value: 'Opcja',
-                        valueJoiner: 'et'
+                        valueJoiner: 'do'
                     },
                     "lengthMenu": "Pokaż _MENU_ delegacji na stronie",
                     "zeroRecords": "Brak pasujących delegacji",

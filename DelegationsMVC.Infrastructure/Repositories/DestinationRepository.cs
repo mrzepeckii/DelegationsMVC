@@ -28,7 +28,10 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public void UpdateDesintation(Destination dest)
         {
-            _context.Attach(dest);
+            if (_context.Entry(dest).State == EntityState.Detached)
+            {
+                _context.Attach(dest);
+            }   
             _context.Entry(dest).Property("Name").IsModified = true;
             _context.Entry(dest).Property("ModifiedDateTime").IsModified = true;
             _context.Entry(dest).Property("CountryId").IsModified = true;
@@ -49,6 +52,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             var destination = _context.Destinations
                 .Include(d => d.Projects)
+                .ThenInclude(p => p.ProjectStatus)
                 .Include(d => d.Country)
                 .FirstOrDefault(d => d.Id == id);
             return destination;

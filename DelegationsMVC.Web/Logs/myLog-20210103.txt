@@ -459,3 +459,6 @@ System.FormatException: Input string was not in a correct format.
 2021-01-03T17:35:35.6164853+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2021-01-03T17:35:35.6253764+01:00  [INF] Hosting environment: "Development" (c3307c92)
 2021-01-03T17:35:35.6269342+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)
+2021-01-03T17:44:28.2359617+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-01-03T17:44:28.2438179+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-01-03T17:44:28.2451200+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)
