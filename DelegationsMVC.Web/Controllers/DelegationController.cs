@@ -8,9 +8,12 @@ using DelegationsMVC.Application.ViewModels.DelegationVm;
 using DelegationsMVC.Application.ViewModels.RouteVm;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using DelegationsMVC.Web.Filters;
+using DelegationsMVC.Web.Helpers;
+using IronPdf;
 
 namespace DelegationsMVC.Web.Controllers
 {
@@ -20,12 +23,14 @@ namespace DelegationsMVC.Web.Controllers
         private readonly IDelegationService _delegService;
         private readonly IEmployeeService _empService;
         private readonly ILogger<DelegationController> _logger;
+        private readonly IHostEnvironment _host;
 
-        public DelegationController(IDelegationService delegService, IEmployeeService empService, ILogger<DelegationController> logger)
+        public DelegationController(IDelegationService delegService, IEmployeeService empService, ILogger<DelegationController> logger, IHostEnvironment host)
         {
             _delegService = delegService;
             _empService = empService;
             _logger = logger;
+            _host = host;
         }
 
         [Route("Delegation/All")]
@@ -218,6 +223,23 @@ namespace DelegationsMVC.Web.Controllers
                 return RedirectToAction("ViewDelegation", new { id = delId });
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult GenerateDelegationReport(int id)
+        {
+            var model = _delegService.GetDelegationDetails(id);
+            Installation.TempFolderPath = $@"{_host.ContentRootPath}/irontemp/";
+            Installation.LinuxAndDockerDependenciesAutoConfig = true;
+            var html = this.RenderViewAsync("ViewDelegation", model, true);
+            var ironPdfRender = new HtmlToPdf();
+            ironPdfRender.PrintOptions.CustomCssUrl = new Uri("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css").ToString();
+            ironPdfRender.PrintOptions.MarginTop = 10;  //millimeters
+            ironPdfRender.PrintOptions.MarginLeft = 10;  //millimeters
+            ironPdfRender.PrintOptions.MarginRight = 10;  //millimeters
+            ironPdfRender.PrintOptions.MarginBottom = 10;  //millimeters
+            var pdfDoc = ironPdfRender.RenderHtmlAsPdf(html.Result);
+            return File(pdfDoc.Stream.ToArray(), "application/pdf");
         }
     }
 }
