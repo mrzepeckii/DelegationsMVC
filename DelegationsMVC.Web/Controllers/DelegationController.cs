@@ -225,19 +225,15 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [Authorize(Roles = "Chief, Accountant, Admin")]
         public IActionResult GenerateDelegationReport(int id)
         {
             var model = _delegService.GetDelegationDetails(id);
             Installation.TempFolderPath = $@"{_host.ContentRootPath}/irontemp/";
             Installation.LinuxAndDockerDependenciesAutoConfig = true;
-            var html = this.RenderViewAsync("ViewDelegation", model, true);
+            var html = this.RenderViewAsync("ReportDelegation", model, true);
             var ironPdfRender = new HtmlToPdf();
             ironPdfRender.PrintOptions.CustomCssUrl = new Uri("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css").ToString();
-            ironPdfRender.PrintOptions.MarginTop = 10;  //millimeters
-            ironPdfRender.PrintOptions.MarginLeft = 10;  //millimeters
-            ironPdfRender.PrintOptions.MarginRight = 10;  //millimeters
-            ironPdfRender.PrintOptions.MarginBottom = 10;  //millimeters
             var pdfDoc = ironPdfRender.RenderHtmlAsPdf(html.Result);
             return File(pdfDoc.Stream.ToArray(), "application/pdf");
         }

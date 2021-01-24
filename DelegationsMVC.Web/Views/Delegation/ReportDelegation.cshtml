@@ -1,0 +1,155 @@
+﻿@model DelegationsMVC.Application.ViewModels.DelegationVm.DelegationDetailVm
+
+@{
+    ViewData["Title"] = "ReportDelegation";
+}
+
+<h1 style="text-align: center">@Html.DisplayFor(model => model.DelegationNo)</h1>
+<br />
+<table style="width:70%;" class="table table-bordered">
+    <tbody>
+        <tr>
+            <td style="width: 30%;"><b>Numer delegacji:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.DelegationNo)</td>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><b>Imię i nazwisko:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.EmployeeName)</td>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><b>Miejsce podróży:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.Destination)</td>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><b>Cel podróży</b>:</td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.Purpose)</td>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><b>Data utworzenia:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.CreatedDateTime)</td>
+        </tr>
+        <tr>
+            <td style="width: 30%;"><b>Status delegacji:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.DelegationStatus)</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<div >
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th style="text-anchor:middle; text-align :center">
+                    Data wyjazdu
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Miejsce wyjazdu
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Data przyjazdu
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Miejsce przyjazdu
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Rodzaj transportu
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Rodzaj podróży
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Kilometry
+                </th>
+                <th style="text-anchor:middle; text-align :center">
+                    Zwrot
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var route in Model.Routes)
+            {
+                <tr>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.StartDate)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.StartPoint)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.EndDate)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.EndPoint)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.TypeOfTransport)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.RouteType)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.Kilometers)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        @Html.DisplayFor(modelItem => route.MileageAllowence)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div style="text-align:left">
+    Zaliczkę w kwocie ……………………………………………… zł, otrzymałem i zobowiązuję się rozliczyć z niej w terminie 7 dni po zakończonej podróży upoważniając równocześnie zakład pracy do potrącenia kwoty nie rozliczonej zaliczki  z najbliższej wypłaty  wynagrodzenia.
+</div>
+<br />
+<br />
+<div style="text-align:right">
+    <b>Data i podpis delegowanego</b>
+</div>
+<br />
+<table style="width:70%;" class="table table-bordered">
+    <tbody>
+        <tr>
+            <td style="width: 35%;"><b>Ilość dni w delegacji:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.DaysInDelegation) </td>
+        </tr>
+        <tr>
+            <td style="width: 35%;"><b>Noclegi:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 1).Amount)  PLN</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;"><b>Dieta:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.SubsistenceAllowence)  PLN</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;"><b>Zwot z podróży:</b>:</td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.MileageAllowence)  PLN</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;"><b>Dodatkowe koszty:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 2).Amount)  PLN</td>
+        </tr>
+        <tr>
+            <td style="width: 35%;"><b>Podsumowanie:</b></td>
+            <td style="text-align: center">@Html.DisplayFor(model => model.SummaryAllowence)  PLN</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<table style="width: 100%;">
+    <thead>
+        <tr>
+            <th style="text-align: left"><b>Data zatwierdzenia prezesa:</b></th>
+            <th style="text-align: left"><b>Data zatwierdzenia księgowości:</b></th>
+            <th style="text-align: left"><b>Data wypłaty:</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left">@Html.DisplayFor(model => model.ChiefApprovedDate)</td>
+            <td style="text-align: left">@Html.DisplayFor(model => model.AccoutantApprovedDate)</td>
+            <td style="text-align: left">@Html.DisplayFor(model => model.PaidDateDate)</td>
+        </tr>
+    </tbody>
+</table>
