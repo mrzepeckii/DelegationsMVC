@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DelegationsMVC.Application.Mapping
 {
-    class MappingProfile : Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
