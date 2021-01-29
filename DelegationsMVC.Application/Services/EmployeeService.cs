@@ -68,7 +68,8 @@ namespace DelegationsMVC.Application.Services
                 .AsQueryable().ProjectTo<ContactDetailsForListVm>(_mapper.ConfigurationProvider).ToList();
 
                 employeeVm.Vehicles = _vehicleRepo.GetVehiclesByEmployee(employeeId)
-                    .AsQueryable().ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+                  .AsQueryable().ProjectTo<VehicleForListVm>(_mapper.ConfigurationProvider).ToList();
+
             }
             return employeeVm;
         }
