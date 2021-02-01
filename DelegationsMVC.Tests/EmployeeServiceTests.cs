@@ -300,5 +300,88 @@ namespace DelegationsMVC.Tests
             resultList.ForEach(v => v.ContactDetailInformation.Should().NotBeNullOrEmpty());
             resultList.Should().HaveCount(2);
         }
+
+        [Fact]
+        public void ShouldReturnAllEmployees()
+        {
+            //arrange
+            var employees = new List<Employee> { SetEmployee(), SetEmployee() };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var empRepo = new Mock<IEmployeeRepository>();
+            empRepo.Setup(e => e.GetAllEmployees()).Returns(employees.AsQueryable());
+            var vehRepo = new Mock<IVehicleRepository>();
+            var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
+
+            //act
+            var resultList = empServ.GetAllEmployeeForList();
+
+            //assert
+            resultList.Should().BeOfType(typeof(ListEmployeeForListVm));
+            resultList.Should().NotBeNull();
+            resultList.Employees.Should().AllBeOfType(typeof(EmployeeForLitstVm));
+            resultList.Count.Should().Be(2);
+            resultList.Employees.ForEach(e => e.Should().BeSameAs(SetEmployee()));
+        }
+
+        [Fact]
+        public void ShouldReturnEmployeeTypes()
+        {
+            var types = new List<EmployeeType>() { new EmployeeType { Id = 1, Name = "type1" }, new EmployeeType { Id = 2, Name = "type2" } };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var empRepo = new Mock<IEmployeeRepository>();
+            empRepo.Setup(e => e.GetEmployeeTypes()).Returns(types.AsQueryable());
+            var vehRepo = new Mock<IVehicleRepository>();
+            var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
+            var resultList = empServ.GetEmployeeTypes();
+            resultList.Should().NotBeNull();
+            resultList.Should().HaveCount(2);
+            resultList.Should().AllBeOfType(typeof(EmployeeTypeVm));
+        }
+
+        [Fact]
+        public void ShouldReturnContactTypes()
+        {
+            var types = new List<ContactDetailType>() { new ContactDetailType { Id = 1, Name = "type1" }, new ContactDetailType { Id = 2, Name = "type2" } };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var empRepo = new Mock<IEmployeeRepository>();
+            empRepo.Setup(e => e.GetContactDetailTypes()).Returns(types.AsQueryable());
+            var vehRepo = new Mock<IVehicleRepository>();
+            var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
+            var resultList = empServ.GetEmployeeTypes();
+            resultList.Should().NotBeNull();
+            resultList.Should().HaveCount(2);
+            resultList.Should().AllBeOfType(typeof(ContactDetailTypeVm));
+        }
+
+        [Fact]
+        public void ShouldReturnEngineTypes()
+        {
+            var types = new List<EngineType>() { new EngineType { Id = 1, Name = "type1", MileageAllowenceId = 1 }, new EngineType { Id = 2, Name = "type2", MileageAllowenceId = 1 } };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var empRepo = new Mock<IEmployeeRepository>();
+            var vehRepo = new Mock<IVehicleRepository>();
+            vehRepo.Setup(v => v.GetEngineTypes()).Returns(types.AsQueryable());
+            var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
+            var resultList = empServ.GetEmployeeTypes();
+            resultList.Should().NotBeNull();
+            resultList.Should().HaveCount(2);
+            resultList.Should().AllBeOfType(typeof(EngineTypeVm));
+        }
     }
 }
