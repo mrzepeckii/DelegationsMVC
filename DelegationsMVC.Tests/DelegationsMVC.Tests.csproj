@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DelegationsMVC.Application\DelegationsMVC.Application.csproj" />
     <ProjectReference Include="..\DelegationsMVC.Domain\DelegationsMVC.Domain.csproj" />
   </ItemGroup>

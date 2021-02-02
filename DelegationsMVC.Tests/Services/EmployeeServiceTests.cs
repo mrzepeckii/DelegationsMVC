@@ -18,11 +18,14 @@ namespace DelegationsMVC.Tests
     {
         private Employee SetEmployee()
         {
+            var engineType = new EngineType() { Id = 1, MileageAllowenceId = 1, Name = "900 cm3" };
+            var contactTypeEmail = new ContactDetailType() { Id = 1, Name = "email" };
+            var contactTypePhone = new ContactDetailType() { Id = 2, Name = "phone" };
             var vehicles = new List<Vehicle>() { new Vehicle() { Id = 1, CreatedDateTime = DateTime.Now, EmployeeId = 1,
-                EngineTypeId = 2, PlateNumbers = "DW33221" } };
+                EngineTypeId = 2, PlateNumbers = "DW33221", EngineType = engineType  } };
             var contacts = new List<ContactDetail>() { new ContactDetail() { Id = 1, ContactDetailInformation = "123456789", ContactDetailTypeId = 2,
-                EmployeeId = 1}, new ContactDetail() {Id = 2, ContactDetailInformation = "email@email.pl", ContactDetailTypeId = 1, EmployeeId = 1},
-                 new ContactDetail() {Id = 3, ContactDetailInformation = "email@email.pl", ContactDetailTypeId = 1, EmployeeId = 1}};
+                EmployeeId = 1 , ContactDetailType = contactTypePhone }, new ContactDetail() {Id = 2, ContactDetailInformation = "email@email.pl", ContactDetailTypeId = 1, EmployeeId = 1 , ContactDetailType = contactTypeEmail},
+                 new ContactDetail() {Id = 3, ContactDetailInformation = "email@email.pl", ContactDetailTypeId = 1, EmployeeId = 1 , ContactDetailType = contactTypeEmail}};
 
             var emp = new Employee()
             {
@@ -32,6 +35,7 @@ namespace DelegationsMVC.Tests
                 UserId = "1",
                 BankAccountCode = "12345",
                 EmployeeTypeId = 1,
+                EmployeeType = new EmployeeType() { Id = 1, Name = "Prezes" },
                 CreatedDateTime = DateTime.Now,
                 Vehicles = vehicles,
                 ContactDetails = contacts
@@ -102,7 +106,16 @@ namespace DelegationsMVC.Tests
             empDetailsGetById.Position.Should().Be("Prezes");
             empDetailsGetById.FullName.Should().Be("TestName TestSurname");
 
-            empDetailsGetByUserId.Should().BeSameAs(empDetailsGetById);
+            empDetailsGetByUserId.Should().BeOfType(typeof(EmployeeDetailVm));
+            empDetailsGetByUserId.Should().NotBeNull();
+            empDetailsGetByUserId.Vehicles.Should().HaveCount(1);
+            empDetailsGetByUserId.Emails.Should().HaveCount(2);
+            empDetailsGetByUserId.Emails.Should().AllBeOfType(typeof(ContactDetailsForListVm));
+            empDetailsGetByUserId.Emails.Should().OnlyHaveUniqueItems(e => e.Id);
+            empDetailsGetByUserId.PhoneNumbers.Should().HaveCount(1);
+            empDetailsGetByUserId.PhoneNumbers.Should().AllBeOfType(typeof(ContactDetailsForListVm));
+            empDetailsGetByUserId.Position.Should().Be("Prezes");
+            empDetailsGetByUserId.FullName.Should().Be("TestName TestSurname");
         }
 
         [Fact]
@@ -317,6 +330,7 @@ namespace DelegationsMVC.Tests
             var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
 
             //act
+
             var resultList = empServ.GetAllEmployeeForList();
 
             //assert
@@ -324,7 +338,6 @@ namespace DelegationsMVC.Tests
             resultList.Should().NotBeNull();
             resultList.Employees.Should().AllBeOfType(typeof(EmployeeForLitstVm));
             resultList.Count.Should().Be(2);
-            resultList.Employees.ForEach(e => e.Should().BeSameAs(SetEmployee()));
         }
 
         [Fact]
@@ -359,7 +372,7 @@ namespace DelegationsMVC.Tests
             empRepo.Setup(e => e.GetContactDetailTypes()).Returns(types.AsQueryable());
             var vehRepo = new Mock<IVehicleRepository>();
             var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
-            var resultList = empServ.GetEmployeeTypes();
+            var resultList = empServ.GetConactDetailTypes();
             resultList.Should().NotBeNull();
             resultList.Should().HaveCount(2);
             resultList.Should().AllBeOfType(typeof(ContactDetailTypeVm));
@@ -378,7 +391,7 @@ namespace DelegationsMVC.Tests
             var vehRepo = new Mock<IVehicleRepository>();
             vehRepo.Setup(v => v.GetEngineTypes()).Returns(types.AsQueryable());
             var empServ = new EmployeeService(empRepo.Object, vehRepo.Object, mapper);
-            var resultList = empServ.GetEmployeeTypes();
+            var resultList = empServ.GetEngineTypes();
             resultList.Should().NotBeNull();
             resultList.Should().HaveCount(2);
             resultList.Should().AllBeOfType(typeof(EngineTypeVm));
