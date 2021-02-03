@@ -30,7 +30,8 @@ namespace DelegationsMVC.Application.ViewModels.EmployeeVm
             RuleFor(v => v.Id).NotNull();
             RuleFor(v => v.EmployeeId).NotNull();
             RuleFor(v => v.EngineTypeId).NotNull();
-            RuleFor(v => v.PlateNumbers).MaximumLength(8).WithMessage("Maksymalna długość numeru rejestracyjnego wynosi 8");
+            RuleFor(v => v.PlateNumbers).NotEmpty().WithMessage("Numer rejestracyjny nie może pozostać pusty")
+                .MaximumLength(8).WithMessage("Maksymalna długość numeru rejestracyjnego wynosi 8");
         }
     }
 }

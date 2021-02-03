@@ -141,5 +141,118 @@ namespace DelegationsMVC.Tests.Services
             resultList.Destinations.Should().OnlyHaveUniqueItems(d => d.Id);
             resultList.Count.Should().Be(3);
         }
+
+        [Fact]
+        public void ShouldReturnDestinationDetails()
+        {
+            var destination = new Destination()
+            {
+                Id = 1,
+                CountryId = 1,
+                Name = "test",
+                CreatedDateTime = DateTime.Now
+            };
+
+            var projects = new List<Project>() { 
+                new Project() { Id = 1, Name = "project1", Number = "111", Destination = destination, ProjectStatusId = 1, 
+                    ProjectStatus = new ProjectStatus() { Id = 1, Name = "open" } } 
+            };
+            destination.Projects = projects;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var destRepo = new Mock<IDestinationRepository>();
+            destRepo.Setup(d => d.GetDestinationById(1)).Returns(destination);
+            var destServ = new DestinationService(destRepo.Object, mapper);
+
+            var destDetailsVm = destServ.GetDestinationDetail(1);
+
+            destDetailsVm.Should().BeOfType(typeof(DestinationDetailVm));
+            destDetailsVm.Should().NotBeNull();
+            destDetailsVm.Projects.Should().BeOfType(typeof(ListProjectForList));
+            destDetailsVm.Projects.Should().NotBeNull();
+            destDetailsVm.Projects.Projects.Should().AllBeOfType(typeof(ProjectForListVm));
+            destDetailsVm.Projects.Projects.Should().HaveCount(1);
+            destDetailsVm.Projects.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void ShouldReturnDestinations()
+        {
+            var destList = new List<Destination>()
+            {
+                new Destination() { Id = 1, CountryId = 1, Country = new Country() { Id = 1, Name ="country", SubsistanceAllowenceId = 1 }, Name = "x", CreatedDateTime = DateTime.Now },
+                new Destination() { Id = 2, CountryId = 1, Country = new Country() { Id = 1, Name ="country", SubsistanceAllowenceId = 1 }, Name = "y", CreatedDateTime = DateTime.Now },
+                new Destination() { Id = 3, CountryId = 1, Country = new Country() { Id = 1, Name ="country", SubsistanceAllowenceId = 1 }, Name = "z", CreatedDateTime = DateTime.Now }
+            };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var destRepo = new Mock<IDestinationRepository>();
+            destRepo.Setup(d => d.GetDestinations()).Returns(destList.AsQueryable());
+            var destServ = new DestinationService(destRepo.Object, mapper);
+
+            var resultList = destServ.GetDestinations();
+
+            resultList.Should().NotBeNull();
+            resultList.Should().AllBeOfType(typeof(DestinationTypeVm));
+            resultList.Should().HaveCount(3);
+            resultList.Should().OnlyHaveUniqueItems(d => d.Id);
+        }
+
+        [Fact]
+        public void ShouldReturnProjectStatuses()
+        {
+            var statuses = new List<ProjectStatus>()
+            {
+                new ProjectStatus() { Id = 1, Name = "open" },
+                new ProjectStatus() { Id = 2, Name = "closed" }
+            };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var destRepo = new Mock<IDestinationRepository>();
+            destRepo.Setup(d => d.GetProjectStatuses()).Returns(statuses.AsQueryable());
+            var destServ = new DestinationService(destRepo.Object, mapper);
+
+            var resultList = destServ.GetProjectStatuses();
+
+            resultList.Should().NotBeNullOrEmpty();
+            resultList.Should().AllBeOfType(typeof(ProjectStatusVm));
+            resultList.Should().HaveCount(2);
+            resultList.Should().OnlyHaveUniqueItems(ps => ps.Id);
+        }
+
+        [Fact]
+        public void ShouldReturnCountries()
+        {
+            var countries = new List<Country>()
+            {
+                new Country() { Id = 1, Name = "country1", SubsistanceAllowenceId = 1},
+                new Country() { Id = 2, Name = "country2", SubsistanceAllowenceId = 1},
+                new Country() { Id = 3, Name = "country3", SubsistanceAllowenceId = 1}
+            };
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var destRepo = new Mock<IDestinationRepository>();
+            destRepo.Setup(d => d.GetAllCountries()).Returns(countries.AsQueryable());
+            var destServ = new DestinationService(destRepo.Object, mapper);
+
+            var resultList = destServ.GetCountries();
+
+            resultList.Should().NotBeNullOrEmpty();
+            resultList.Should().AllBeOfType(typeof(CountryVm));
+            resultList.Should().HaveCount(3);
+            resultList.Should().OnlyHaveUniqueItems(ps => ps.Id);
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace DelegationsMVC.Tests
     {
         private Delegation SetDelegation()
         {
-            var routes = new List<Route>() { new Route { Id = 1, CreatedDateTime = DateTime.Now, DelegationId = 1, RouteTypeId = 1, TypeOfTransportId = 1,
+            var routes = new List<Route>() { new Route { Id = 1, CreatedDateTime = DateTime.Now, DelegationId = 1, RouteTypeId = 1, TypeOfTransportId = 1, 
                 RouteDetail = new RouteDetail() { Id = 1, RouteRef = 1, VehicleId = 2, StartDate = DateTime.Now, EndDate = DateTime.Now,
                     StartPoint = "start", EndPoint = "end", Kilometers = 35 } } };
             var costs = new List<Cost>() { new Cost() { Id = 1, Amount = 300, CostTypeId = 1, DelegationId = 1 }, new Cost() { Id = 2, Amount = 100, DelegationId = 1, CostTypeId = 2 } };
@@ -29,8 +29,11 @@ namespace DelegationsMVC.Tests
                 Id = 1,
                 CreatedDateTime = DateTime.Now,
                 DelegationStatusId = 1,
+                DelegationStatus = new DelegationStatus() { Id = 1, Name = "open" },
                 DestinationId = 1,
+                Destination = new Destination() { Id = 1, Name = "testDestination"},
                 EmployeeId = 1,
+                Employee = new Employee() { Id = 1, FirstName = "testName", LastName = "testSurname"},
                 Purpose = "purpose",
                 Routes = routes,
                 Costs = costs
@@ -283,8 +286,9 @@ namespace DelegationsMVC.Tests
         [Fact]
         public void ShouldReturnAllClients()
         {
-            var clients = new List<Destination>() { new Destination() { Id = 1, CountryId = 1, Name = "first", CreatedDateTime = DateTime.Now},
-                                                    new Destination() {Id = 2, CountryId = 1, Name = "second", CreatedDateTime = DateTime.Now}};
+            var country = new Country() { Id = 1, Name = "testCountry", SubsistanceAllowenceId = 1 };
+            var clients = new List<Destination>() { new Destination() { Id = 1, CountryId = 1, Name = "first", CreatedDateTime = DateTime.Now, Country = country},
+                                                    new Destination() {Id = 2, CountryId = 1, Name = "second", CreatedDateTime = DateTime.Now, Country = country}};
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
@@ -327,7 +331,7 @@ namespace DelegationsMVC.Tests
         }
 
         [Fact]
-        public void ShouldReturnTranposrtTypes()
+        public void ShouldReturnTransportTypes()
         {
             var types = new List<TransportType> { new TransportType() { Id = 1, Name = "firstType"},
                                                     new TransportType(){Id = 2, Name= "secondType"}};
