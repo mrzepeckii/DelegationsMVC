@@ -15,15 +15,17 @@ This application is built in Clean Architecture.
 
 ## Technologies
 * .NET Core 3.1
-* ASP.NET
-* HTML
-* JS
-* MSSQL
+* ASP.NET, HTML, JS, MSSQL
+* REST API
 * Depedency Injection
 * Entity Framework Core 3.1.8
 * LINQ
 * Fluent Validation 9.2.2
 * AutoMapper 10.0.0
+* XUnit
+* Moq
+* Fluent Assertions
+* IronPDF
 * Google Authentication
 
 ## Features
