@@ -29,8 +29,15 @@ This application is built in Clean Architecture.
 * Google Authentication
 
 ## Features
-Application is in _in progress_
+* Delegations managment - CRUD operations for employees
+* Projects managment - CRUD operations for chief
+* Creating/editing employee account - every employee has his own account with basic informations e.g. vehicles, contact details 
+* Delegation flow from creating to acceptance and printing
+* Delegations managment for chief and accountant - acceptance/cancel/check 
+* Creating reports from delegations - create report (as pdf) and print
+* Viewing ang managment employee/delegation/projects lists with DataTables
+* Every user can create his account with google account authentication
 
 ## Status
-Project is _in progress_.
+Project is _in progress_ - has to create basic frontend. 
 
