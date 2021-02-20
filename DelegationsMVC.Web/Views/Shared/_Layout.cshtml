@@ -9,35 +9,87 @@
     @*<link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">*@
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+    @section Head{
+        <script type="text/javascript">
+            $(".nav-link").on("click", function () {
+                alert('xxx');
+                $(".nav-link").removeClass("active");
+                $(this).addClass("active");
+            });
+        </script>
+    }
+
 </head>
 <body>
     <header>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">*@
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
-            <img src="~/images/ProAutomationLogo.png" height="40" width="220" />
-            <div class="container">
-                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DelegationsMVC.Web</a>*@
+        @*navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3*@
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow  mb-3" role="navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/ProAutomationLogo.png" height="40" width="220" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav navbar-collapse justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Delegacje</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Delegacje
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Delegation" asp-action="AddDelegation">Stwórz</a>
+                                <a class="dropdown-item" href="#">Twoja lista</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Profil</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profil
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Podgląd</a>
+                                <a class="dropdown-item" href="#">Edytuj</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Pracownicy</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Pracownicy
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Employee" asp-action="Index">Lista pracowników</a>
+                                <a class="dropdown-item" asp-controller="Delegation" asp-action="Index">Lista delegacji</a>
+                            </div>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Klienci
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Dodaj klienta</a>
+                                <a class="dropdown-item" href="#">Lista klientów</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Projekty
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Stwórz projekt</a>
+                                <a class="dropdown-item" href="#">Lista projektów</a>
+                            </div>
+                        </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Projekty</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Delegacje</a>
                         </li>
                     </ul>
                 </div>
@@ -50,14 +102,16 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-footer">
-        <div class="container">
+    <footer class="border-top box-shadow footer text-muted bg-footer">
+        <div class="container-fluid">
             &copy; 2020 - DelegationsMVC.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Head", required: false)
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>
