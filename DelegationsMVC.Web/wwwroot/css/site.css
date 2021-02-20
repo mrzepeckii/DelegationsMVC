@@ -1,14 +1,14 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
+/*a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
+}*/
 
 /* Provide sufficient contrast against white background */
-a {
+/*a {
   color: #0366d6;
 }
 
@@ -22,6 +22,39 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}*/
+
+a.navbar-brand {
+    white-space: normal;
+    font-family: 'Cabin', sans-serif;
+    font-size: large;
+    text-align: center;
+    word-break: break-all;
+}
+
+a.nav-link {
+    white-space: normal;
+    font-family: 'Cabin', sans-serif;
+    font-size: large;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -58,14 +91,63 @@ html {
   min-height: 100%;
 }
 
-body {
+/*body {*/
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  /*margin-bottom: 60px;
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #ebf4f6;
+}
+
+p {
+    font-family: 'Nunito', sans-serif;
+}
+
+h1 {
+    font-family: 'Nunito', sans-serif;
+}
+
+ul {
+    font-family: 'Nunito', sans-serif;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    font-family: 'Nunito', sans-serif;
+}
+/*Backgrounds*/
+.bg-navbar {
+    /*background: -webkit-linear-gradient(110deg, #d0efff 60%, #2d89d1 60%);
+    background: -o-linear-gradient(110deg, #d0efff 60%, #2d89d1 60%);
+    background: -moz-linear-gradient(110deg, #d0efff 60%, #2d89d1 60%);
+    background: linear-gradient(110deg, #d0efff 60%, #2d89d1 60%);*/
+    background: -webkit-linear-gradient(left bottom, #99ddfd,#bbf1fb );
+    background: -moz-linear-gradient(left bottom, #99ddfd,#bbf1fb );
+    background: -o-linear-gradient(left bottom, #99ddfd,#bbf1fb );
+    background: linear-gradient(left bottom, #99ddfd,#bbf1fb );
+}
+
+.bg-footer {
+    /*background: -webkit-linear-gradient(110deg, #252152 60%, #d0efff 60%);
+    background: -o-linear-gradient(110deg, #252152 60%, #d0efff 60%);
+    background: -moz-linear-gradient(110deg, #252152 60%, #d0efff 60%);
+    background: linear-gradient(110deg, #252152 60%, #d0efff 60%);*/
+    background: -webkit-linear-gradient(left bottom, #99ddfd,#bbf1fb);
+    background: -moz-linear-gradient(left bottom, #99ddfd,#bbf1fb);
+    background: -o-linear-gradient(left bottom, #99ddfd,#bbf1fb);
+    background: linear-gradient(left bottom, #99ddfd,#bbf1fb);
 }
