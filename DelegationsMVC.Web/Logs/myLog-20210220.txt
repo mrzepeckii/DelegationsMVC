@@ -486,3 +486,6 @@ System.InvalidOperationException: Cannot override the 'href' attribute for <a>. 
 2021-02-20T16:52:18.9424284+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2021-02-20T16:52:18.9506810+01:00  [INF] Hosting environment: "Development" (c3307c92)
 2021-02-20T16:52:18.9522331+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)
+2021-02-20T17:16:21.3577551+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-20T17:16:21.3682338+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-20T17:16:21.3702233+01:00  [INF] Content root path: "C:\Users\mrzep\source\repos\DelegationsMVC\DelegationsMVC.Web" (b5d60022)

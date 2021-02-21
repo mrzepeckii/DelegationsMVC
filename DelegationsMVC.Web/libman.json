@@ -7,14 +7,13 @@
       "destination": "wwwroot/lib/cldrjs/"
     },
     {
-      "provider": "jsdelivr",
-      "library": "cldrjs@0.5.5",
-      "destination": "wwwroot/lib/cldrjs/"
+      "library": "globalize@1.6.0",
+      "destination": "wwwroot/lib/globalize/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@5.15.2",
+      "destination": "wwwroot/css/font-awesome/"
     }
-  ,
-{
-  "library": "globalize@1.6.0",
-  "destination": "wwwroot/lib/globalize/"
-}
-]
+  ]
 }

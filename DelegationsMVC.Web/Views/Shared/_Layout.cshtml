@@ -9,6 +9,7 @@
     @*<link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">*@
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/font-awesome/css/all.css" />
     @section Head{
         <script type="text/javascript">
             $(".nav-link").on("click", function () {
@@ -24,9 +25,9 @@
     <header>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">*@
         @*navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3*@
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow  mb-3" role="navigation">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar  box-shadow  mb-3" role="navigation">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/ProAutomationLogo.png" height="40" width="220" /></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/ProAutomationLogo2.png" height="40" width="220" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,6 +41,7 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-car" style="color:white"></i>
                                 Delegacje
                             </a>
                             <div class="dropdown-menu">
@@ -102,7 +104,7 @@
         </main>
     </div>
 
-    <footer class="border-top box-shadow footer text-muted bg-footer">
+    <footer class=" box-shadow footer text-muted bg-footer">
         <div class="container-fluid">
             &copy; 2020 - DelegationsMVC.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
