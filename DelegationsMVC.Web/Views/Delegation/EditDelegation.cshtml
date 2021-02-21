@@ -8,112 +8,126 @@
     <h1>Edytuj delegację</h1>
 </div>
 
+<div class="divRadius">
+    <div class="form-row">
+        <div class="col-md-8">
+            <form asp-action="EditDelegation">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Id" type="hidden" class="form-control" />
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label asp-for="Purpose" class="control-label">Cel delegacji</label>
+                        <input asp-for="Purpose" class="form-control" />
+                        <span asp-validation-for="Purpose" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col">
+                        <label asp-for="DestinationId" class="control-label">Miejsce delegacji</label>
+                        <select asp-for="DestinationId" asp-items="@(new SelectList(Model.Destinations, "Id", "Name"))" class="form-control"></select>
+                        <span asp-validation-for="DestinationId" class="text-danger"></span>
+                    </div>
+                </div>
+                <input asp-for="EmployeeId" type="hidden" class="form-control" />
+                <input asp-for="DelegationStatusId" type="hidden" class="form-control" />
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
+                        <input asp-for="Costs[0].Amount" class="form-control" />
+                        <span asp-validation-for="Costs[0].Amount" class="text-danger"></span>
+                        <input type="hidden" asp-for="Costs[0].CostTypeId" value="1" />
+                        <input type="hidden" asp-for="Costs[0].CostId" />
+                    </div>
+                    <div class="form-group col">
+                        <label asp-for="Costs[1].Amount" class="control-label">Dodatkowe wydatki</label>
+                        <input asp-for="Costs[1].Amount" class="form-control" />
+                        <span asp-validation-for="Costs[1].Amount" class="text-danger"></span>
+                        <input type="hidden" asp-for="Costs[1].CostTypeId" value="2" />
+                        <input type="hidden" asp-for="Costs[1].CostId" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
 
-<div class="form-row">
-    <div class="col-md-8">
-        <form asp-action="EditDelegation">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="Id" type="hidden" class="form-control" />
-            <div class="form-row">
-                <div class="form-group col">
-                    <label asp-for="Purpose" class="control-label">Cel delegacji</label>
-                    <input asp-for="Purpose" class="form-control" />
-                    <span asp-validation-for="Purpose" class="text-danger"></span>
                 </div>
-                <div class="form-group col">
-                    <label asp-for="DestinationId" class="control-label">Miejsce delegacji</label>
-                    <select asp-for="DestinationId" asp-items="@(new SelectList(Model.Destinations, "Id", "Name"))" class="form-control"></select>
-                    <span asp-validation-for="DestinationId" class="text-danger"></span>
-                </div>
-            </div>
-            <input asp-for="EmployeeId" type="hidden" class="form-control" />
-            <input asp-for="DelegationStatusId" type="hidden" class="form-control" />
-            <div class="form-row">
-                <div class="form-group col">
-                    <label asp-for="Costs[0].Amount" class="control-label">Noclegi</label>
-                    <input asp-for="Costs[0].Amount" class="form-control" />
-                    <span asp-validation-for="Costs[0].Amount" class="text-danger"></span>
-                    <input type="hidden" asp-for="Costs[0].CostTypeId" value="1" />
-                    <input type="hidden" asp-for="Costs[0].CostId" />
-                </div>
-                <div class="form-group col">
-                    <label asp-for="Costs[1].Amount" class="control-label">Dodatkowe wydatki</label>
-                    <input asp-for="Costs[1].Amount" class="form-control" />
-                    <span asp-validation-for="Costs[1].Amount" class="text-danger"></span>
-                    <input type="hidden" asp-for="Costs[1].CostTypeId" value="2" />
-                    <input type="hidden" asp-for="Costs[1].CostId" />
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
-
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
-<div class="form-row">
-    <table class="table table-bordered" id="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    Data wyjazdu
-                </th>
-                <th>
-                    Miejsce wyjazdu
-                </th>
-                <th>
-                    Data przyjazdu
-                </th>
-                <th>
-                    Miejsce przyjazdu
-                </th>
-                <th>
-                    Kilometry
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var route in Model.Routes)
-            {
+<div class="divRadius">
+    <div class="form-row">
+        <table class="table table-bordered" id="table">
+            <thead class="thead-dark">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.RouteDetail.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.RouteDetail.StartPoint)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.RouteDetail.EndDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.RouteDetail.EndPoint)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.RouteDetail.Kilometers)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Usuń", "DeleteRoute", new { idRoute = route.Id, idDel = route.DelegationId })
-                        |
-                        <a href="javascript:EditRoute(@route.Id,@route.DelegationId,@route.TypeOfTransportId)">Edytuj</a>
-                    </td>
+                    <th>
+                        Data wyjazdu
+                    </th>
+                    <th>
+                        Miejsce wyjazdu
+                    </th>
+                    <th>
+                        Data przyjazdu
+                    </th>
+                    <th>
+                        Miejsce przyjazdu
+                    </th>
+                    <th>
+                        Kilometry
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<div class="form-row">
-    <input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
-    <button id="DeleteForm" type="button" class="btn btn-dark" onclick="ClearRoute()">Usuń formularz</button>
+            </thead>
+            <tbody>
+                @foreach (var route in Model.Routes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.RouteDetail.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.RouteDetail.StartPoint)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.RouteDetail.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.RouteDetail.EndPoint)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.RouteDetail.Kilometers)
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteRoute", "Delegation",new { idRoute = route.Id, idDel = route.DelegationId })">
+                                <i class="far fa-minus-square iconItem"></i>Usuń</a>
+                            <a class="btn btn-info btn-sm" href="javascript:EditRoute(@route.Id,@route.DelegationId,@route.TypeOfTransportId)">
+                                <i class="far fa-edit iconItem"></i>
+                                Edytuj
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-row">
+        <input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
+        @*<a class="btn btn-success" id="AddRoute" value="Dodaj podróż" onclick="AddRoute()">
+            <i class="far fa-plus-square"></i>
+            Dodaj podróż
+        </a>*@
+        @*<button id="DeleteForm" type="button" class="btn btn-danger" onclick="ClearRoute()"><i class="far fa-minus-square iconItem"></i>Usuń formularz</button>*@
+    </div>
+
+    <div id="Route">
+
+    </div>
 </div>
 
-<div id="Route">
-
-</div>
 <br />
 <div class="form-row">
-    <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
+    <a class="btn btn-info" asp-action="Index">
+        <i class="fas fa-arrow-left iconItem"></i>
+    Powrót do listy delegacji
+    </a>
 </div>
 
 @section Scripts {
@@ -159,7 +173,8 @@
                     $('#Vehicle').hide();
                 }
             });
-            $('#DeleteForm').show();
+            $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
+            //$('#DeleteForm').show();
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

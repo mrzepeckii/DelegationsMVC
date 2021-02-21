@@ -139,7 +139,7 @@ namespace DelegationsMVC.Web.Controllers
             return View(del);
         }
 
-        [ServiceFilter(typeof(CheckRoutePermission))]
+        [ServiceFilter(typeof(CheckDelegationPermission))]
         public IActionResult NewRoute(int id)
         {
             var isEditable = _delegService.IsDelegationEditableById(id);

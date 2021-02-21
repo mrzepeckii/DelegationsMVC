@@ -21,7 +21,7 @@ namespace DelegationsMVC.Web.Filters
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             bool isAuthorized = CheckUserPermission(context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
-               context.HttpContext.Request.RouteValues["id"].ToString());
+               context.HttpContext.Request.RouteValues["idRoute"].ToString());
 
             if (!isAuthorized)
             {

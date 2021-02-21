@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     @*<link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">*@
-    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+    @*<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">*@
     <link rel="stylesheet" href="~/css/font-awesome/css/all.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Alternates&display=swap" rel="stylesheet">
     @section Head{
         <script type="text/javascript">
             $(".nav-link").on("click", function () {
@@ -17,14 +18,29 @@
                 $(".nav-link").removeClass("active");
                 $(this).addClass("active");
             });
+
+            var btn = $('#button');
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 300) {
+                    btn.addClass('show');
+                } else {
+                    btn.removeClass('show');
+                }
+            });
+
+            btn.on('click', function (e) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, '300');
+            });
+
+
         </script>
     }
 
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">*@
-        @*navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3*@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar  box-shadow  mb-3" role="navigation">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/ProAutomationLogo2.png" height="40" width="220" /></a>
@@ -36,62 +52,95 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav navbar-collapse justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home iconItem"></i>
+                                Home
+                            </a>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-car" style="color:white"></i>
+                                <i class="fa fa-car iconItem"></i>
                                 Delegacje
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Delegation" asp-action="AddDelegation">Stwórz</a>
-                                <a class="dropdown-item" href="#">Twoja lista</a>
+                                <a class="dropdown-item" asp-controller="Delegation" asp-action="AddDelegation">
+                                    <i class="fa fa-plus-square iconItem"></i>
+                                    Stwórz
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list iconItem"></i>
+                                    Twoja lista
+                                </a>
                             </div>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-id-badge iconItem"></i>
                                 Profil
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Podgląd</a>
-                                <a class="dropdown-item" href="#">Edytuj</a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-eye iconItem"></i>
+                                    Podgląd
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-user-edit iconItem"></i>
+                                    Edytuj
+                                </a>
                             </div>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-users iconItem"></i>
                                 Pracownicy
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Employee" asp-action="Index">Lista pracowników</a>
-                                <a class="dropdown-item" asp-controller="Delegation" asp-action="Index">Lista delegacji</a>
+                                <a class="dropdown-item" asp-controller="Employee" asp-action="Index">
+                                    <i class="fa fa-address-book iconItem"></i>
+                                    Lista pracowników
+                                </a>
+                                <a class="dropdown-item" asp-controller="Delegation" asp-action="Index">
+                                    <i class="fa fa-car iconItem"></i>
+                                    Lista delegacji
+                                </a>
                             </div>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-building iconItem"></i>
                                 Klienci
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Dodaj klienta</a>
-                                <a class="dropdown-item" href="#">Lista klientów</a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-plus-square iconItem"></i>
+                                    Dodaj klienta
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list iconItem"></i>
+                                    Lista klientów
+                                </a>
                             </div>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-project-diagram iconItem"></i>
                                 Projekty
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Stwórz projekt</a>
-                                <a class="dropdown-item" href="#">Lista projektów</a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-plus-square iconItem"></i>
+                                    Stwórz projekt
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list iconItem"></i>
+                                    Lista projektów
+                                </a>
                             </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Delegacje</a>
                         </li>
                     </ul>
                 </div>
@@ -106,7 +155,25 @@
 
     <footer class=" box-shadow footer text-muted bg-footer">
         <div class="container-fluid">
-            &copy; 2020 - DelegationsMVC.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="copyright">
+                <i class="fas fa-copyright iconItem"></i>
+                2021 - Delegation system
+            </div>
+            <div class="about">
+                Created by Milosz Rzepecki
+            </div>
+            <div class="services">
+                <a id="button">
+                    <i class="fas fa-arrow-up iconItem" style="font-size:1rem"></i>
+                    Do góry
+                </a>
+               
+                <a href="https://www.proautomation.pl/" style="color:white; text-decoration:none">
+                    <i class="fas fa-home iconItem" style="font-size:1rem; padding-left:14px"></i>
+                    Kontakt
+                </a>
+                
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

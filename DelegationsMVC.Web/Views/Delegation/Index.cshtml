@@ -76,24 +76,42 @@
                         @Html.DisplayFor(modelItem => item.AccoutantApprovedDate)
                     </td>
                     <td style="text-anchor:middle; text-align :center">
-                        <a class="btn btn-info btn-sm" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">Szczegóły</a>
-                        <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">Anuluj</a>
+                        <a class="btn btn-info btn-sm" style="margin:5px;" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">
+                            <i class="fa fa-info"></i>
+                            Pokaż
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">
+                            <i class="fas fa-ban"></i>
+                        Anuluj
+                        </a>
                     </td>
                     <td style="text-anchor:middle; text-align :center">
                         @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-success btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">Potwierdź</a>
-                            <a class="btn btn-warning btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">Opłać</a>
+                            <a class="btn btn-success btn-sm" style="margin-bottom:5px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">
+                                <i class="fas fa-check"></i>
+                        Potwierdź
+                            </a>
+                            <a class="btn btn-warning btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">
+                                <i class="fas fa-money-bill-wave"></i>
+                        Opłać
+                            </a>
                         }
                         @if (User.IsInRole("Chief"))
                         {
-                            <a class="btn btn-success btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">Potwierdź</a>
+                    <a class="btn btn-success btn-sm" style="margin-top:5px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">
+                        <i class="fas fa-check"></i>
+                        Potwierdź
+                    </a>
                         }
                     </td>
                     @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
                     {
                         <td style="text-anchor:middle; text-align :center">
-                            <a class="btn btn-info btn-sm" href="@Url.Action("GenerateDelegationReport", "Delegation", new { id = item.Id})">Generuj</a>
+                            <a class="btn btn-info btn-sm" href="@Url.Action("GenerateDelegationReport", "Delegation", new { id = item.Id})">
+                                <i class="fas fa-file-pdf"></i>
+                            Plik
+                            </a>
                         </td>
                     }
                 </tr>
@@ -237,7 +255,8 @@
                 ],
                 "columnDefs": [
                     { "orderable": false, "targets": 7 },
-                    { "orderable": false, "targets": 8 }
+                    { "orderable": false, "targets": 8 },
+                    { "orderable": false, "targets": 9 }
                 ]
             });
         });

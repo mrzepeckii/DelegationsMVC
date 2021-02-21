@@ -9,177 +9,194 @@
     <h1>Podgląd delegacji</h1>
 </div>
 <br />
-<div>
+<div class="divRadius">
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Numer delegacji:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DelegationNo)
+            </dd>
+            <dt class="col-sm-2">
+                Imię i nazwisko:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EmployeeName)
+            </dd>
+            <dt class="col-sm-2">
+                Miejsce podróży:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Destination)
+            </dd>
+            <dt class="col-sm-2">
+                Cel podróży:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Purpose)
+            </dd>
+            <dt class="col-sm-2">
+                Data utworzenia:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDateTime)
+            </dd>
+            <dt class="col-sm-2">
+                Status delegacji:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DelegationStatus)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="divRadius">
+    <div class="row" style="margin:5px">
+        <table class="table table-bordered" id="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th >
+                        Data wyjazdu
+                    </th>
+                    <th >
+                        Miejsce wyjazdu
+                    </th>
+                    <th >
+                        Data przyjazdu
+                    </th>
+                    <th >
+                        Miejsce przyjazdu
+                    </th>
+                    <th >
+                        Rodzaj transportu
+                    </th>
+                    <th >
+                        Rodzaj podróży
+                    </th>
+                    <th >
+                        Kilometry
+                    </th>
+                    <th >
+                        Zwrot
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var route in Model.Routes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.StartPoint)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.EndPoint)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.TypeOfTransport)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.RouteType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.Kilometers)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.MileageAllowence)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="divRadius">
     <dl class="row">
         <dt class="col-sm-2">
-            Numer delegacji:
+            Ilość dni w delegacji:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DelegationNo)
+            @Html.DisplayFor(model => model.DaysInDelegation)
         </dd>
         <dt class="col-sm-2">
-            Imię i nazwisko:
+            Noclegi:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EmployeeName)
+            @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 1).Amount)  PLN
         </dd>
         <dt class="col-sm-2">
-            Miejsce podróży:
+            Dieta:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Destination)
+            @Html.DisplayFor(model => model.SubsistenceAllowence)  PLN
         </dd>
         <dt class="col-sm-2">
-            Cel podróży:
+            Zwot z podróży:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Purpose)
+            @Html.DisplayFor(model => model.MileageAllowence)  PLN
         </dd>
         <dt class="col-sm-2">
-            Data utworzenia:
+            Dodatkowe koszty:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDateTime)
+            @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 2).Amount)  PLN
         </dd>
         <dt class="col-sm-2">
-            Status delegacji:
+            Podsumowanie:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DelegationStatus)
+            @Html.DisplayFor(model => model.SummaryAllowence)  PLN
         </dd>
     </dl>
 </div>
 
-<div class="row">
-    <table class="table table-bordered" id="table">
-        <thead class="thead-dark">
-            <tr>
-                <th style="text-anchor:middle; text-align :center">
-                    Data wyjazdu
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Miejsce wyjazdu
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Data przyjazdu
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Miejsce przyjazdu
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Rodzaj transportu
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Rodzaj podróży
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Kilometry
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Zwrot
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var route in Model.Routes)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.StartPoint)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.EndDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.EndPoint)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.TypeOfTransport)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.RouteType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.Kilometers)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => route.MileageAllowence)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="divRadius">
+    <dl class="row">
+        <dt class="col">
+            Data zatwierdzenia prezesa:
+        </dt>
+        <dd class="col">
+            @Html.DisplayFor(model => model.ChiefApprovedDate)
+        </dd>
+        <dt class="col">
+            Data zatwierdzenia księgowości:
+        </dt>
+        <dd class="col">
+            @Html.DisplayFor(model => model.AccoutantApprovedDate)
+        </dd>
+        <dt class="col">
+            Data wypłaty:
+        </dt>
+        <dd class="col">
+            @Html.DisplayFor(model => model.PaidDateDate)
+        </dd>
+    </dl>
 </div>
-<dl class="row">
-    <dt class="col-sm-2">
-        Ilość dni w delegacji:
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.DaysInDelegation)
-    </dd>
-    <dt class="col-sm-2">
-        Noclegi:
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 1).Amount)  PLN
-    </dd>
-    <dt class="col-sm-2">
-        Dieta:
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.SubsistenceAllowence)  PLN
-    </dd>
-    <dt class="col-sm-2">
-        Zwot z podróży:
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.MileageAllowence)  PLN
-    </dd>
-    <dt class="col-sm-2">
-        Dodatkowe koszty:
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Costs.FirstOrDefault(c => c.CostTypeId == 2).Amount)  PLN
-    </dd>
-    <dt class="col-sm-2">
-        Podsumowanie:
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.SummaryAllowence)  PLN
-    </dd>
-</dl>
-<dl class="row">
-    <dt class="col">
-        Data zatwierdzenia prezesa:
-    </dt>
-    <dd class="col">
-        @Html.DisplayFor(model => model.ChiefApprovedDate)
-    </dd>
-    <dt class="col">
-        Data zatwierdzenia księgowości:
-    </dt>
-    <dd class="col">
-        @Html.DisplayFor(model => model.AccoutantApprovedDate)
-    </dd>
-    <dt class="col">
-        Data wypłaty:
-    </dt>
-    <dd class="col">
-        @Html.DisplayFor(model => model.PaidDateDate)
-    </dd>
-</dl>
+
 <div>
     @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
 
     @if (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Accountant"))
     {
-        <a class="btn btn-info" asp-action="Index">Powrót do listy delegacji</a>
+    <a class="btn btn-info" asp-action="Index">
+        <i class="fas fa-arrow-left iconItem"></i>
+        Powrót do listy delegacji
+    </a>
     }
     @if (Model.UserId == userManager.GetUserId(User) && Model.DelegationStatus == "Utworzona")
     {
-        <a class="btn btn-info" asp-action="EditDelegation" asp-route-id="@Model.Id">Edytuj</a>
+<a class="btn btn-info" asp-action="EditDelegation" asp-route-id="@Model.Id">
+    <i class="far fa-edit iconItem"></i>
+    Edytuj
+</a>
     }
 </div>
