@@ -38,23 +38,23 @@ namespace DelegationsMVC.Infrastructure.Repositories
         public IQueryable<Vehicle> GetVehiclesByEmployee(int employeeId)
         {
             IQueryable<Vehicle> vehicles = null;
-            var emp = _context.Employees.Where(e => e.Id == employeeId);
+            var emp = _context.Employees.AsNoTracking().Where(e => e.Id == employeeId);
             if (emp != null)
             {
-                vehicles = _context.Vehicles.Where(v => v.EmployeeId == employeeId);
+                vehicles = _context.Vehicles.AsNoTracking().Where(v => v.EmployeeId == employeeId);
             }
             return vehicles;
         }
 
         public Vehicle GetVehicleByPlateNumbers(string plateNumbers)
         {
-            var vehicle =_context.Vehicles.FirstOrDefault(v => v.PlateNumbers == plateNumbers);
+            var vehicle =_context.Vehicles.AsNoTracking().FirstOrDefault(v => v.PlateNumbers == plateNumbers);
             return vehicle;
         }
 
         public IQueryable<Vehicle> GetVehiclesByEngineType(int engineTypeId)
         {
-            var vehicles = _context.EngineTypes.FirstOrDefault(et => et.Id == engineTypeId).Vehicles.AsQueryable();
+            var vehicles = _context.EngineTypes.AsNoTracking().FirstOrDefault(et => et.Id == engineTypeId).Vehicles.AsQueryable();
             return vehicles;
         }
 
@@ -71,13 +71,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<EngineType> GetEngineTypes()
         {
-            var engineTypes = _context.EngineTypes;
+            var engineTypes = _context.EngineTypes.AsNoTracking();
             return engineTypes;
         }
 
         public Vehicle GetVehicleById(int id)
         {
-            var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == id);
+            var vehicle = _context.Vehicles.AsNoTracking().FirstOrDefault(v => v.Id == id);
             return vehicle;
         }
 
@@ -92,7 +92,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public decimal GetMilleageAllowenceByVehicle(int? id)
         {
-            var vehicle = _context.Vehicles
+            var vehicle = _context.Vehicles.AsNoTracking()
                 .Include(v => v.EngineType)
                     .ThenInclude(et => et.MileageAllowence)
                 .FirstOrDefault(v => v.Id == id);

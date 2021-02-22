@@ -51,13 +51,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Employee> GetAllEmployees()
         {
-            var employees = _context.Employees;
+            var employees = _context.Employees.AsNoTracking();
             return employees;
         }
 
         public Employee GetEmployeeById(int id)
         {
-            var employee = _context.Employees
+            var employee = _context.Employees.AsNoTracking()
                 .Include(e => e.EmployeeType)
                 .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
                 .Include(e => e.Vehicles).ThenInclude(e => e.EngineType)
@@ -67,7 +67,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Employee GetEmployeeByUserId(string id)
         {
-            var emp = _context.Employees
+            var emp = _context.Employees.AsNoTracking()
                  .Include(e => e.EmployeeType)
                 .Include(e => e.ContactDetails).ThenInclude(e => e.ContactDetailType)
                 .Include(e => e.Vehicles).ThenInclude(e => e.EngineType)
@@ -77,13 +77,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Employee> GetEmployeesByType(int typeId)
         {
-            var employees = _context.EmployeeTypes.FirstOrDefault(et => et.Id == typeId).Employees.AsQueryable();
+            var employees = _context.EmployeeTypes.AsNoTracking().FirstOrDefault(et => et.Id == typeId).Employees.AsQueryable();
             return employees;
         }
 
         public IQueryable<EmployeeType> GetEmployeeTypes()
         {
-            var empTypes = _context.EmployeeTypes;
+            var empTypes = _context.EmployeeTypes.AsNoTracking();
             return empTypes;
         }
 
@@ -109,19 +109,19 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<ContactDetail> GetEmployeeContactDetails(int employeeId)
         {
-            var contactDetails = _context.Employees.FirstOrDefault(e => e.Id == employeeId).ContactDetails.AsQueryable();
+            var contactDetails = _context.Employees.AsNoTracking().FirstOrDefault(e => e.Id == employeeId).ContactDetails.AsQueryable();
             return contactDetails;
         }
 
         public IQueryable<ContactDetailType> GetContactDetailTypes()
         {
-            var contactDetails = _context.ContactDetailTypes;
+            var contactDetails = _context.ContactDetailTypes.AsNoTracking();
             return contactDetails;
         }
 
         public ContactDetail GetContactDetailById(int id)
         {
-            var contact = _context.ContactDetails.FirstOrDefault(c => c.Id == id);
+            var contact = _context.ContactDetails.AsNoTracking().FirstOrDefault(c => c.Id == id);
             return contact;
         }
 

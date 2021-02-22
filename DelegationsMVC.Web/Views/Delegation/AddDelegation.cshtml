@@ -5,7 +5,7 @@
 }
 
 <div class="form-row">
-    <h1>Dodaj delegację</h1>   
+    <h1>Dodaj delegację</h1>
 </div>
 <br />
 <form asp-action="AddDelegation">
@@ -262,14 +262,17 @@
     </div>
     <br />
     <div class="form-group">
-        <input type="submit" value="Stwórz delegację" class="btn btn-dark" onclick="CheckBoxSend()" />
+        <input type="submit" value="Stwórz delegację" class="btn btn-success" onclick="CheckBoxSend()" />
     </div>
-    <div>
-        <a class="btn btn-info" asp-action="Index">
-            <i class="fas fa-arrow-left iconItem"></i>
-            Powrót do listy delegacji
-        </a>
-    </div>
+    @if (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Accountant"))
+    {
+        <div>
+            <a class="btn btn-info" asp-action="Index">
+                <i class="fas fa-arrow-left iconItem"></i>
+                Powrót do listy delegacji
+            </a>
+        </div>
+    }
 </form>
 
 

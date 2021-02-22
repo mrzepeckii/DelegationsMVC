@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
+                    <input type="submit" value="Zapisz zmiany" class="btn btn-success" />
 
                 </div>
             </form>
@@ -109,7 +109,7 @@
         </table>
     </div>
     <div class="form-row">
-        <input id="AddRoute" type="button" class="btn btn-dark" value="Dodaj podróż" onclick="AddRoute()" />
+        <input id="AddRoute" type="button" class="btn btn-success" value="Dodaj podróż" onclick="AddRoute()" />
         @*<a class="btn btn-success" id="AddRoute" value="Dodaj podróż" onclick="AddRoute()">
             <i class="far fa-plus-square"></i>
             Dodaj podróż
@@ -124,9 +124,9 @@
 
 <br />
 <div class="form-row">
-    <a class="btn btn-info" asp-action="Index">
+    <a class="btn btn-info" href="@Url.Action("ViewDelegation", "Delegation",new { id= Model.Id })">
         <i class="fas fa-arrow-left iconItem"></i>
-    Powrót do listy delegacji
+    Powrót do delegacji
     </a>
 </div>
 
@@ -143,13 +143,13 @@
              $divRoute.empty();
             var url = '@Url.Action("NewRoute","Delegation", new { id = Model.Id} )';
             $divRoute.load(url);
-             $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
+             $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
         }
 
 
         function ClearRoute() {
             $('#Route').empty();
-            $('#AddRoute').attr("onclick", "AddRoute()").attr("value", "Dodaj podróż");
+            $('#AddRoute').attr("onclick", "AddRoute()").attr("value", "Dodaj podróż").attr("class", "btn btn-success");
             $('#DeleteForm').hide();
         }
 
@@ -167,13 +167,14 @@
         function EditRoute(routeId, delId, transportId) {
             ClearRoute();
             var $divRoute = $('#Route');
-           var url = '@Url.Action("EditRoute", "Delegation")?idRoute=' + routeId + '&idDel=' + delId;
+            var url = '@Url.Action("EditRoute", "Delegation")/' + delId + '/' + routeId;
+            alert(url);
             $divRoute.load(url, function () {
                 if (transportId != 1) {
                     $('#Vehicle').hide();
                 }
             });
-            $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz");
+            $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
             //$('#DeleteForm').show();
         }
     </script>

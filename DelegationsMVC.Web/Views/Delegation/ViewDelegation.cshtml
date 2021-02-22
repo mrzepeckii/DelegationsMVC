@@ -194,7 +194,7 @@
     }
     @if (Model.UserId == userManager.GetUserId(User) && Model.DelegationStatus == "Utworzona")
     {
-<a class="btn btn-info" asp-action="EditDelegation" asp-route-id="@Model.Id">
+<a class="btn btn-warning" asp-action="EditDelegation" asp-route-id="@Model.Id">
     <i class="far fa-edit iconItem"></i>
     Edytuj
 </a>

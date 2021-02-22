@@ -63,7 +63,8 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Delegation GetDelegationById(int delegationId)
         {
-            var delegation = _context.Delegations
+
+            var delegation = _context.Delegations.AsNoTracking()
                 .Include(d => d.Employee)
                 .Include(d => d.Destination)
                 .Include(d => d.DelegationStatus)
@@ -76,36 +77,37 @@ namespace DelegationsMVC.Infrastructure.Repositories
                 .Include(d => d.Routes)
                     .ThenInclude(r => r.TypeOfTransport)
                 .FirstOrDefault(d => d.Id == delegationId);
+
             return delegation;
         }
 
         public IQueryable<Delegation> GetDelegationsByEmployee(int employeeId)
         {
-            var delegations = _context.Delegations.Where(d => d.EmployeeId == employeeId);
+            var delegations = _context.Delegations.AsNoTracking().Where(d => d.EmployeeId == employeeId);
             return delegations;
         }
 
         public IQueryable<Delegation> GetDelegationsNotApprovedByAcc()
         {
-            var delegations = _context.Delegations.Where(d => d.AccoutantApprovedDate == null);
+            var delegations = _context.Delegations.AsNoTracking().Where(d => d.AccoutantApprovedDate == null);
             return delegations;
         }
 
         public IQueryable<Delegation> GetDelegationsNotApprovedByChief()
         {
-            var delegations = _context.Delegations.Where(d => d.ChiefApprovedDate == null);
+            var delegations = _context.Delegations.AsNoTracking().Where(d => d.ChiefApprovedDate == null);
             return delegations;
         }
 
         public IQueryable<Delegation> GetDelegationsToPaid()
         {
-            var delegations = _context.Delegations.Where(d => d.PaidDateDate == null);
+            var delegations = _context.Delegations.AsNoTracking().Where(d => d.PaidDateDate == null);
             return delegations;
         }
 
         public IQueryable<Delegation> GetDelegationsByStatus(int delegationStatusId)
         {
-            var delegations = _context.Delegations
+            var delegations = _context.Delegations.AsNoTracking()
                 .Include(d => d.Routes)
                     .ThenInclude(r => r.RouteDetail)
                 .Where(d => d.DelegationStatusId == delegationStatusId);  
@@ -133,8 +135,8 @@ namespace DelegationsMVC.Infrastructure.Repositories
         
         public RouteDetail GetRouteDetails(int routeId)
         {
-            var route = _context.Routes.FirstOrDefault(r => r.Id == routeId);
-            var routeDetail = _context.RouteDetails.FirstOrDefault(rd => rd.Route == route);
+            var route = _context.Routes.AsNoTracking().FirstOrDefault(r => r.Id == routeId);
+            var routeDetail = _context.RouteDetails.AsNoTracking().FirstOrDefault(rd => rd.Route == route);
             return routeDetail;
         }
 
@@ -162,7 +164,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Route GetRouteById(int id)
         {
-            var route = _context.Routes
+            var route = _context.Routes.AsNoTracking()
                 .Include(r => r.RouteDetail)
                 .FirstOrDefault(r => r.Id == id);
             return route;
@@ -212,7 +214,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public decimal GetSubsistanceAllowenceByDel(int delId)
         {
-            var del = _context.Delegations
+            var del = _context.Delegations.AsNoTracking()
                 .Include(d => d.Destination)
                     .ThenInclude(d => d.Country)
                         .ThenInclude(c => c.SubsistanceAllowence)

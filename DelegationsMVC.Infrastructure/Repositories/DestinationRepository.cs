@@ -28,10 +28,8 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public void UpdateDesintation(Destination dest)
         {
-            if (_context.Entry(dest).State == EntityState.Detached)
-            {
-                _context.Attach(dest);
-            }   
+
+            _context.Attach(dest);
             _context.Entry(dest).Property("Name").IsModified = true;
             _context.Entry(dest).Property("ModifiedDateTime").IsModified = true;
             _context.Entry(dest).Property("CountryId").IsModified = true;
@@ -50,7 +48,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public Destination GetDestinationById(int id)
         {
-            var destination = _context.Destinations
+            var destination = _context.Destinations.AsNoTracking()
                 .Include(d => d.Projects)
                 .ThenInclude(p => p.ProjectStatus)
                 .Include(d => d.Country)
@@ -60,13 +58,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Destination> GetDestinationsByCountry(int countryId)
         {
-            var destinations = _context.Destinations.Where(d => d.CountryId == countryId);
+            var destinations = _context.Destinations.AsNoTracking().Where(d => d.CountryId == countryId);
             return destinations;
         }
 
         public IQueryable<Destination> GetDestinations()
         {
-            var destinations = _context.Destinations;
+            var destinations = _context.Destinations.AsNoTracking();
             return destinations;
         }
 
@@ -103,19 +101,19 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Project> GetProjectsByDestination(int destinationId)
         {
-            var projects = _context.Projects.Where(p => p.DestinationId == destinationId);
+            var projects = _context.Projects.AsNoTracking().Where(p => p.DestinationId == destinationId);
             return projects;
         }
 
         public IQueryable<Project> GetProjectsByStatus(int statusId)
         {
-            var projects = _context.Projects.Where(p => p.ProjectStatusId == statusId);
+            var projects = _context.Projects.AsNoTracking().Where(p => p.ProjectStatusId == statusId);
             return projects;
         }
 
         public Project GetProjectById(int id)
         {
-            var project = _context.Projects
+            var project = _context.Projects.AsNoTracking()
                 .Include(p => p.ProjectStatus)
                 .Include(p => p.Destination)
                 .FirstOrDefault(p => p.Id == id);
@@ -123,13 +121,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
         }
         public IQueryable<ProjectStatus> GetProjectStatuses()
         {
-            var statuses = _context.ProjectStatuses;
+            var statuses = _context.ProjectStatuses.AsNoTracking();
             return statuses;
         }
 
         public IQueryable<Project> GetProjects()
         {
-            var projects = _context.Projects;
+            var projects = _context.Projects.AsNoTracking();
             return projects;
         }
 
@@ -137,13 +135,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
          * *******************************************/
         public IQueryable<Country> GetAllCountries()
         {
-            var countries = _context.Countries;
+            var countries = _context.Countries.AsNoTracking();
             return countries;
         }
 
         public IQueryable<Country> GetProjectsCountries()
         {
-            var countries = _context.Destinations.Select(d => d.Country).Distinct();
+            var countries = _context.Destinations.AsNoTracking().Select(d => d.Country).Distinct();
             return countries;
         }
 

@@ -183,6 +183,7 @@ namespace DelegationsMVC.Web.Controllers
             return RedirectToAction("EditDelegation", new { id = idDel });
         }
 
+        [Route("Delegation/EditRoute/{idDel}/{idRoute}")]
         [ServiceFilter(typeof(CheckRoutePermission))]
         public IActionResult EditRoute(int idRoute, int idDel)
         {
