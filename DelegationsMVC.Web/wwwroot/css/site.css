@@ -96,6 +96,24 @@ body {
     min-height: 500px;
 }
 
+.divLogin {
+    position: relative;
+    width: 350px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:50px;
+    overflow: hidden;
+    background-color: grey;
+    overflow: hidden;
+    background-color: grey;
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
 .divRadius {
     position: relative;
     width: 100%;
