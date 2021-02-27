@@ -88,21 +88,32 @@
                     <td style="text-anchor:middle; text-align :center">
                         @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-success btn-sm" style="margin-bottom:5px; width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">
-                                <i class="fas fa-check"></i>
-                        Potwierdź
-                            </a>
-                            <a class="btn btn-warning btn-sm" style="width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">
-                                <i class="fas fa-money-bill-wave"></i>
-                        Opłać
-                            </a>
+                            if (item.AccoutantApprovedDate == null)
+                            {
+                                <a class="btn btn-success btn-sm" style="margin-bottom:5px; width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">
+                                    <i class="fas fa-check"></i>
+                                    Potwierdź
+                                </a>
+                            }
+                            if (item.PaidDateDate == null)
+                            {
+                                <a class="btn btn-warning btn-sm" style="width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    Opłać
+                                </a>
+                            }
+
                         }
                         @if (User.IsInRole("Chief"))
                         {
-                    <a class="btn btn-success btn-sm" style="margin-top:5px; width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">
-                        <i class="fas fa-check"></i>
-                        Potwierdź
-                    </a>
+                            if (item.ChiefApprovedDate == null)
+                            {
+                                <a class="btn btn-success btn-sm" style="margin-top:5px; width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">
+                                    <i class="fas fa-check"></i>
+                                    Potwierdź
+                                </a>
+                            }
+
                         }
                     </td>
                     @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))

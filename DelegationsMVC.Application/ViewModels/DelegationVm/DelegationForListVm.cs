@@ -15,6 +15,7 @@ namespace DelegationsMVC.Application.ViewModels.DelegationVm
         public DateTime EndDate { get; set; }
         public DateTime? AccoutantApprovedDate { get; set; }
         public DateTime? ChiefApprovedDate { get; set; }
+        public DateTime? PaidDateDate { get; set; }
         public string Destination { get; set; }
         public string DelegationStatus { get; set; }
 

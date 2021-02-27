@@ -38,13 +38,13 @@ namespace DelegationsMVC.Infrastructure.Repositories
 
         public IQueryable<Delegation> GetAllDelegations()
         {
-            var delegations = _context.Delegations;
+            var delegations = _context.Delegations.AsNoTracking();
             return delegations;
         }
 
         public void UpdateDelegation(Delegation del)
         {
-            _context.Attach(del);
+           // _context.Attach(del);
             _context.Entry(del).Property("Purpose").IsModified = true;
             _context.Entry(del).Property("DestinationId").IsModified = true;
             _context.Entry(del).Reference("DelegationStatus").IsModified = true;
@@ -65,17 +65,17 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
 
             var delegation = _context.Delegations.AsNoTracking()
-                .Include(d => d.Employee)
-                .Include(d => d.Destination)
-                .Include(d => d.DelegationStatus)
+                .Include(d => d.Employee).AsNoTracking()
+                .Include(d => d.Destination).AsNoTracking()
+                .Include(d => d.DelegationStatus).AsNoTracking()
                 .Include(d => d.Costs)
-                    .ThenInclude(d => d.CostType)
+                    .ThenInclude(d => d.CostType).AsNoTracking()
                 .Include(d => d.Routes)
-                    .ThenInclude(r => r.RouteDetail)
+                    .ThenInclude(r => r.RouteDetail).AsNoTracking()
                 .Include(d => d.Routes)
-                    .ThenInclude(r => r.RouteType)
+                    .ThenInclude(r => r.RouteType).AsNoTracking()
                 .Include(d => d.Routes)
-                    .ThenInclude(r => r.TypeOfTransport)
+                    .ThenInclude(r => r.TypeOfTransport).AsNoTracking()
                 .FirstOrDefault(d => d.Id == delegationId);
 
             return delegation;
@@ -109,7 +109,7 @@ namespace DelegationsMVC.Infrastructure.Repositories
         {
             var delegations = _context.Delegations.AsNoTracking()
                 .Include(d => d.Routes)
-                    .ThenInclude(r => r.RouteDetail)
+                    .ThenInclude(r => r.RouteDetail).AsNoTracking()
                 .Where(d => d.DelegationStatusId == delegationStatusId);  
             return delegations;
         }
@@ -190,25 +190,25 @@ namespace DelegationsMVC.Infrastructure.Repositories
         * *******************************************/
         public IQueryable<RouteType> GetAllRouteTypes()
         {
-            var routeTypes = _context.RouteTypes;
+            var routeTypes = _context.RouteTypes.AsNoTracking();
             return routeTypes;
         }
         
         public IQueryable<TransportType> GetAllTransportTypes()
         {
-            var transportTypes = _context.TransportTypes;
+            var transportTypes = _context.TransportTypes.AsNoTracking();
             return transportTypes;
         }
 
         public IQueryable<CostType> GetAllCostTypes()
         {
-            var costTypes = _context.CostTypes;
+            var costTypes = _context.CostTypes.AsNoTracking();
             return costTypes;
         }
 
         public IQueryable<Destination> GetAllDestinations()
         {
-            var dest = _context.Destinations;
+            var dest = _context.Destinations.AsNoTracking();
             return dest;
         }
 

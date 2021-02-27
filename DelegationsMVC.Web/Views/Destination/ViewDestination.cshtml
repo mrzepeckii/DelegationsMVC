@@ -8,79 +8,101 @@
     <h1>Szczegóły klienta</h1>
 </div>
 <br />
-<div>
-    <dl class="form-row">
-        <dt class="col-sm-2">
-            Nazwa:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            Kraj:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-        <dt class="col-sm-2">
-            Współpraca od:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CooperationSince)
-        </dd>
-    </dl>
+<div class="divRadius">
+    <div>
+        <dl class="form-row">
+            <dt class="col-sm-2">
+                Nazwa:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                Kraj:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+            <dt class="col-sm-2">
+                Współpraca od:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CooperationSince)
+            </dd>
+        </dl>
+    </div>
 </div>
-<div class="form-row">
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th style="text-anchor:middle; text-align :center">
-                    Nazwa
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Numer
-                </th>
-                <th style="text-anchor:middle; text-align :center">
-                    Status
-                </th>
-                <th>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var project in Model.Projects.Projects)
-            {
-            <tr>
-                <td style="text-anchor:middle; text-align :center">
-                    @Html.DisplayFor(modelItem => project.Name)
-                </td>
-                <td style="text-anchor:middle; text-align :center">
-                    @Html.DisplayFor(modelItem => project.Number)
-                </td>
-                <td style="text-anchor:middle; text-align :center">
-                    @Html.DisplayFor(modelItem => project.Status)
-                </td>
-                <td style="text-anchor:middle; text-align :center">
-                    <a class="btn btn-warning btn-sm" href="javascript:EditProj('@project.Id')">Edytuj</a>
-                    @if (project.ProjectStatusId == 1)
-                    {
-                        <a class="btn btn-info btn-sm" href="javascript:CloseProj('@project.Id','@project.Name')">Zamknij</a>
-                        <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@project.Id','@project.Name')">Usuń</a>
-                    }
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<input id="AddProj" type="button" class="btn btn-success" onclick="AddProj()" value="Dodaj projekt" />
-<br />
-<br />
-<div  id="Proj">
 
+<div class="divRadius">
+    <div class="form-row">
+        <h3>Projekty dla klienta</h3>
+    </div>
+    <div class="form-row">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="text-anchor:middle; text-align :center">
+                        Nazwa
+                    </th>
+                    <th style="text-anchor:middle; text-align :center">
+                        Numer
+                    </th>
+                    <th style="text-anchor:middle; text-align :center">
+                        Status
+                    </th>
+                    <th>
+                        Akcje
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.Projects.Projects)
+                {
+                    <tr>
+                        <td style="text-anchor:middle; text-align :center">
+                            @Html.DisplayFor(modelItem => project.Name)
+                        </td>
+                        <td style="text-anchor:middle; text-align :center">
+                            @Html.DisplayFor(modelItem => project.Number)
+                        </td>
+                        <td style="text-anchor:middle; text-align :center">
+                            @Html.DisplayFor(modelItem => project.Status)
+                        </td>
+                        <td style="text-anchor:middle; text-align :center">
+                            @if (project.ProjectStatusId == 1)
+                            {
+                                <a class="btn btn-danger btn-sm" href="javascript:DeleteProj('@project.Id','@project.Name')">
+                                    <i class="far fa-minus-square iconItem"></i>
+                                    Usuń
+                                </a>
+                                <a class="btn btn-warning btn-sm" href="javascript:CloseProj('@project.Id','@project.Name')">
+                                    <i class="fas fa-check"></i>
+                                    Zamknij
+                                </a>
+                            }
+                            <a class="btn btn-info btn-sm" href="javascript:EditProj('@project.Id')">
+                                <i class="far fa-edit"></i>
+                                Edytuj
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <input id="AddProj" type="button" class="btn btn-success" onclick="AddProj()" value="Dodaj projekt" />
+    <br />
+    <br />
+    <div id="Proj">
+
+    </div>
 </div>
+
 <div class="form-row">
-    <a class="btn btn-info" asp-action="Index">Powrót do listy klientów</a>
+    <a class="btn btn-info" asp-action="Index">
+        <i class="fas fa-arrow-left iconItem"></i>
+        Powrót do listy klientów
+    </a>
 </div>
 
 <script type="text/javascript">

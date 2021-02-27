@@ -112,11 +112,6 @@
     </div>
     <div class="form-row">
         <input id="AddRoute" type="button" class="btn btn-success" value="Dodaj podróż" onclick="AddRoute()" />
-        @*<a class="btn btn-success" id="AddRoute" value="Dodaj podróż" onclick="AddRoute()">
-            <i class="far fa-plus-square"></i>
-            Dodaj podróż
-        </a>*@
-        @*<button id="DeleteForm" type="button" class="btn btn-danger" onclick="ClearRoute()"><i class="far fa-minus-square iconItem"></i>Usuń formularz</button>*@
     </div>
 
     <div id="Route">
@@ -170,14 +165,12 @@
             ClearRoute();
             var $divRoute = $('#Route');
             var url = '@Url.Action("EditRoute", "Delegation")/' + delId + '/' + routeId;
-            alert(url);
             $divRoute.load(url, function () {
                 if (transportId != 1) {
                     $('#Vehicle').hide();
                 }
             });
             $('#AddRoute').attr("onclick", "ClearRoute()").attr("value", "Usuń formularz").attr("class", "btn btn-danger");
-            //$('#DeleteForm').show();
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

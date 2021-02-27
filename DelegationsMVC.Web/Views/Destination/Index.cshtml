@@ -7,49 +7,63 @@
 <h1>Klienci</h1>
 
 <br />
-<table class="table table-bordered table-striped" id="table">
-    <thead class="thead-dark">
-        <tr>
-            <th style="text-align :center">
-                Nazwa
-            </th>
-            <th style="text-align :center">
-                Kraj
-            </th>
-            <th style="text-align :center">
-                Współpraca od
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Destinations)
-        {
+<div class="divRadius table-responsive">
+    <table class="table table-bordered table-striped" id="table" width="100%">
+        <thead class="thead-dark">
             <tr>
-                <td style="text-align :center">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td style="text-align :center">
-                    @Html.DisplayFor(modelItem => item.Country)
-                </td>
-                <td style="text-align :center">
-                    @Html.DisplayFor(modelItem => item.CooperationSince)
-                </td>
-                <td style="text-anchor:middle; text-align :center">
-                    <a class="btn btn-info btn-sm" href="@Url.Action("ViewDestination", "Destination", new { id = item.Id })">Szczegóły</a>
-                    <a class="btn btn-warning btn-sm" href="javascript:EditDest('@item.Id')">Edytuj</a>
-                    <a class="btn btn-danger btn-sm" href="javascript:DeleteDest('@item.Id','@item.Name')">Usuń</a>
-                </td>
+                <th style="text-align :center">
+                    Nazwa
+                </th>
+                <th style="text-align :center">
+                    Kraj
+                </th>
+                <th style="text-align :center">
+                    Współpraca od
+                </th>
+                <th>
+                    Akcje
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
-<input id="AddDest" type="button" class="btn btn-success" onclick="AddDest()" value="Dodaj klienta" />
-<br />
-<br />
-<div id="Dest">
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Destinations)
+            {
+                <tr>
+                    <td style="text-align :center">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td style="text-align :center">
+                        @Html.DisplayFor(modelItem => item.Country)
+                    </td>
+                    <td style="text-align :center">
+                        @Html.DisplayFor(modelItem => item.CooperationSince)
+                    </td>
+                    <td style="text-anchor:middle; text-align :center">
+                        <a class="btn btn-danger btn-sm" href="javascript:DeleteDest('@item.Id','@item.Name')">
+                            <i class="far fa-minus-square"></i>
+                            Usuń
+                        </a>
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("ViewDestination", "Destination", new { id = item.Id })">
+                            <i class="fa fa-info"></i>
+                            Szczegóły
+                        </a>
+                        <a class="btn btn-info btn-sm" href="javascript:EditDest('@item.Id')">
+                            <i class="far fa-edit"></i>
+                            Edytuj
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input id="AddDest" type="button" class="btn btn-success" onclick="AddDest()" value="Dodaj klienta" />
+    <br />
+    <br />
+    <div id="Dest">
 
+    </div>
 </div>
+
 
 @section Scripts{
 
@@ -79,6 +93,8 @@
         $(document).ready(function () {
             $.fn.dataTable.moment('DD.MM.YYYY');
             $('#table').DataTable({
+                "scrollX": true,
+                responsive: true,
                 searchBuilder: {
                     columns: [0, 1, 2]
                 },
