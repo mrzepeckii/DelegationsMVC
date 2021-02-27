@@ -9,117 +9,128 @@
 <h1>Dane szczegółowe</h1>
 <br />
 <div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayName("Imię i naziwsko:")
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayName("Dział:")
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Position)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayName("Numer konta:")
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BankAccountCode)
-        </dd>
-    </dl>
-    <div class="row">
-        <div class="col-sm-4">
-            <h2>Pojazdy</h2>
-            <br />
-            <table class="table table-bordered">
-                <thead class=" thead-dark">
-                    <tr>
-                        <th>
-                            Numer rejestracyjny
-                        </th>
-                        <th>
-                            Rodzaj pojazdu
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Vehicles)
-                    {
+    <div class="divRadius">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayName("Imię i naziwsko:")
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayName("Dział:")
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Position)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayName("Numer konta:")
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BankAccountCode)
+            </dd>
+        </dl>
+    </div>
+    <div class="divRadius">
+        <div class="row">
+            <div class="col">
+                <h2 style="text-align:left">Pojazdy</h2>
+                <br />
+                <table class="table table-bordered">
+                    <thead class=" thead-dark">
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PlateNumbers)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EngineType)
-                            </td>
+                            <th>
+                                Numer rejestracyjny
+                            </th>
+                            <th>
+                                Rodzaj pojazdu
+                            </th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-1">
-
-        </div>
-        <div class="col-sm-4">
-            <h2>Dane kontaktowe</h2>
-            <br />
-            <div class="row">
-                <div class="col-sm">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Vehicles)
+                        {
                             <tr>
-                                <th>
-                                    Adres email
-                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlateNumbers)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EngineType)
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Emails)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                    </td>
-                                </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @*<div class="col-sm-3">
 
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>
-                                    Numer telefonu
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.PhoneNumbers)
-                            {
+            </div>*@
+            <div class="col">
+                <h2 style="text-align:left">Dane kontaktowe</h2>
+                <br />
+                <div class="row">
+                    <div class="col-sm">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                    </td>
+                                    <th>
+                                        Adres email
+                                    </th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Emails)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>
+                                        Numer telefonu
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PhoneNumbers)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div>
         @if (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Accountant"))
         {
-            <a class="btn btn-info" asp-action="Index">Powrót do listy pracowników</a>
+            <a class="btn btn-info" asp-action="Index">
+                <i class="fas fa-arrow-left iconItem"></i>
+                Powrót do listy pracowników
+            </a>
         }
         @if (Model.UserId == userManager.GetUserId(User))
         {
-            <a class="btn btn-info" asp-action="EditEmployee">Edytuj</a>
+            <a class="btn btn-warning" style="color:white" asp-action="EditEmployee">
+                <i class="far fa-edit iconItem"></i>
+                Edytuj
+            </a>
         }
     </div>
-    </div>
+</div>

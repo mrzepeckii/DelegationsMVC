@@ -33,7 +33,7 @@ namespace DelegationsMVC.Web.Filters
             var id = _empService.GetContactDetailById(Int32.Parse(stringValues)).EmployeeId;
             var emp = _empService.GetEmployeeById(id);
             var empUser = _empService.GetEmployeeByUserId(userId);
-            return emp == empUser;
+            return emp.Id == empUser.Id;
         }
     }
 }

@@ -10,8 +10,8 @@
         <a asp-action="Create">Create New</a>
     </p>*@
 <br />
-<div class="divRadius">
-    <table class="table table-bordered table-striped" id="table">
+<div class="divRadius table-responsive">
+    <table class="table table-bordered table-striped" id="table" width="100%">
         <thead class="thead-dark">
             <tr>
                 <th style="text-align :center">
@@ -39,7 +39,7 @@
                     Szczegóły
                 </th>
                 <th style="text-align :center">
-                    Akceptacje
+                    Akcje
                 </th>
                 @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
                 {
@@ -76,11 +76,11 @@
                         @Html.DisplayFor(modelItem => item.AccoutantApprovedDate)
                     </td>
                     <td style="text-anchor:middle; text-align :center">
-                        <a class="btn btn-info btn-sm" style="margin:5px;" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">
+                        <a class="btn btn-info btn-sm" style="margin:5px; width:80px;" href="@Url.Action("ViewDelegation", "Delegation", new { id = item.Id })">
                             <i class="fa fa-info"></i>
                             Pokaż
                         </a>
-                        <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">
+                        <a class="btn btn-danger btn-sm" style="width: 80px;" href="@Url.Action("DeleteDelegation", "Delegation", new { id = item.Id })">
                             <i class="fas fa-ban"></i>
                         Anuluj
                         </a>
@@ -88,18 +88,18 @@
                     <td style="text-anchor:middle; text-align :center">
                         @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-success btn-sm" style="margin-bottom:5px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">
+                            <a class="btn btn-success btn-sm" style="margin-bottom:5px; width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 3 })">
                                 <i class="fas fa-check"></i>
                         Potwierdź
                             </a>
-                            <a class="btn btn-warning btn-sm" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">
+                            <a class="btn btn-warning btn-sm" style="width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 4 })">
                                 <i class="fas fa-money-bill-wave"></i>
                         Opłać
                             </a>
                         }
                         @if (User.IsInRole("Chief"))
                         {
-                    <a class="btn btn-success btn-sm" style="margin-top:5px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">
+                    <a class="btn btn-success btn-sm" style="margin-top:5px; width:100px;" href="@Url.Action("AcceptOrPaidDelegation", "Delegation", new { delId = item.Id, delStatus = 2 })">
                         <i class="fas fa-check"></i>
                         Potwierdź
                     </a>
@@ -108,7 +108,7 @@
                     @if (User.IsInRole("Accountant") || User.IsInRole("Admin"))
                     {
                         <td style="text-anchor:middle; text-align :center">
-                            <a class="btn btn-info btn-sm" href="@Url.Action("GenerateDelegationReport", "Delegation", new { id = item.Id})">
+                            <a class="btn btn-info btn-sm" style="width: 80px;" href="@Url.Action("GenerateDelegationReport", "Delegation", new { id = item.Id})">
                                 <i class="fas fa-file-pdf"></i>
                             Plik
                             </a>
@@ -150,6 +150,8 @@
         $(document).ready(function () {
             $.fn.dataTable.moment('DD.MM.YYYY HH:mm:ss');
             $('#table').DataTable({
+                "scrollX": true,
+                responsive: true,
                 searchBuilder: {
                     columns: [0, 1, 2, 3, 4, 5, 6]
                 },

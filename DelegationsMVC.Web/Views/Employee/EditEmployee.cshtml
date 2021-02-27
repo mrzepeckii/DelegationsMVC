@@ -7,137 +7,159 @@
 <div class="form-row">
     <h1>Edytuj dane</h1>
 </div>
-
-<div class=" form-row">
-    <div class="col-md-8">
-        <form asp-action="EditEmployee">
-            <div class="form-row">
-                <h4>Dane osobowe/pracownicze</h4>
-            </div>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id"  />
-            <input type="hidden" asp-for="UserId"  />
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="FirstName" class="control-label">Imię</label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+<div class="divRadius">
+    <div class=" form-row">
+        <div class="col-md-8">
+            <form asp-action="EditEmployee">
+                <div class="form-row">
+                    <h4>Dane osobowe/pracownicze</h4>
                 </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="LastName" class="control-label">Naziwsko</label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="FirstName" class="control-label">Imię</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="LastName" class="control-label">Naziwsko</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="EmployeeTypeId" class="control-label">Pozycja</label>
-                    <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes, "Id", "Name"))" class="custom-select"></select>
-                    <span asp-validation-for="EmployeeTypeId" class="text-danger"></span>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="EmployeeTypeId" class="control-label">Pozycja</label>
+                        <select asp-for="EmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes, "Id", "Name"))" class="custom-select"></select>
+                        <span asp-validation-for="EmployeeTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BankAccountCode" class="control-label">Numer konta bankowego</label>
+                        <input asp-for="BankAccountCode" class="form-control" />
+                        <span asp-validation-for="BankAccountCode" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="BankAccountCode" class="control-label">Numer konta bankowego</label>
-                    <input asp-for="BankAccountCode" class="form-control" />
-                    <span asp-validation-for="BankAccountCode" class="text-danger"></span>
+                <div class="form-group">
+                    <input type="submit" value="Zapisz zmiany" class="btn btn-success" />
                 </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Zapisz zmiany" class="btn btn-dark" />
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-<div class="form-row">
-    <div class="col">
-        <h2>Pojazdy</h2>
-        <br />
-        <table class="table table-bordered">
-            <thead class=" thead-dark">
-                <tr>
-                    <th>
-                        Numer rejestracyjny
-                    </th>
-                    <th>
-                        Rodzaj pojazdu
-                    </th>
-                    <th>
-                        Akcja
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Vehicles)
-                {
+<div class="divRadius">
+    <div class="form-row">
+        <div class="col">
+            <h2>Pojazdy</h2>
+            <br />
+            <table class="table table-bordered">
+                <thead class=" thead-dark">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PlateNumbers)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelitem => item.EngineType)
-                        </td>
-                        <td>
-                            <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteVehicle", "Employee",new { id = item.Id})">Usuń</a>
-                            <a class="btn btn-info btn-sm" href="javascript:EditVeh(@item.Id)">Edytuj</a>
-                        </td>
+                        <th>
+                            Rejestracja
+                        </th>
+                        <th>
+                            Rodzaj pojazdu
+                        </th>
+                        <th>
+                            Akcja
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
-        <input id="AddVehicle" type="button" class="btn btn-success" value="Dodaj pojazd" onclick="AddVeh()" />
-        <div id="VehicleEdit">
-
-        </div>
-        <div id="Vehicle">
-
-        </div>
-    </div>
-    <div class="col-sm-1">
-
-    </div>
-    <div class="col">
-        <h2>Dane kontaktowe</h2>
-        <br />
-        <div class="form-row">
-            <div class="col">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Vehicles)
+                    {
                         <tr>
-                            <th>
-                                Kontakt
-                            </th>
-                            <th>
-                                Rodzaj kontaktu
-                            </th>
-                            <th>
-                                Akcja
-                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PlateNumbers)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => item.EngineType)
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteVehicle", "Employee",new { id = item.Id})">
+                                    <i class="far fa-minus-square"></i>
+                                    Usuń
+                                </a>
+                                <a class="btn btn-info btn-sm" href="javascript:EditVeh(@item.Id)">
+                                    <i class="far fa-edit"></i>
+                                    Edytuj
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.ContactDetails)
-                        {
+                    }
+                </tbody>
+            </table>
+            <input id="AddVehicle" type="button" class="btn btn-success" value="Dodaj pojazd" onclick="AddVeh()" />
+            <div id="VehicleEdit">
+
+            </div>
+            <div id="Vehicle">
+
+            </div>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col">
+            <h2>Dane kontaktowe</h2>
+            <br />
+            <div class="form-row">
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ContactDetailInformation)
-                                <td>
-                                    @Html.DisplayFor(modelitem => item.ContactDetailType)
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteContact", "Employee", new { id = item.Id})">Usuń</a>
-                                    <a class="btn btn-info btn-sm" href="javascript:EditContact(@item.Id)">Edytuj</a>
-
-                                </td>
+                                <th>
+                                    Kontakt
+                                </th>
+                                <th>
+                                    Rodzaj kontaktu
+                                </th>
+                                <th>
+                                    Akcja
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-                <input id="AddContact" type="button" class="btn btn-success" value="Dodaj kontakt" onclick="AddContact()" />
-                <div id="Contact">
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ContactDetails)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContactDetailInformation)
+                                    <td>
+                                        @Html.DisplayFor(modelitem => item.ContactDetailType)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteContact", "Employee", new { id = item.Id})">
+                                            <i class="far fa-minus-square"></i>
+                                            Usuń
+                                        </a>
+                                        <a class="btn btn-info btn-sm" href="javascript:EditContact(@item.Id)">
+                                            <i class="far fa-edit "></i>
+                                            Edytuj
+                                        </a>
 
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <input id="AddContact" type="button" class="btn btn-success" value="Dodaj kontakt" onclick="AddContact()" />
+                    <div id="Contact">
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<br />
+<div class="form-row">
+    <a class="btn btn-info" href="@Url.Action("ViewEmployee", "Employee",new { id= Model.Id })">
+        <i class="fas fa-arrow-left iconItem"></i>
+        Powrót do użytkownika
+    </a>
 </div>
 
 

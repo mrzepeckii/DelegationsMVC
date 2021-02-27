@@ -163,6 +163,9 @@ th, td {
     vertical-align: middle;
 }
 
+.special_column {
+    width: 50px;
+}
 
 p {
     font-family: 'Nunito', sans-serif;
