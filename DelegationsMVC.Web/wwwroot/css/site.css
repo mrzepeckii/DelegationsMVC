@@ -129,28 +129,7 @@ body {
     border-radius: 15px;
 }
 
-.copyright {
-    float: left;
-    font-family: 'Montserrat', sans-serif;
-    color: white !important;
-    width: 33%;
-}
 
-.about {
-    float: left;
-    font-family: 'Montserrat', sans-serif;
-    color: white !important;
-    width: 33%;
-    text-align: center;
-}
-
-.services {
-    float: right;
-    font-family: 'Montserrat', sans-serif;
-    color: white !important;
-    width: 33%;
-    text-align: right;
-}
 
 .iconItem {
     color: white;
@@ -179,14 +158,39 @@ ul {
     font-family: 'Nunito', sans-serif;
 }
 
+
+
 .footer {
     position: absolute;
     bottom: 0;
+    left:0;
     width: 100%;
     white-space: nowrap;
-    line-height: 35px; /* Vertically center the text there */
+    line-height: 35px; 
     font-family: 'Nunito', sans-serif;
 }
+/*.copyright {
+    float: left;
+    font-family: 'Montserrat', sans-serif;
+    color: white !important;
+    width: 33%;
+}
+
+.about {
+    float: left;
+    font-family: 'Montserrat', sans-serif;
+    color: white !important;
+    width: 33%;
+    text-align: center;
+}
+
+.services {
+    float: right;
+    font-family: 'Montserrat', sans-serif;
+    color: white !important;
+    width: 33%;
+    text-align: right;
+}*/
 /*Backgrounds*/
 .bg-navbar {
     background-color: #32394e;

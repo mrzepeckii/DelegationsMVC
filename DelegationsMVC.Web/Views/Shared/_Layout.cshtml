@@ -13,11 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Alternates&display=swap" rel="stylesheet">
     @section Head{
         <script type="text/javascript">
-            $(".nav-link").on("click", function () {
-                alert('xxx');
-                $(".nav-link").removeClass("active");
-                $(this).addClass("active");
-            });
+
 
             var btn = $('#button');
 
@@ -41,14 +37,16 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar  box-shadow  mb-3" role="navigation">
+        <nav class="navbar navbar-expand-xl navbar-light bg-navbar  box-shadow  mb-3"  role="navigation">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/ProAutomationLogo2.png" height="40" width="220" /></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                <div class="navbar-collapse collapse flex-sm-row-reverse" id="navbarSupportedContent">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav navbar-collapse justify-content-center">
                         <li class="nav-item">
@@ -134,15 +132,15 @@
     </div>
 
     <footer class=" box-shadow footer text-muted bg-footer">
-        <div class="container-fluid">
-            <div class="copyright">
+        <div class="container-fluid row">
+            <div class=" col text-md-left">
                 <i class="fas fa-copyright iconItem"></i>
                 2021 - Delegation system
             </div>
-            <div class="about">
+            <div class="col text-md-center">
                 Created by Milosz Rzepecki
             </div>
-            <div class="services">
+            <div class="col text-md-right">
                 <a id="button">
                     <i class="fas fa-arrow-up iconItem" style="font-size:1rem"></i>
                     Do góry
