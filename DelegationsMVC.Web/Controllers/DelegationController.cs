@@ -50,6 +50,13 @@ namespace DelegationsMVC.Web.Controllers
             return View(delegations);
         }
 
+        public IActionResult CheckWhichUser()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var emp = _empService.GetEmployeeByUserId(userId);
+            return RedirectToAction("Index", new { id = emp.Id });
+        }
+
         [Route("Delegation/New")]
         public IActionResult AddDelegation()
         {

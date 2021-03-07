@@ -1,39 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    @using System.Security.Claims;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DelegationsMVC.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    @*<link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">*@
-    @*<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">*@
     <link rel="stylesheet" href="~/css/font-awesome/css/all.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Alternates&display=swap" rel="stylesheet">
-    @section Head{
-        <script type="text/javascript">
-
-
-            var btn = $('#button');
-
-            $(window).scroll(function () {
-                if ($(window).scrollTop() > 300) {
-                    btn.addClass('show');
-                } else {
-                    btn.removeClass('show');
-                }
-            });
-
-            btn.on('click', function (e) {
-                e.preventDefault();
-                $('html, body').animate({ scrollTop: 0 }, '300');
-            });
-
-
-        </script>
-    }
-
 </head>
 <body>
     <header>
@@ -66,7 +41,7 @@
                                     <i class="fa fa-plus-square iconItem"></i>
                                     Stwórz
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" asp-controller="Delegation" asp-action="CheckWhichUser">
                                     <i class="fas fa-list iconItem"></i>
                                     Twoja lista
                                 </a>
@@ -79,47 +54,49 @@
                                 Profil
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" asp-controller="Employee" asp-action="ViewEmployee">
                                     <i class="fa fa-eye iconItem"></i>
                                     Podgląd
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" asp-controller="Employee" asp-action="EditEmployee">
                                     <i class="fa fa-user-edit iconItem"></i>
                                     Edytuj
                                 </a>
                             </div>
                         </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-users iconItem"></i>
-                                Pracownicy
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Employee" asp-action="Index">
-                                    <i class="fa fa-address-book iconItem"></i>
-                                    Lista pracowników
+                        @if (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Accountant"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-users iconItem"></i>
+                                    Pracownicy
                                 </a>
-                                <a class="dropdown-item" asp-controller="Delegation" asp-action="Index">
-                                    <i class="fa fa-car iconItem"></i>
-                                    Lista delegacji
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Employee" asp-action="Index">
+                                        <i class="fa fa-address-book iconItem"></i>
+                                        Lista pracowników
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="Delegation" asp-action="Index">
+                                        <i class="fa fa-car iconItem"></i>
+                                        Lista delegacji
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" asp-controller="Destination" asp-action="Index" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-building iconItem"></i>
+                                    Klienci
                                 </a>
-                            </div>
-                        </li>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" asp-controller="Destination" asp-action="Index"  aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-building iconItem"></i>
-                                Klienci
-                            </a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link"  asp-controller="Destination" asp-action="Projects"aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-project-diagram iconItem"></i>
-                                Projekty
-                            </a>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" asp-controller="Destination" asp-action="Projects" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-project-diagram iconItem"></i>
+                                    Projekty
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -141,11 +118,6 @@
                 Created by Milosz Rzepecki
             </div>
             <div class="col text-md-right">
-                <a id="button">
-                    <i class="fas fa-arrow-up iconItem" style="font-size:1rem"></i>
-                    Do góry
-                </a>
-               
                 <a href="https://www.proautomation.pl/" style="color:white; text-decoration:none">
                     <i class="fas fa-home iconItem" style="font-size:1rem; padding-left:14px"></i>
                     Kontakt
@@ -157,7 +129,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Head", required: false)
     @RenderSection("Scripts", required: false)
 
 </body>

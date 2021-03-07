@@ -4,63 +4,108 @@
     ViewData["Title"] = "Zarejestruj się";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Stwórz nowe konto</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password">Hasło</label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword">Powtórz hasło</label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Zarejestruj się</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Zarejestruj się za pomocą serwisów zewnętrznych</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
+<div class="divLogin">
+    <div class="row">
+        <div class="col">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div class="form-group" style="text-align:center; margin-left: auto; margin-right: auto;">
+                    <img src="~/images/loginPngImage.png" style="height:200px; width:250px;" />
+                </div>
+                <h4 style="text-align:center; margin-left: auto; margin-right: auto;">Stwórz nowe konto</h4>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email" style="font-size:20px;"><i class="fas fa-envelope" style="margin-right:2px"></i>Email</label>
+                    <input asp-for="Input.Email" class="form-control" placeholder="example@address.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password" style="font-size:20px;"><i class="fas fa-lock" style="margin-right:2px"></i>Hasło</label>
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword" style="font-size:20px;"><i class="fas fa-lock" style="margin-right:2px"></i>Powtórz hasło</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Password" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin-left:auto; margin-right:auto; text-align:center">
+                    <button type="submit" class="btn btn-info rounded-pill" style="text-align:center; width:200px; margin:auto ">
+                        <i class="fas fa-sign-in-alt iconItem"></i>
+                        Zarejestruj się
+                    </button>
+                </div>
+                @*<button type="submit" class="btn btn-primary">Zarejestruj się</button>*@
+            </form>
+            @if ((Model.ExternalLogins?.Count ?? 0) != 0)
+            {
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <div class="form-group" style="text-align:center; margin-left: auto; margin-right: auto;">
                         <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+
+                                if (provider.DisplayName == "Google")
+                                {
+                                    <button type="submit" class="btn border-0 bg-transparent" name="provider" value="@provider.Name" title="Zaloguj się za pomocą @provider.DisplayName">
+                                        <i class="fab fa-google" style="font-size:30px; margin-right:5px"></i>
+                                    </button>
+                                }
+                                if (provider.DisplayName == "Facebook")
+                                {
+                                    <button type="submit" class="btn border-0 bg-transparent" name="provider" value="@provider.Name" title="Zaloguj się za pomocą @provider.DisplayName">
+                                        <i class="fab fa-google" style="font-size:30px; margin-right:5px"></i>
+                                    </button>
+                                }
+                            }
                         </p>
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
                     </form>
-                }
-            }
-        </section>
+                    }
+            </div>
+        @*<div class="col-md-6 col-md-offset-2">*@
+        @*<section>
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                {
+                    <div class="form-group" style="text-align:center; margin-left: auto; margin-right: auto;">
+                        <p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+
+                                if (provider.DisplayName == "Google")
+                                {
+                                    <button type="submit" class="btn border-0 bg-transparent" name="provider" value="@provider.Name" title="Zaloguj się za pomocą @provider.DisplayName">
+                                        <i class="fab fa-google" style="font-size:30px; margin-right:5px"></i>
+                                    </button>
+                                }
+                                if (provider.DisplayName == "Facebook")
+                                {
+                                    <button type="submit" class="btn border-0 bg-transparent" name="provider" value="@provider.Name" title="Zaloguj się za pomocą @provider.DisplayName">
+                                        <a><i class="fab fa-google" style="font-size:30px; margin-right:5px"></i></a>
+                                    </button>
+                                }
+                            }
+                        </p>
+                    </div>
+                }*@
+        @*else
+            {
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <div>
+                        <p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                            }
+                        </p>
+                    </div>
+                </form>
+            }*@
+        @*</section>
+            </div>*@
     </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
