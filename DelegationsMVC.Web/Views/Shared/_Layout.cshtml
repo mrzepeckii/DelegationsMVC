@@ -97,6 +97,16 @@
                                 </a>
                             </li>
                         }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="UserRoles" asp-action="Index">
+                                    <i class="fas fa-users iconItem"></i>
+                                    Users
+                                </a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>

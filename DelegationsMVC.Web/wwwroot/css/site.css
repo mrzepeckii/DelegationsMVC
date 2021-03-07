@@ -169,28 +169,7 @@ ul {
     line-height: 35px; 
     font-family: 'Nunito', sans-serif;
 }
-/*.copyright {
-    float: left;
-    font-family: 'Montserrat', sans-serif;
-    color: white !important;
-    width: 33%;
-}
 
-.about {
-    float: left;
-    font-family: 'Montserrat', sans-serif;
-    color: white !important;
-    width: 33%;
-    text-align: center;
-}
-
-.services {
-    float: right;
-    font-family: 'Montserrat', sans-serif;
-    color: white !important;
-    width: 33%;
-    text-align: right;
-}*/
 /*Backgrounds*/
 .bg-navbar {
     background-color: #32394e;
@@ -198,14 +177,6 @@ ul {
 }
 
 .bg-footer {
-    /*background: -webkit-linear-gradient(110deg, #252152 60%, #d0efff 60%);
-    background: -o-linear-gradient(110deg, #252152 60%, #d0efff 60%);
-    background: -moz-linear-gradient(110deg, #252152 60%, #d0efff 60%);
-    background: linear-gradient(110deg, #252152 60%, #d0efff 60%);
-    background: -webkit-linear-gradient(bottom, #99ddfd,#ebf4f6);
-    background: -moz-linear-gradient(bottom, #99ddfd,#ebf4f6);
-    background: -o-linear-gradient(bottom, #99ddfd,#ebf4f6);
-    background: linear-gradient(bottom, #99ddfd,#ebf4f6);*/
     background-color: #32394e;
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.2), 0 1px 25px 0 #32394e;
 }

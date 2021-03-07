@@ -2,7 +2,42 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div style="padding-top:100px;" >
+    <div class="row" style="text-align:center;">
+
+        <div class="col-md-3">
+            <div class="row">
+                <img src="~/images/hello.png" style=" margin-left: auto; margin-right: auto; margin-bottom:10px;" />
+            </div>
+            
+            <p style="font-family: 'Montserrat', sans-serif; font-weight:bold;">
+                Aplikacja pozwala na zarządzanie Twoimi delegacjami
+                oraz ułatwia proces ich rozliczania.
+            </p>
+            <div class="row">
+                <img src="~/images/new.png" style=" margin-left: auto; margin-right: auto; margin-bottom:20px; margin-top:30px;" />
+            </div>
+           
+            <div class="row">
+                <div class="col" style="text-align:center;">
+                    <a asp-controller="Delegation" asp-action="AddDelegation" class="btn border-dark bg-transparent" style="font-family: 'Montserrat', sans-serif; font-weight:bold; font-size:15px;">
+                        TAK
+                    </a>
+                </div>
+                <div class="col" style="text-align:center;">
+                    <a asp-controller="Delegation" asp-action="CheckWhichUser" class="btn border-dark bg-transparent" style="font-family: 'Montserrat', sans-serif; font-weight:bold; font-size:15px;">
+                        NIE
+                    </a>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <div class="col-md-9">
+            <img src="~/images/office.png" class="img-fluid"/>
+        </div>
+    </div>
+    
+    
 </div>

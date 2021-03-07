@@ -20,19 +20,6 @@
                 <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.Email)
                 </dd>
-                <dt class="col-sm-4">
-                    @Html.DisplayName("Czy email potwierdzony:")
-                </dt>
-                <dd class="col-sm-8">
-                    @if (Model.EmailConfirmed == true)
-                    {
-                        <div>Tak</div>
-                    }
-                    else
-                    {
-                        <div>Nie</div>
-                    }
-                </dd>
             </dl>
         </div>
         <div class="col-sm-6">
@@ -53,15 +40,10 @@
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Nadaj prawa" class="btn btn-dark" />
+        <input type="submit" value="Nadaj prawa" class="btn btn-success" />
     </div>
 </form>
 
-
-@*<div>
-    <a asp-action="Index">Back to List</a>
-    <a class="btn btn-info" asp-action="Index">Powrót do listy użytkowników</a>
-</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
