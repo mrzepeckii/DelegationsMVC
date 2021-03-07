@@ -16,7 +16,7 @@ This application is built in Clean Architecture.
 ## Technologies
 * .NET Core 3.1
 * ASP.NET, HTML, JS, MSSQL
-* REST API
+* Web API
 * Depedency Injection
 * Entity Framework Core 3.1.8
 * LINQ
