@@ -6,11 +6,12 @@
 * [Technologies](#technologies)
 * [Features](#features)
 * [Status](#status)
+* [Sreenshots](#screenshots)
 
 ## General info
 The application is designed to improve the operation of small and medium-sized companies. It enables the settlement of delegations by employees and budget management for a selected project. 
 The application can be connected with the accounting department, thanks to which the approval and settlement of business trips can be automatic. The application allows you to create employee accounts for each employee and assign them an appropriate role. Thanks to this solution, it is possible to extend the application with new functionalities in the future.
-All funcionality is available in the Features section, but the application is still being developed. 
+All funcionality is available in the Features section. 
 This application is built in Clean Architecture.
 
 ## Technologies
@@ -35,9 +36,13 @@ This application is built in Clean Architecture.
 * Delegation flow from creating to acceptance and printing
 * Delegations managment for chief and accountant - acceptance/cancel/check 
 * Creating reports from delegations - create report (as pdf) and print
-* Viewing ang managment employee/delegation/projects lists with DataTables
+* Viewing and managment employee/delegation/projects lists with DataTables
 * Every user can create his account with google account authentication
+* Each user has a role that determines his permissions
+* Viewing and managment roles assigned to users.
+
+## Screenshots
 
 ## Status
-Project is _in progress_ - has to create basic frontend. 
+Project is finished - has to add some pictures. 
 
