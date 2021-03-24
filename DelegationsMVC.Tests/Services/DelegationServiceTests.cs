@@ -40,7 +40,44 @@ namespace DelegationsMVC.Tests
             };
             return delegation;
         }
+        [Fact]
+        public void ShouldReturnErrorIfDelVmIsWrong()
+        {
+            //var routes = new List<NewRouteVm>() { new Route { Id = 1, CreatedDateTime = DateTime.Now, DelegationId = 1, RouteTypeId = 1, TypeOfTransportId = 1,
+            //    RouteDetail = new RouteDetail() { Id = 1, RouteRef = 1, VehicleId = 2, StartDate = DateTime.Now, EndDate = DateTime.Now,
+            //        StartPoint = "start", EndPoint = "end", Kilometers = 35 } } };
+            //var costs = new List<NewCostVm>() { new Cost() { Id = 1, Amount = 300, CostTypeId = 1, DelegationId = 1 }, new Cost() { Id = 2, Amount = 100, DelegationId = 1, CostTypeId = 2 } };
+            var delegation = new NewDelegationVm()
+            {
+                DelegationStatusId = 1,
+                Purpose = "xxx",
+                EmployeeId = 1,
+                DestinationId = 2
 
+                //CreatedDateTime = DateTime.Now,
+                //DelegationStatusId = 1,
+                //DelegationStatus = new DelegationStatus() { Id = 1, Name = "open" },
+                //DestinationId = 1,
+                //Destination = new Destination() { Id = 1, Name = "testDestination" },
+                //EmployeeId = 1,
+                //Employee = new Employee() { Id = 1, FirstName = "testName", LastName = "testSurname" },
+                //Routes = routes,
+                //Costs = costs
+            };
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            var vehRepo = new Mock<IVehicleRepository>();
+            var empRepo = new Mock<IEmployeeRepository>();
+            var delRepo = new Mock<IDelegationRepository>();
+            //delRepo.Setup(d => d.AddDelegation(delegation)).Returns(0);
+            var delServ = new DelegationService(delRepo.Object, empRepo.Object, vehRepo.Object, mapper);
+
+            var delResult = delServ.AddDelegation(delegation);
+        }
         [Fact]
         public void ShouldReturnDelegation()
         {
